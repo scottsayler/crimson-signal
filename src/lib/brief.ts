@@ -1,70 +1,440 @@
-import type { BusinessEvent, BriefAnswers } from "./types";
+import type { BusinessEvent, ConversationQuestion } from "./types";
 import { getDomainLabel } from "./types";
+import type { ConversationAnswers } from "./conversation";
 
-export interface ExecutiveBrief {
+export interface TechnologyImpactReview {
   title: string;
   eventTitle: string;
   generatedAt: string;
-  situation: string;
-  implications: string[];
-  priorities: { title: string; description: string }[];
-  domains: string[];
-  nextSteps: string[];
+  executiveSummary: string;
+  whatWeHeard: string[];
+  likelyImpacts: string[];
+  blindSpots: string[];
+  questionsToExplore: string[];
+  areasToExploreNext: string[];
+  roadmap: {
+    immediate: string[];
+    next30Days: string[];
+    next90Days: string[];
+  };
+  nextConversation: string;
+  ctaLabel: string;
 }
+
+/** @deprecated Use TechnologyImpactReview */
+export type ExecutiveBrief = TechnologyImpactReview;
+
+type AnsweredQuestion = { question: ConversationQuestion; answer: string };
 
 function formatAnswer(value: string | string[]): string {
   if (Array.isArray(value)) return value.join(", ");
   return value;
 }
 
-export function generateExecutiveBrief(
+function resolveDomainLabel(domain: string): string {
+  return getDomainLabel(domain) === domain ? domain : getDomainLabel(domain);
+}
+
+function getAnsweredQuestions(
   event: BusinessEvent,
-  answers: BriefAnswers["answers"]
-): ExecutiveBrief {
-  const domains = event.technologyDomains.map(getDomainLabel);
-  const answerSummary = Object.entries(answers)
-    .map(([key, value]) => {
-      const question = event.questions.find((q) => q.id === key);
-      return question
-        ? `${question.question} ${formatAnswer(value)}`
-        : null;
-    })
-    .filter(Boolean)
-    .join(". ");
+  answers: ConversationAnswers
+): AnsweredQuestion[] {
+  return event.questions
+    .filter((question) => answers[question.id] !== undefined)
+    .map((question) => ({
+      question,
+      answer: formatAnswer(answers[question.id]),
+    }));
+}
 
-  const situation = `Your organization is navigating ${event.title.toLowerCase()}. ${answerSummary ? `Based on your context: ${answerSummary}.` : ""} This business change creates technology implications that extend beyond a single system or vendor decision.`;
+function findAnswer(answered: AnsweredQuestion[], id: string): string | undefined {
+  return answered.find((item) => item.question.id === id)?.answer;
+}
 
-  const implications = [
-    `Operational models designed for a previous state may not scale to your current reality.`,
-    `Technology decisions made in isolation can create compounding costs across ${domains.slice(0, 2).join(" and ")}.`,
-    `Leadership visibility into technology risk and investment trade-offs becomes critical at this stage.`,
-    `Multi-location coordination adds complexity that single-site playbooks rarely address.`,
+function collectDomains(event: BusinessEvent, answered: AnsweredQuestion[]): string[] {
+  const domains = new Set<string>();
+  for (const domain of event.technologyDomains) domains.add(resolveDomainLabel(domain));
+  for (const { question } of answered) {
+    question.technologyDomains?.forEach((domain) => domains.add(resolveDomainLabel(domain)));
+  }
+  return Array.from(domains);
+}
+
+function naturalizeResponse(question: ConversationQuestion, answer: string): string {
+  const q = question.question.toLowerCase();
+
+  if (q.includes("how many")) return `you are planning for **${answer}**`;
+  if (q.includes("timeline") || q.includes("when"))
+    return `your timeline is **${answer}**`;
+  if (q.includes("standardized") || q.includes("standard"))
+    return `you are aiming for **${answer.toLowerCase()}**`;
+  if (q.includes("concern") || q.includes("biggest") || q.includes("priority"))
+    return `**${answer}** is the primary pressure point you raised`;
+  if (q.includes("where are you") || q.includes("stage") || q.includes("process"))
+    return `you are currently in **${answer.toLowerCase()}**`;
+  if (q.includes("how many entities") || q.includes("brands"))
+    return `the change involves **${answer.toLowerCase()}**`;
+  if (question.type === "multiselect")
+    return `you flagged **${answer}** as areas requiring attention`;
+
+  return `on *${question.question.replace(/\?$/, "")}*, you said **${answer}**`;
+}
+
+function getTriggeredInsights(answered: AnsweredQuestion[]): string[] {
+  const insights: string[] = [];
+  for (const { question, answer } of answered) {
+    if (!question.executiveInsight) continue;
+    if (question.scoringLogic && !question.scoringLogic[answer]) continue;
+    insights.push(question.executiveInsight);
+  }
+  return Array.from(new Set(insights));
+}
+
+function buildExecutiveSummary(event: BusinessEvent, answered: AnsweredQuestion[]): string {
+  if (answered.length === 0) {
+    return `You are evaluating technology implications related to ${event.title.toLowerCase()}. At this stage, the priority is clarifying scope, ownership, and what must be true before the business timeline forces tactical decisions.`;
+  }
+
+  const observations = answered
+    .slice(0, 4)
+    .map(({ question, answer }) => naturalizeResponse(question, answer).replace(/\*\*/g, ""));
+
+  const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
+  const scale = findAnswer(answered, "location-count") ?? findAnswer(answered, "entity-count");
+
+  let summary = `You are navigating ${event.title.toLowerCase()}`;
+
+  if (scale) {
+    summary += ` at a scale of ${scale.toLowerCase()}`;
+  }
+
+  const timeline = findAnswer(answered, "expansion-scale") ?? findAnswer(answered, "timeline");
+  if (timeline) {
+    summary += `, with a timeline of ${timeline.toLowerCase()}`;
+  }
+
+  summary += ". ";
+
+  if (concern) {
+    summary += `${concern} surfaced as the most immediate concern — which usually means the business case is moving faster than technology visibility. `;
+  }
+
+  if (event.executiveMindset) {
+    summary += event.executiveMindset + " ";
+  }
+
+  if (observations.length > 1) {
+    summary += `Taken together, your responses point to a change that will stress consistency, cost visibility, and how decisions are made across locations.`;
+  }
+
+  return summary.trim();
+}
+
+function buildWhatWeHeard(answered: AnsweredQuestion[]): string[] {
+  return answered.map(({ question, answer }) => {
+    const natural = naturalizeResponse(question, answer).replace(/\*\*/g, "");
+    if (question.purpose) {
+      return `${natural.charAt(0).toUpperCase()}${natural.slice(1)} — relevant because ${question.purpose.toLowerCase()}.`;
+    }
+    return `${natural.charAt(0).toUpperCase()}${natural.slice(1)}.`;
+  });
+}
+
+function buildLikelyImpacts(
+  event: BusinessEvent,
+  answered: AnsweredQuestion[],
+  domains: string[]
+): string[] {
+  const impacts: string[] = [];
+  const scale = findAnswer(answered, "location-count");
+  const timeline = findAnswer(answered, "expansion-scale") ?? findAnswer(answered, "timeline");
+  const model = findAnswer(answered, "model");
+  const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
+  const systems = findAnswer(answered, "systems");
+
+  if (scale && timeline) {
+    impacts.push(
+      `Opening ${scale.toLowerCase()} on a ${timeline.toLowerCase()} cadence leaves little room for one-off deployments — each delay at one site becomes a pattern unless standards are defined now.`
+    );
+  }
+
+  if (model?.toLowerCase().includes("flexibility")) {
+    impacts.push(
+      `Your preference for core standards with local flexibility is workable, but it requires explicit boundaries — otherwise "flexibility" becomes unreviewed variation at each location.`
+    );
+  } else if (model?.toLowerCase().includes("independent")) {
+    impacts.push(
+      `Allowing each location to operate largely independently will reduce short-term friction but increase integration cost, support complexity, and audit surface over time.`
+    );
+  }
+
+  if (concern?.toLowerCase().includes("cost")) {
+    impacts.push(
+      `With cost predictability as the stated concern, fragmented contracts and per-location provisioning will make it difficult to forecast spend before commitments are made.`
+    );
+  } else if (concern?.toLowerCase().includes("speed")) {
+    impacts.push(
+      `Speed-driven rollouts tend to reuse whatever worked last time — including technical debt — unless a location blueprint exists before the next opening.`
+    );
+  } else if (concern?.toLowerCase().includes("consistency")) {
+    impacts.push(
+      `Consistency concerns at this stage usually reflect gaps in standards, monitoring, or handoff between real estate, operations, and technology — not a single system failure.`
+    );
+  }
+
+  if (systems) {
+    impacts.push(
+      `The systems you identified (${systems.toLowerCase()}) will drive integration sequencing, security boundaries, and where executive trade-offs are unavoidable.`
+    );
+  }
+
+  const stage = findAnswer(answered, "deal-stage");
+  if (stage) {
+    impacts.push(
+      `At the ${stage.toLowerCase()} stage, technology decisions made now will constrain integration options later — particularly identity, data, and operational tooling.`
+    );
+  }
+
+  const domainNotes: Record<string, string> = {
+    "Networking & Connectivity":
+      "Connectivity is rarely the bottleneck at headquarters — it becomes one at the edge, where landlord constraints and carrier options vary by site.",
+    "IT Operations":
+      "Operational tooling built for a single campus does not automatically support opening, monitoring, and supporting remote locations.",
+    "Security & Compliance":
+      "Security scope expands with every new site and integration path — particularly where local staff, contractors, and third parties touch systems.",
+    "Customer Experience":
+      "Inconsistent customer-facing technology at one location often indicates a standards gap that already exists elsewhere.",
+  };
+
+  for (const domain of domains.slice(0, 3)) {
+    const note = domainNotes[domain];
+    if (note && !impacts.some((i) => i.includes(note.slice(0, 30)))) {
+      impacts.push(note);
+    }
+  }
+
+  if (impacts.length === 0 && event.businessProblem) {
+    impacts.push(event.businessProblem);
+  }
+
+  if (impacts.length === 0) {
+    impacts.push(
+      `${event.title} typically affects how standards are set, how costs are visible, and who owns technology decisions across locations — not just which tools are in use.`
+    );
+  }
+
+  return impacts.slice(0, 6);
+}
+
+function buildBlindSpots(
+  event: BusinessEvent,
+  answered: AnsweredQuestion[],
+  insights: string[]
+): string[] {
+  const spots: string[] = [...insights];
+
+  const model = findAnswer(answered, "model");
+  const scale = findAnswer(answered, "location-count");
+
+  if (scale?.includes("50") || scale?.includes("21")) {
+    spots.push(
+      "At your stated scale, the third and fourth openings often expose whether a playbook exists — or whether each site is still a custom project."
+    );
+  }
+
+  if (model?.toLowerCase().includes("independent")) {
+    spots.push(
+      "Independence at the location level frequently masks duplicate spend and incompatible integrations until consolidation is far more expensive."
+    );
+  }
+
+  if (event.executiveMindset && !spots.some((s) => s.includes(event.executiveMindset!))) {
+    spots.push(event.executiveMindset);
+  }
+
+  const contextual = [
+    "Total technology cost by location is often unknown until renewal cycles — after decisions are already locked in.",
+    "The last successful opening is treated as the template, even when its technology choices were accidental rather than deliberate.",
+    "Business timelines and technology readiness are rarely tracked on the same plan.",
   ];
 
-  const priorities = event.technologyDomains.slice(0, 3).map((domain, i) => ({
-    title: `Assess ${getDomainLabel(domain)} readiness`,
-    description:
-      i === 0
-        ? `Evaluate current capabilities against the demands of ${event.title.toLowerCase()}. Identify gaps before they become operational constraints.`
-        : i === 1
-          ? `Map dependencies between systems and locations. Understand where standardization creates leverage versus where local flexibility is required.`
-          : `Establish governance for technology decisions tied to this business change. Ensure accountability spans IT, operations, and executive leadership.`,
-  }));
+  for (const spot of contextual) {
+    if (spots.length >= 5) break;
+    if (!spots.includes(spot)) spots.push(spot);
+  }
 
-  const nextSteps = [
-    "Validate the technology implications identified in this brief with your leadership team.",
-    "Prioritize the highest-risk gaps before committing to new investments.",
-    "Schedule a Technology Strategy Session to develop a location-aware roadmap.",
+  return spots.slice(0, 5);
+}
+
+function buildQuestionsToExplore(
+  event: BusinessEvent,
+  answered: AnsweredQuestion[],
+  domains: string[]
+): string[] {
+  const questions: string[] = [];
+  const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
+  const model = findAnswer(answered, "model");
+  const scale = findAnswer(answered, "location-count");
+
+  if (concern) {
+    questions.push(
+      `You raised ${concern.toLowerCase()} — where is that pressure showing up first: in budgets, in operations, or in customer-facing performance?`
+    );
+  }
+
+  if (model) {
+    questions.push(
+      `You described your standardization approach as "${model.toLowerCase()}" — what is explicitly standardized today, and what is left to local discretion?`
+    );
+  }
+
+  if (scale) {
+    questions.push(
+      `At ${scale.toLowerCase()}, what would need to be true for the next opening to require no special technology project team?`
+    );
+  }
+
+  for (const { question } of answered) {
+    if (question.reportSection) {
+      questions.push(
+        `On ${question.reportSection.toLowerCase()}: what has already been decided, and what still lacks a single owner?`
+      );
+    }
+  }
+
+  const domainQuestions: Record<string, string> = {
+    "Networking & Connectivity":
+      "Where do connectivity decisions get made today — centrally, by region, or by each opening team?",
+    "IT Operations":
+      "Do we have a documented location playbook, or does each site inherit the preferences of whoever managed the last opening?",
+    "Security & Compliance":
+      "Can we describe security and compliance requirements the same way at every location — or only at headquarters?",
+  };
+
+  for (const domain of domains.slice(0, 2)) {
+    const q = domainQuestions[domain];
+    if (q) questions.push(q);
+  }
+
+  questions.push(
+    `Who in the organization owns the technology implications of ${event.title.toLowerCase()} — and do they have visibility across all locations?`
+  );
+
+  return Array.from(new Set(questions)).slice(0, 6);
+}
+
+function buildAreasToExploreNext(
+  event: BusinessEvent,
+  answered: AnsweredQuestion[],
+  domains: string[]
+): string[] {
+  const areas = new Set<string>();
+
+  for (const { question } of answered) {
+    if (question.reportSection) areas.add(question.reportSection);
+    if (question.purpose) areas.add(question.purpose);
+  }
+
+  for (const domain of domains.slice(0, 4)) {
+    areas.add(domain);
+  }
+
+  if (areas.size === 0) {
+    event.technologyDomains.slice(0, 3).forEach((d) => areas.add(resolveDomainLabel(d)));
+  }
+
+  return Array.from(areas).slice(0, 6);
+}
+
+function buildRoadmap(
+  event: BusinessEvent,
+  answered: AnsweredQuestion[]
+): TechnologyImpactReview["roadmap"] {
+  const timeline = findAnswer(answered, "expansion-scale") ?? findAnswer(answered, "timeline");
+  const urgent =
+    timeline?.toLowerCase().includes("3 months") ||
+    timeline?.toLowerCase().includes("due diligence") ||
+    event.triggerLevel === "high";
+
+  const immediate: string[] = [
+    "Confirm executive owner for technology decisions tied to this change",
+    "Document what was deployed at the most recent location opening or integration — not the ideal state",
   ];
+
+  const next30Days: string[] = [
+    "Define non-negotiable technology standards vs. acceptable local variation",
+    "Inventory connectivity, tooling, and support contracts that will repeat at each location",
+  ];
+
+  const next90Days: string[] = [
+    "Establish a location readiness checklist tied to the business opening or integration timeline",
+    "Build cost and risk visibility by location before the next major commitment",
+  ];
+
+  if (urgent) {
+    immediate.unshift(
+      "Identify the next location or integration milestone and work backward from its date"
+    );
+  }
+
+  const concern = findAnswer(answered, "challenge");
+  if (concern?.toLowerCase().includes("cost")) {
+    next30Days.push("Map recurring technology spend by location and contract renewal date");
+  }
+  if (concern?.toLowerCase().includes("consistency")) {
+    next30Days.push("Compare technology stack and configuration across three representative locations");
+  }
+
+  const systems = findAnswer(answered, "systems");
+  if (systems) {
+    next90Days.unshift(
+      `Sequence integration or deployment priorities for: ${systems.toLowerCase()}`
+    );
+  }
+
+  if (event.reportTemplate === "expansion-brief") {
+    immediate.push("Validate whether a location technology blueprint exists — or whether each opening is still bespoke");
+  }
 
   return {
-    title: `Executive Brief: ${event.title}`,
-    eventTitle: event.title,
-    generatedAt: new Date().toISOString(),
-    situation,
-    implications,
-    priorities,
-    domains,
-    nextSteps,
+    immediate: immediate.slice(0, 4),
+    next30Days: next30Days.slice(0, 4),
+    next90Days: next90Days.slice(0, 4),
   };
 }
+
+function buildNextConversation(event: BusinessEvent, answered: AnsweredQuestion[]): string {
+  const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
+  const focus = concern
+    ? `particularly around ${concern.toLowerCase()}`
+    : `in the context of ${event.title.toLowerCase()}`;
+
+  return `This review captures what you shared today. The useful next step is a working session ${focus} — to pressure-test assumptions, sequence what to evaluate, and agree what must be standardized before the business timeline narrows your options. That conversation is evaluative, not a vendor selection exercise.`;
+}
+
+export function generateTechnologyImpactReview(
+  event: BusinessEvent,
+  answers: ConversationAnswers
+): TechnologyImpactReview {
+  const answered = getAnsweredQuestions(event, answers);
+  const domains = collectDomains(event, answered);
+  const insights = getTriggeredInsights(answered);
+
+  return {
+    title: `Technology Impact Review — ${event.title}`,
+    eventTitle: event.title,
+    generatedAt: new Date().toISOString(),
+    executiveSummary: buildExecutiveSummary(event, answered),
+    whatWeHeard: buildWhatWeHeard(answered),
+    likelyImpacts: buildLikelyImpacts(event, answered, domains),
+    blindSpots: buildBlindSpots(event, answered, insights),
+    questionsToExplore: buildQuestionsToExplore(event, answered, domains),
+    areasToExploreNext: buildAreasToExploreNext(event, answered, domains),
+    roadmap: buildRoadmap(event, answered),
+    nextConversation: buildNextConversation(event, answered),
+    ctaLabel: event.cta ?? "Schedule a Technology Strategy Session",
+  };
+}
+
+/** @deprecated Use generateTechnologyImpactReview */
+export const generateExecutiveBrief = generateTechnologyImpactReview;

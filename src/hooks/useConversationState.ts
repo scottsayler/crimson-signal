@@ -4,16 +4,12 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { BusinessEvent, ConversationQuestion } from "@/lib/types";
 import type { ConversationAnswers, ConversationStep } from "@/lib/conversation";
+import { resolveEvent } from "@/lib/resolve-event";
 
 interface UseConversationStateOptions {
   events: BusinessEvent[];
   basePath?: string;
   onStepChange?: (step: ConversationStep) => void;
-}
-
-function findEvent(events: BusinessEvent[], slug: string | null): BusinessEvent | null {
-  if (!slug) return null;
-  return events.find((e) => e.slug === slug) ?? null;
 }
 
 export function useConversationState({
@@ -25,19 +21,21 @@ export function useConversationState({
   const searchParams = useSearchParams();
   const urlEventSlug = searchParams.get("event");
 
-  const initialEvent = findEvent(events, urlEventSlug);
+  const resolvedFromUrl = resolveEvent(events, urlEventSlug);
 
   const [step, setStep] = useState<ConversationStep>(() =>
-    initialEvent ? "conversation" : "select"
+    resolvedFromUrl ? "conversation" : "select"
   );
   const [selectedEvent, setSelectedEvent] = useState<BusinessEvent | null>(
-    () => initialEvent
+    () => resolvedFromUrl
   );
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<ConversationAnswers>({});
 
   const stepRef = useRef(step);
+  const selectedSlugRef = useRef(selectedEvent?.slug);
   stepRef.current = step;
+  selectedSlugRef.current = selectedEvent?.slug;
 
   const setStepWithCallback = useCallback(
     (next: ConversationStep) => {
@@ -52,24 +50,38 @@ export function useConversationState({
     [basePath]
   );
 
-  const selectEvent = useCallback(
-    (event: BusinessEvent) => {
-      setSelectedEvent(event);
-      setQuestionIndex(0);
-      setAnswers({});
-      setStepWithCallback("conversation");
-      router.push(buildPath(event.slug), { scroll: false });
-    },
-    [router, buildPath, setStepWithCallback]
-  );
-
-  const reset = useCallback(() => {
+  const resetConversation = useCallback(() => {
     setSelectedEvent(null);
     setQuestionIndex(0);
     setAnswers({});
     setStepWithCallback("select");
+  }, [setStepWithCallback]);
+
+  const startConversation = useCallback(
+    (event: BusinessEvent, options?: { resetAnswers?: boolean }) => {
+      const resetAnswers = options?.resetAnswers ?? true;
+      setSelectedEvent(event);
+      if (resetAnswers) {
+        setQuestionIndex(0);
+        setAnswers({});
+      }
+      setStepWithCallback("conversation");
+    },
+    [setStepWithCallback]
+  );
+
+  const selectEvent = useCallback(
+    (event: BusinessEvent) => {
+      startConversation(event, { resetAnswers: true });
+      router.push(buildPath(event.slug), { scroll: false });
+    },
+    [router, buildPath, startConversation]
+  );
+
+  const reset = useCallback(() => {
+    resetConversation();
     router.replace(buildPath(), { scroll: false });
-  }, [router, buildPath, setStepWithCallback]);
+  }, [router, buildPath, resetConversation]);
 
   const goBack = useCallback(() => {
     if (questionIndex > 0) {
@@ -117,36 +129,60 @@ export function useConversationState({
     handleAnswer(current);
   }, [currentQuestion, answers, handleAnswer]);
 
-  // Sync state when URL changes via browser back/forward
+  // Keep conversation state aligned with ?event= for deep links, refresh, and browser navigation
   useEffect(() => {
     if (!urlEventSlug) {
       if (stepRef.current !== "select") {
-        setSelectedEvent(null);
-        setQuestionIndex(0);
-        setAnswers({});
-        setStepWithCallback("select");
+        resetConversation();
       }
       return;
     }
 
-    const event = findEvent(events, urlEventSlug);
+    const event = resolveEvent(events, urlEventSlug);
     if (!event) {
       if (stepRef.current !== "select") {
-        setSelectedEvent(null);
-        setQuestionIndex(0);
-        setAnswers({});
-        setStepWithCallback("select");
+        resetConversation();
+      }
+      router.replace(buildPath(), { scroll: false });
+      return;
+    }
+
+    const canonicalPath = buildPath(event.slug);
+    if (urlEventSlug !== event.slug) {
+      router.replace(canonicalPath, { scroll: false });
+    }
+
+    if (stepRef.current === "brief") {
+      if (selectedSlugRef.current !== event.slug) {
+        startConversation(event, { resetAnswers: true });
       }
       return;
     }
 
-    if (selectedEvent?.slug !== urlEventSlug) {
-      setSelectedEvent(event);
-      setQuestionIndex(0);
-      setAnswers({});
-      setStepWithCallback("conversation");
+    if (selectedSlugRef.current !== event.slug) {
+      startConversation(event, { resetAnswers: true });
+      return;
     }
-  }, [urlEventSlug, events, selectedEvent?.slug, setStepWithCallback]);
+
+    if (stepRef.current === "select") {
+      startConversation(event, { resetAnswers: false });
+    }
+  }, [
+    urlEventSlug,
+    events,
+    basePath,
+    buildPath,
+    router,
+    resetConversation,
+    startConversation,
+  ]);
+
+  // Notify parent layout when conversation is entered directly from URL on first mount
+  useEffect(() => {
+    if (resolvedFromUrl) {
+      onStepChange?.("conversation");
+    }
+  }, [resolvedFromUrl, onStepChange]);
 
   return {
     step,

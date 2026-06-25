@@ -2,7 +2,7 @@
 
 import type { BusinessEvent } from "@/lib/types";
 import type { ConversationStep } from "@/lib/conversation";
-import { generateExecutiveBrief } from "@/lib/brief";
+import { generateTechnologyImpactReview } from "@/lib/brief";
 import { useConversationState } from "@/hooks/useConversationState";
 import { EventSelector } from "./EventSelector";
 import { ConversationProgress } from "./ConversationProgress";
@@ -37,7 +37,7 @@ export function ConversationFlow({
   } = useConversationState({ events, basePath, onStepChange });
 
   if (step === "brief" && selectedEvent) {
-    const brief = generateExecutiveBrief(selectedEvent, answers);
+    const brief = generateTechnologyImpactReview(selectedEvent, answers);
     return (
       <div className="animate-fade-in">
         <button
