@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { TechnologyImpactReview } from "@/lib/brief";
-import { CTAButton } from "./CTAButton";
+import { AboutScott } from "./AboutScott";
+import { StrategySessionCTA } from "./StrategySessionCTA";
 
 interface ExecutiveBriefDisplayProps {
   brief: TechnologyImpactReview;
@@ -65,6 +66,8 @@ export function ExecutiveBriefDisplay({ brief }: ExecutiveBriefDisplayProps) {
         </p>
       </ReviewSection>
 
+      <StrategySessionCTA variant="prominent" label={brief.ctaLabel} />
+
       <ReviewSection title="Here's what we heard">
         <BulletList items={brief.whatWeHeard} />
       </ReviewSection>
@@ -108,11 +111,8 @@ export function ExecutiveBriefDisplay({ brief }: ExecutiveBriefDisplayProps) {
         </p>
       </ReviewSection>
 
-      <div className="border-t border-border pt-8">
-        <CTAButton href="mailto:scott@crimsonsignal.com?subject=Technology%20Strategy%20Session">
-          {brief.ctaLabel}
-        </CTAButton>
-      </div>
+      <AboutScott />
+      <StrategySessionCTA label={brief.ctaLabel} />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { parseBusinessEvent } from "./parse-business-event";
+import type { TechnologyImpactReview } from "./brief";
 import type {
   BusinessEvent,
   Industry,
@@ -76,6 +77,31 @@ export function getResearchArticle(slug: string): ResearchArticle | null {
   return getAllResearch().find((r) => r.slug === slug) ?? null;
 }
 
+function parsePublishedReview(data: Record<string, unknown>): TechnologyImpactReview {
+  const review = data.review as Record<string, unknown>;
+  const roadmap = review.roadmap as Record<string, string[]>;
+
+  return {
+    title: review.title as string,
+    eventTitle: review.eventTitle as string,
+    industryTitle: review.industryTitle as string | undefined,
+    generatedAt: review.generatedAt as string,
+    executiveSummary: review.executiveSummary as string,
+    whatWeHeard: review.whatWeHeard as string[],
+    likelyImpacts: review.likelyImpacts as string[],
+    blindSpots: review.blindSpots as string[],
+    questionsToExplore: review.questionsToExplore as string[],
+    areasToExploreNext: review.areasToExploreNext as string[],
+    roadmap: {
+      immediate: roadmap.immediate,
+      next30Days: roadmap.next30Days,
+      next90Days: roadmap.next90Days,
+    },
+    nextConversation: review.nextConversation as string,
+    ctaLabel: review.ctaLabel as string,
+  };
+}
+
 export function getAllExecutiveBriefSamples(): ExecutiveBriefSample[] {
   const files = readMarkdownFiles(path.join(CONTENT_DIR, "executive-briefs"));
   return files
@@ -91,4 +117,22 @@ export function getAllExecutiveBriefSamples(): ExecutiveBriefSample[] {
       (a, b) =>
         new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
+}
+
+export function getExecutiveBriefSample(
+  slug: string
+): (ExecutiveBriefSample & { review: TechnologyImpactReview }) | null {
+  const files = readMarkdownFiles(path.join(CONTENT_DIR, "executive-briefs"));
+  const match = files.find((file) => file.slug === slug);
+  if (!match || !match.data.data.review) return null;
+
+  return {
+    slug: match.slug,
+    title: match.data.data.title as string,
+    eventSlug: match.data.data.eventSlug as string,
+    industrySlug: match.data.data.industrySlug as string | undefined,
+    excerpt: match.data.data.excerpt as string,
+    publishedAt: match.data.data.publishedAt as string,
+    review: parsePublishedReview(match.data.data as Record<string, unknown>),
+  };
 }

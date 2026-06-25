@@ -29,7 +29,7 @@ related_research:
 interactive_tool: guided-conversation
 report_template: expansion-brief
 strategy_session: true
-cta: Schedule a Technology Strategy Session
+cta: Request a collaborative session
 search_intent:
   - opening new locations technology
   - multi-location expansion IT strategy

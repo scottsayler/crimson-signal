@@ -483,7 +483,7 @@ function generateBaseTechnologyImpactReview(
     areasToExploreNext: buildAreasToExploreNext(event, answered, domains),
     roadmap: buildRoadmap(event, answered),
     nextConversation: buildNextConversation(event, answered),
-    ctaLabel: event.cta ?? "Schedule a Technology Strategy Session",
+    ctaLabel: event.cta ?? "Request a collaborative session",
   };
 }
 

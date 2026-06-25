@@ -94,12 +94,19 @@ export function ConversationFlow({
   }
 
   if (step === "conversation" && selectedEvent && currentQuestion) {
+    const questionCount = selectedEvent.questions.length;
+    const totalSteps = 2 + questionCount + 1;
+    const currentStep = 2 + questionIndex + 1;
+
     return (
       <div className="animate-fade-in">
         <ConversationProgress
           eventTitle={selectedEvent.title}
           questionIndex={questionIndex}
-          questionCount={selectedEvent.questions.length}
+          questionCount={questionCount}
+          totalSteps={totalSteps}
+          currentStep={currentStep}
+          questionPurpose={currentQuestion.purpose}
           onBack={goBack}
         />
         <QuestionStep

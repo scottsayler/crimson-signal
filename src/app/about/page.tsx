@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { CTAButton } from "@/components/CTAButton";
+import { AboutScott } from "@/components/AboutScott";
+import { StrategySessionCTA } from "@/components/StrategySessionCTA";
 
 export const metadata: Metadata = {
   title: "About",
@@ -64,32 +65,10 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="mt-16 border-t border-border pt-16">
-          <h2 className="mb-6 font-serif text-2xl font-medium tracking-tight text-foreground">
-            About Scott
-          </h2>
-          <p className="text-[15px] leading-relaxed text-muted">
-            Scott helps multi-location organizations navigate technology strategy
-            — from architecture and governance to vendor evaluation and
-            implementation planning. With deep experience across retail,
-            healthcare, financial services, and hospitality, the focus is always
-            on business outcomes, not technology for its own sake.
-          </p>
-        </section>
+        <AboutScott />
 
-        <div className="mt-16 rounded-2xl border border-crimson/20 bg-crimson-light p-8 text-center">
-          <h3 className="font-serif text-xl font-medium tracking-tight text-foreground">
-            Technology Strategy Session
-          </h3>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
-            Ready to go deeper? Schedule a conversation to develop a
-            location-aware technology roadmap for your organization.
-          </p>
-          <div className="mt-6">
-            <CTAButton href="mailto:scott@crimsonsignal.com?subject=Technology%20Strategy%20Session">
-              Schedule a Strategy Session
-            </CTAButton>
-          </div>
+        <div className="mt-16 rounded-2xl border border-crimson/20 bg-crimson-light p-8">
+          <StrategySessionCTA />
         </div>
       </div>
     </div>
