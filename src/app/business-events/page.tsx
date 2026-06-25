@@ -44,7 +44,7 @@ export default function BusinessEventsPage() {
       <div className="mt-16 rounded-xl border border-border bg-surface p-8 text-center">
         <p className="text-sm text-muted">
           Not sure which event fits?{" "}
-          <Link href="/brief" className="font-medium text-crimson hover:text-crimson-dark">
+          <Link href="/" className="font-medium text-crimson hover:text-crimson-dark">
             Start the guided conversation →
           </Link>
         </p>

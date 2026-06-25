@@ -83,7 +83,7 @@ export default function ExecutiveBriefsPage() {
           receive a personalized brief in minutes.
         </p>
         <div className="mt-6">
-          <CTAButton href="/brief">What&apos;s changed?</CTAButton>
+          <CTAButton href="/">What&apos;s changed?</CTAButton>
         </div>
       </div>
     </div>

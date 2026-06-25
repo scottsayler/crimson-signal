@@ -1,5 +1,5 @@
 ---
-title: Outages or Reliability Issues
+title: Recurring outages
 shortDescription: Downtime at one location can signal systemic technology risk across your network.
 icon: "⊘"
 order: 7

@@ -1,5 +1,5 @@
 ---
-title: AI Initiative
+title: AI initiative
 shortDescription: AI ambitions collide with data quality, governance, and operational readiness across locations.
 icon: "◎"
 order: 3

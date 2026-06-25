@@ -1,5 +1,5 @@
 ---
-title: Acquisition or Merger
+title: Acquisition or merger
 shortDescription: Integrating acquired entities exposes technology fragmentation that financial models rarely capture.
 icon: "◇"
 order: 2

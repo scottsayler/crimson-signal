@@ -103,7 +103,7 @@ export default async function IndustryPage({
               Start with what changed and receive a personalized Executive
               Brief.
             </p>
-            <CTAButton href="/brief" className="w-full">
+            <CTAButton href="/" className="w-full">
               What&apos;s changed?
             </CTAButton>
           </div>

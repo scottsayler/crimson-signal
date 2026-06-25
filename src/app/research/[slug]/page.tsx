@@ -81,7 +81,7 @@ export default async function ResearchArticlePage({
             Start with what changed in your business and receive a personalized
             Executive Brief.
           </p>
-          <CTAButton href="/brief">What&apos;s changed?</CTAButton>
+          <CTAButton href="/">What&apos;s changed?</CTAButton>
         </div>
       </article>
     </div>

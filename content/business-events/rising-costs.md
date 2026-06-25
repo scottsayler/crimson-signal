@@ -1,5 +1,5 @@
 ---
-title: Rising Technology Costs
+title: Rising costs
 shortDescription: Cost pressure forces hard questions about what technology actually delivers value.
 icon: "△"
 order: 5

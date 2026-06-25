@@ -1,5 +1,5 @@
 ---
-title: Opening New Locations
+title: Opening new locations
 shortDescription: Expanding your footprint creates technology decisions that compound across every new site.
 icon: "◈"
 order: 1

@@ -1,5 +1,5 @@
 ---
-title: Security Requirements
+title: Security or compliance requirement
 shortDescription: New compliance mandates and threat landscapes demand location-aware security architecture.
 icon: "⬡"
 order: 8

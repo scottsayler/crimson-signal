@@ -20,7 +20,7 @@ export function BusinessEventCard({
 }: BusinessEventCardProps) {
   return (
     <Link
-      href={`/brief?event=${slug}`}
+      href={`/?event=${slug}`}
       className="group flex flex-col rounded-xl border border-border bg-surface p-6 transition-all duration-300 hover:border-crimson/30 hover:shadow-[0_4px_24px_rgba(155,27,48,0.06)]"
     >
       <div className="mb-4 flex items-start justify-between">

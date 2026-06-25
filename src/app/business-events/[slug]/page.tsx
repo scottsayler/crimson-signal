@@ -106,7 +106,7 @@ export default async function BusinessEventPage({
               Answer a few questions about your situation and receive a
               personalized brief.
             </p>
-            <CTAButton href={`/brief?event=${event.slug}`} className="w-full">
+            <CTAButton href={`/?event=${event.slug}`} className="w-full">
               Start guided conversation
             </CTAButton>
           </div>

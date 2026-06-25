@@ -61,14 +61,20 @@ Defined in `src/lib/types.ts`. Used as metadata tags across content.
 - **gray-matter** for markdown frontmatter
 - **react-markdown** for content rendering
 
+### Conversation flow
+
+- `src/hooks/useConversationState.ts` — guided conversation state and URL sync
+- `src/components/ConversationFlow.tsx` — composes EventSelector, QuestionStep, ConversationProgress
+- `src/lib/copy.ts` — homepage headline and subhead copy
+
 ## Key Routes
 
 | Route | Purpose |
 |-------|---------|
-| `/` | Homepage with "What's changed?" |
-| `/brief` | Guided conversation → Executive Brief |
+| `/` | Primary entry — event selection, guided conversation, Executive Brief (`?event=` deep links) |
+| `/brief` | Redirects to `/` (preserves legacy links) |
 | `/business-events` | All business events |
 | `/industries` | Industry context |
 | `/research` | Independent research |
-| `/executive-briefs` | Sample briefs |
+| `/executive-briefs` | Sample briefs (not in primary navigation) |
 | `/about` | About Crimson Signal |

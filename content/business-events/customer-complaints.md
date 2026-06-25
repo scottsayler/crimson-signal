@@ -1,5 +1,5 @@
 ---
-title: Customer Complaints
+title: Customer experience issues
 shortDescription: Customer experience failures often trace back to technology gaps across locations.
 icon: "○"
 order: 6

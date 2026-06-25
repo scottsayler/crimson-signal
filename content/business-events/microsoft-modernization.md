@@ -1,5 +1,5 @@
 ---
-title: Microsoft Modernization
+title: Microsoft modernization
 shortDescription: Microsoft investments ripple across identity, collaboration, security, and every location.
 icon: "▣"
 order: 4
