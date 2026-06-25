@@ -11,40 +11,39 @@ review:
   generatedAt: "2026-05-15T12:00:00.000Z"
   executiveSummary: >-
     In healthcare, new site openings intersect clinical operations, HIPAA obligations,
-    and patient-facing systems — not just facilities readiness. You are navigating
-    opening new locations, driven by customer demand at a scale of 6–20 locations,
-    with a timeline of 3–12 months. Clinical system readiness surfaced as the most
-    immediate concern — which usually means the business case is moving faster than
-    technology visibility. Expansion is treated as a real estate decision first —
-    technology becomes the constraint later.
+    and patient-facing systems — not just facilities readiness. This is an opening new
+    locations initiative driven by customer demand or revenue opportunity, spanning
+    6–20 locations over 3–12 months. Clinical system readiness is compressing the planning
+    window — a signal that the business case may be advancing faster than technology
+    architecture can support. Expansion is treated as a real estate decision first —
+    technology becomes the constraint later. The implications extend beyond any single
+    site: standards, cost visibility, and decision rights across the footprint will
+    determine whether this change is manageable or compounding.
   whatWeHeard:
-    - This expansion was driven by customer demand or revenue opportunity — relevant because identify the business catalyst driving the change.
-    - You are planning for 6–20 locations — relevant because measure expansion complexity.
-    - Your timeline is 3–12 months — relevant because assess delivery pressure on technology teams.
-    - You are aiming for core standards with local flexibility — relevant because determine architecture and governance requirements.
-    - Clinical system readiness is the primary pressure point you raised — relevant because surface the executive priority shaping technology trade-offs.
+    - Revenue opportunity is the primary driver, which means patient-facing technology consistency will be scrutinized before internal teams fully align.
+    - A rollout of 6–20 locations across 3–12 months demands repeatable deployment — bespoke approaches at each site will not sustain the cadence.
+    - The target posture is core standards with local flexibility — workable only if the boundary between standard and local is explicit and enforced.
+    - Clinical system readiness is where leadership attention is focused — the technology implications of that priority deserve explicit ownership before commitments are made.
   likelyImpacts:
-    - Revenue-driven expansion puts patient-facing technology under immediate scrutiny — inconsistencies between locations become visible before internal teams align.
-    - Opening 6–20 locations on a 3–12 months cadence leaves little room for one-off deployments — each delay at one site becomes a pattern unless standards are defined now.
+    - Customer-facing systems at new locations will be compared against existing sites immediately — inconsistencies become visible before internal teams reconcile them.
     - Clinical system cutover windows often constrain opening timelines more than network provisioning.
     - HIPAA scope expands with every new care delivery site, including business associates and medical device vendors.
     - Telehealth and patient portal access must be provisioned consistently before clinicians can see patients at the new location.
-    - Security scope expands with every new site and integration path — particularly where local staff, contractors, and third parties touch systems.
+    - Security scope expands with every new site and integration path — particularly where local staff, contractors, and third parties touch production systems.
   blindSpots:
     - Medical device networking is frequently scoped separately from administrative IT, creating late-stage compliance gaps.
     - Identity provisioning for clinical staff often lags facilities handoff, delaying revenue capture.
-    - Business integration milestones are often set before clinical system cutover feasibility is validated.
-    - Third-party vendor contracts inherited at new sites may lock you into incompatible architectures.
+    - Business milestones and technology readiness are rarely tracked on the same plan.
+    - Vendor contracts signed at individual locations can constrain enterprise architecture decisions for years.
   questionsToExplore:
     - Which clinical workflows must be live on day one versus phased after opening?
     - How will patient data access and audit logging be enforced at the new site from the first patient encounter?
-    - What is the minimum viable technology stack for a new care site, and who owns keeping that definition current?
-    - How will clinicians authenticate and access records at the new location on opening day?
-    - Where does local flexibility end and unreviewed clinical variation begin?
+    - Where are connectivity decisions made today — centrally, by region, or by each opening team?
+    - Who owns the technology implications of opening new locations — and do they have visibility across the full footprint?
   areasToExploreNext:
-    - Clinical system cutover and EHR dependencies
-    - HIPAA scope and business associate coverage
-    - Clinical identity provisioning
+    - Business Catalyst
+    - Expansion Risk
+    - Delivery Timeline
     - Security & Compliance
     - Collaboration & Productivity
   roadmap:
@@ -58,10 +57,10 @@ review:
       - Establish a location readiness checklist owned jointly by clinical operations and IT
       - Review first three openings for pattern failures before accelerating the rollout
   nextConversation: >-
-    This review captures what you shared today. The useful next step is a working session
-    particularly around clinical system readiness — to pressure-test assumptions, sequence
-    what to evaluate, and agree what must be standardized before the business timeline
-    narrows your options. That conversation is evaluative, not a vendor selection exercise.
+    A working session focused on clinical system readiness would be the logical next
+    step — to pressure-test assumptions, sequence what to evaluate, and agree what must
+    be standardized before the business timeline narrows the options. This is evaluative
+    preparation, not vendor selection.
   ctaLabel: Request a collaborative session
 ---
 

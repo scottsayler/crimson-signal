@@ -30,6 +30,16 @@ export type ExecutiveBrief = TechnologyImpactReview;
 
 type AnsweredQuestion = { question: ConversationQuestion; answer: string };
 
+interface SituationContext {
+  catalyst?: string;
+  scale?: string;
+  timeline?: string;
+  model?: string;
+  concern?: string;
+  systems?: string;
+  stage?: string;
+}
+
 function formatAnswer(value: string | string[]): string {
   if (Array.isArray(value)) return value.join(", ");
   return value;
@@ -55,6 +65,18 @@ function findAnswer(answered: AnsweredQuestion[], id: string): string | undefine
   return answered.find((item) => item.question.id === id)?.answer;
 }
 
+function extractSituation(answered: AnsweredQuestion[]): SituationContext {
+  return {
+    catalyst: findAnswer(answered, "expansion-catalyst"),
+    scale: findAnswer(answered, "location-count") ?? findAnswer(answered, "entity-count"),
+    timeline: findAnswer(answered, "expansion-scale") ?? findAnswer(answered, "timeline"),
+    model: findAnswer(answered, "model"),
+    concern: findAnswer(answered, "challenge") ?? findAnswer(answered, "priority"),
+    systems: findAnswer(answered, "systems"),
+    stage: findAnswer(answered, "deal-stage"),
+  };
+}
+
 function collectDomains(event: BusinessEvent, answered: AnsweredQuestion[]): string[] {
   const domains = new Set<string>();
   for (const domain of event.technologyDomains) domains.add(resolveDomainLabel(domain));
@@ -62,28 +84,6 @@ function collectDomains(event: BusinessEvent, answered: AnsweredQuestion[]): str
     question.technologyDomains?.forEach((domain) => domains.add(resolveDomainLabel(domain)));
   }
   return Array.from(domains);
-}
-
-function naturalizeResponse(question: ConversationQuestion, answer: string): string {
-  const q = question.question.toLowerCase();
-
-  if (q.includes("how many")) return `you are planning for **${answer}**`;
-  if (q.includes("prompted") || q.includes("catalyst"))
-    return `this expansion was driven by **${answer.toLowerCase()}**`;
-  if (q.includes("timeline") || q.includes("when"))
-    return `your timeline is **${answer}**`;
-  if (q.includes("standardized") || q.includes("standard"))
-    return `you are aiming for **${answer.toLowerCase()}**`;
-  if (q.includes("concern") || q.includes("biggest") || q.includes("priority"))
-    return `**${answer}** is the primary pressure point you raised`;
-  if (q.includes("where are you") || q.includes("stage") || q.includes("process"))
-    return `you are currently in **${answer.toLowerCase()}**`;
-  if (q.includes("how many entities") || q.includes("brands"))
-    return `the change involves **${answer.toLowerCase()}**`;
-  if (question.type === "multiselect")
-    return `you flagged **${answer}** as areas requiring attention`;
-
-  return `on *${question.question.replace(/\?$/, "")}*, you said **${answer}**`;
 }
 
 function getTriggeredInsights(answered: AnsweredQuestion[]): string[] {
@@ -96,153 +96,207 @@ function getTriggeredInsights(answered: AnsweredQuestion[]): string[] {
   return Array.from(new Set(insights));
 }
 
-function buildExecutiveSummary(event: BusinessEvent, answered: AnsweredQuestion[]): string {
+function includesAny(text: string, terms: string[]): boolean {
+  const lower = text.toLowerCase();
+  return terms.some((term) => lower.includes(term));
+}
+
+function buildExecutiveSummary(
+  event: BusinessEvent,
+  ctx: SituationContext,
+  answered: AnsweredQuestion[]
+): string {
   if (answered.length === 0) {
-    return `You are evaluating technology implications related to ${event.title.toLowerCase()}. At this stage, the priority is clarifying scope, ownership, and what must be true before the business timeline forces tactical decisions.`;
+    return `Organizations facing ${event.title.toLowerCase()} often discover that business timelines and technology readiness are misaligned. The immediate priority is clarifying scope, ownership, and what must be standardized before commitments narrow the options.`;
   }
 
-  const observations = answered
-    .slice(0, 4)
-    .map(({ question, answer }) => naturalizeResponse(question, answer).replace(/\*\*/g, ""));
+  const parts: string[] = [];
 
-  const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
-  const scale = findAnswer(answered, "location-count") ?? findAnswer(answered, "entity-count");
-  const catalyst = findAnswer(answered, "expansion-catalyst");
+  let opening = `This is a ${event.title.toLowerCase()} initiative`;
+  if (ctx.catalyst) opening += ` driven by ${ctx.catalyst.toLowerCase()}`;
+  if (ctx.scale) opening += `, spanning ${ctx.scale.toLowerCase()}`;
+  if (ctx.timeline) opening += ` over ${ctx.timeline.toLowerCase()}`;
+  opening += ".";
+  parts.push(opening);
 
-  let summary = `You are navigating ${event.title.toLowerCase()}`;
-
-  if (catalyst) {
-    summary += `, driven by ${catalyst.toLowerCase()}`;
-  }
-
-  if (scale) {
-    summary += ` at a scale of ${scale.toLowerCase()}`;
-  }
-
-  const timeline = findAnswer(answered, "expansion-scale") ?? findAnswer(answered, "timeline");
-  if (timeline) {
-    summary += `, with a timeline of ${timeline.toLowerCase()}`;
-  }
-
-  summary += ". ";
-
-  if (concern) {
-    summary += `${concern} surfaced as the most immediate concern — which usually means the business case is moving faster than technology visibility. `;
+  if (ctx.concern) {
+    parts.push(
+      `${ctx.concern} is compressing the planning window — a signal that the business case may be advancing faster than technology architecture can support.`
+    );
   }
 
   if (event.executiveMindset) {
-    summary += event.executiveMindset + " ";
+    parts.push(event.executiveMindset);
   }
 
-  if (observations.length > 1) {
-    summary += `Taken together, your responses point to a change that will stress consistency, cost visibility, and how decisions are made across locations.`;
+  if (ctx.scale && includesAny(ctx.scale, ["21", "50"])) {
+    parts.push(
+      "At this scale, the question is not whether individual locations can open — it is whether each opening strengthens or erodes the operating model."
+    );
+  } else {
+    parts.push(
+      "The implications extend beyond any single site: standards, cost visibility, and decision rights across the footprint will determine whether this change is manageable or compounding."
+    );
   }
 
-  return summary.trim();
+  return parts.join(" ");
 }
 
-function buildWhatWeHeard(answered: AnsweredQuestion[]): string[] {
-  return answered.map(({ question, answer }) => {
-    const natural = naturalizeResponse(question, answer).replace(/\*\*/g, "");
-    if (question.purpose) {
-      return `${natural.charAt(0).toUpperCase()}${natural.slice(1)} — relevant because ${question.purpose.toLowerCase()}.`;
+function buildWhatWeHeard(event: BusinessEvent, ctx: SituationContext): string[] {
+  const heard: string[] = [];
+
+  if (ctx.catalyst) {
+    if (includesAny(ctx.catalyst, ["competitive"])) {
+      heard.push(
+        "Competitive dynamics are shaping the pace of expansion — technology standardization is running behind market pressure."
+      );
+    } else if (includesAny(ctx.catalyst, ["acquisition", "franchise"])) {
+      heard.push(
+        "Growth through acquisition or franchising will inherit heterogeneous technology estates — early standardization decisions determine how much integration work follows."
+      );
+    } else if (includesAny(ctx.catalyst, ["customer demand", "revenue"])) {
+      heard.push(
+        "Revenue opportunity is the primary driver, which means customer-facing technology consistency will be scrutinized before internal teams fully align."
+      );
+    } else if (includesAny(ctx.catalyst, ["portfolio"])) {
+      heard.push(
+        "Portfolio optimization is the catalyst — duplicate spend and incompatible systems across locations are likely limiting the savings the business expects."
+      );
+    } else if (includesAny(ctx.catalyst, ["market", "geographic"])) {
+      heard.push(
+        "Geographic expansion is the strategic intent, multiplying connectivity, compliance, and operational variables that rarely transfer cleanly between markets."
+      );
     }
-    return `${natural.charAt(0).toUpperCase()}${natural.slice(1)}.`;
-  });
+  }
+
+  if (ctx.scale && ctx.timeline) {
+    heard.push(
+      `A rollout of ${ctx.scale.toLowerCase()} across ${ctx.timeline.toLowerCase()} demands repeatable deployment — bespoke approaches at each site will not sustain the cadence.`
+    );
+  } else if (ctx.scale) {
+    heard.push(
+      `The scope of ${ctx.scale.toLowerCase()} moves this beyond a pilot exercise into an operating model question.`
+    );
+  }
+
+  if (ctx.model) {
+    if (includesAny(ctx.model, ["flexibility"])) {
+      heard.push(
+        "The target posture is core standards with local flexibility — workable only if the boundary between standard and local is explicit and enforced."
+      );
+    } else if (includesAny(ctx.model, ["independent"])) {
+      heard.push(
+        "Locations are expected to operate with significant independence — which reduces short-term friction but increases integration and audit complexity over time."
+      );
+    } else if (includesAny(ctx.model, ["identical", "every site"])) {
+      heard.push(
+        "Full standardization across sites is the ambition — which raises the bar for blueprint definition, testing, and governance before the first opening."
+      );
+    }
+  }
+
+  if (ctx.concern) {
+    if (includesAny(ctx.concern, ["cost"])) {
+      heard.push(
+        "Cost predictability is the executive priority — fragmented contracts and per-location provisioning will make forecasting difficult without deliberate architecture."
+      );
+    } else if (includesAny(ctx.concern, ["speed"])) {
+      heard.push(
+        "Rollout speed is the binding constraint — without a location blueprint, each opening will inherit whatever worked last time, including accumulated technical debt."
+      );
+    } else if (includesAny(ctx.concern, ["consistency"])) {
+      heard.push(
+        "Consistency is the stated pressure point — which typically reflects gaps in standards, monitoring, or handoff between real estate, operations, and technology."
+      );
+    } else {
+      heard.push(
+        `${ctx.concern} is where leadership attention is focused — the technology implications of that priority deserve explicit ownership before commitments are made.`
+      );
+    }
+  }
+
+  if (ctx.stage) {
+    heard.push(
+      `The organization is in ${ctx.stage.toLowerCase()} — technology decisions made now will constrain integration options at later stages.`
+    );
+  }
+
+  if (heard.length === 0) {
+    heard.push(
+      `Active planning is underway for ${event.title.toLowerCase()}, with technology implications that cut across operations, governance, and vendor relationships.`
+    );
+  }
+
+  return heard.slice(0, 5);
 }
 
 function buildLikelyImpacts(
   event: BusinessEvent,
-  answered: AnsweredQuestion[],
+  ctx: SituationContext,
   domains: string[]
 ): string[] {
   const impacts: string[] = [];
-  const catalyst = findAnswer(answered, "expansion-catalyst");
-  const scale = findAnswer(answered, "location-count");
-  const timeline = findAnswer(answered, "expansion-scale") ?? findAnswer(answered, "timeline");
-  const model = findAnswer(answered, "model");
-  const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
-  const systems = findAnswer(answered, "systems");
 
-  if (catalyst?.toLowerCase().includes("competitive")) {
+  if (ctx.catalyst && includesAny(ctx.catalyst, ["competitive"])) {
     impacts.push(
-      `Competitive pressure often accelerates opening timelines before technology standards are defined — creating short-term wins that become long-term integration debt.`
+      "Accelerated timelines tend to defer standards definition — creating short-term openings that become long-term integration debt."
     );
-  } else if (catalyst?.toLowerCase().includes("acquisition") || catalyst?.toLowerCase().includes("franchise")) {
+  } else if (ctx.catalyst && includesAny(ctx.catalyst, ["acquisition", "franchise"])) {
     impacts.push(
-      `Growth through acquired or franchised locations typically inherits heterogeneous technology — standardization decisions made early determine how much integration work follows.`
+      "Inherited technology from acquired or franchised sites will require explicit rationalization — deferring that work multiplies support cost and security exposure."
     );
-  } else if (catalyst?.toLowerCase().includes("customer demand")) {
+  } else if (ctx.catalyst && includesAny(ctx.catalyst, ["customer demand", "revenue"])) {
     impacts.push(
-      `Revenue-driven expansion puts customer-facing technology under immediate scrutiny — inconsistencies between locations become visible to customers before internal teams align.`
-    );
-  } else if (catalyst?.toLowerCase().includes("portfolio")) {
-    impacts.push(
-      `Portfolio optimization usually surfaces duplicate spend and incompatible systems across locations — technology visibility is often the limiting factor in realizing savings.`
-    );
-  } else if (catalyst?.toLowerCase().includes("market") || catalyst?.toLowerCase().includes("geographic")) {
-    impacts.push(
-      `Geographic growth multiplies connectivity, compliance, and operational variables — what works in one market rarely transfers without deliberate adaptation.`
+      "Customer-facing systems at new locations will be compared against existing sites immediately — inconsistencies become visible to the market before internal teams reconcile them."
     );
   }
 
-  if (scale && timeline) {
+  if (ctx.model && includesAny(ctx.model, ["independent"])) {
     impacts.push(
-      `Opening ${scale.toLowerCase()} on a ${timeline.toLowerCase()} cadence leaves little room for one-off deployments — each delay at one site becomes a pattern unless standards are defined now.`
+      "Location-level independence expands the audit surface and makes enterprise-wide reporting, security policy, and vendor negotiation harder to centralize."
     );
   }
 
-  if (model?.toLowerCase().includes("flexibility")) {
+  if (ctx.concern && includesAny(ctx.concern, ["cost"])) {
     impacts.push(
-      `Your preference for core standards with local flexibility is workable, but it requires explicit boundaries — otherwise "flexibility" becomes unreviewed variation at each location.`
+      "Without location-level cost visibility, renewal cycles will lock in fragmented spend before leadership can negotiate from a consolidated position."
     );
-  } else if (model?.toLowerCase().includes("independent")) {
+  } else if (ctx.concern && includesAny(ctx.concern, ["speed"])) {
     impacts.push(
-      `Allowing each location to operate largely independently will reduce short-term friction but increase integration cost, support complexity, and audit surface over time.`
-    );
-  }
-
-  if (concern?.toLowerCase().includes("cost")) {
-    impacts.push(
-      `With cost predictability as the stated concern, fragmented contracts and per-location provisioning will make it difficult to forecast spend before commitments are made.`
-    );
-  } else if (concern?.toLowerCase().includes("speed")) {
-    impacts.push(
-      `Speed-driven rollouts tend to reuse whatever worked last time — including technical debt — unless a location blueprint exists before the next opening.`
-    );
-  } else if (concern?.toLowerCase().includes("consistency")) {
-    impacts.push(
-      `Consistency concerns at this stage usually reflect gaps in standards, monitoring, or handoff between real estate, operations, and technology — not a single system failure.`
+      "Speed-driven deployments default to replication of the last opening — including undocumented workarounds that become undocumented standards."
     );
   }
 
-  if (systems) {
+  if (ctx.systems) {
     impacts.push(
-      `The systems you identified (${systems.toLowerCase()}) will drive integration sequencing, security boundaries, and where executive trade-offs are unavoidable.`
+      `Integration sequencing will center on ${ctx.systems.toLowerCase()} — these are the domains where executive trade-offs become unavoidable first.`
     );
   }
 
-  const stage = findAnswer(answered, "deal-stage");
-  if (stage) {
+  if (ctx.stage) {
     impacts.push(
-      `At the ${stage.toLowerCase()} stage, technology decisions made now will constrain integration options later — particularly identity, data, and operational tooling.`
+      "Identity, data boundaries, and operational tooling choices made during this phase will be expensive to unwind once integration milestones are set."
     );
   }
 
   const domainNotes: Record<string, string> = {
     "Networking & Connectivity":
-      "Connectivity is rarely the bottleneck at headquarters — it becomes one at the edge, where landlord constraints and carrier options vary by site.",
+      "Connectivity is rarely constrained at headquarters — it becomes the bottleneck at the edge, where landlord requirements and carrier options vary by site.",
     "IT Operations":
-      "Operational tooling built for a single campus does not automatically support opening, monitoring, and supporting remote locations.",
+      "Operational tooling designed for a single campus does not automatically support provisioning, monitoring, and supporting a distributed footprint.",
     "Security & Compliance":
-      "Security scope expands with every new site and integration path — particularly where local staff, contractors, and third parties touch systems.",
+      "Security scope expands with every new site and integration path — particularly where local staff, contractors, and third parties touch production systems.",
     "Customer Experience":
-      "Inconsistent customer-facing technology at one location often indicates a standards gap that already exists elsewhere.",
+      "A technology inconsistency at one location often signals a standards gap that already exists across the portfolio.",
+    "Data & Analytics":
+      "Reporting and analytics built for a centralized model will not reflect location-level reality until data ownership and pipelines are explicitly designed.",
+    "AI & Automation":
+      "Automation initiatives that depend on clean, accessible data will stall until governance and access models are defined for the distributed footprint.",
   };
 
   for (const domain of domains.slice(0, 3)) {
     const note = domainNotes[domain];
-    if (note && !impacts.some((i) => i.includes(note.slice(0, 30)))) {
+    if (note && !impacts.some((impact) => impact.includes(note.slice(0, 30)))) {
       impacts.push(note);
     }
   }
@@ -253,7 +307,7 @@ function buildLikelyImpacts(
 
   if (impacts.length === 0) {
     impacts.push(
-      `${event.title} typically affects how standards are set, how costs are visible, and who owns technology decisions across locations — not just which tools are in use.`
+      `${event.title} affects how standards are set, how costs are visible, and who owns technology decisions across locations — not merely which tools are deployed.`
     );
   }
 
@@ -262,34 +316,28 @@ function buildLikelyImpacts(
 
 function buildBlindSpots(
   event: BusinessEvent,
-  answered: AnsweredQuestion[],
+  ctx: SituationContext,
   insights: string[]
 ): string[] {
   const spots: string[] = [...insights];
 
-  const model = findAnswer(answered, "model");
-  const scale = findAnswer(answered, "location-count");
-
-  if (scale?.includes("50") || scale?.includes("21")) {
+  if (ctx.scale && includesAny(ctx.scale, ["50", "21"])) {
     spots.push(
-      "At your stated scale, the third and fourth openings often expose whether a playbook exists — or whether each site is still a custom project."
+      "Past the second or third opening, organizations at this scale typically discover whether a repeatable playbook exists — or whether each site remains a custom project."
     );
   }
 
-  if (model?.toLowerCase().includes("independent")) {
+  if (ctx.model && includesAny(ctx.model, ["independent"])) {
     spots.push(
-      "Independence at the location level frequently masks duplicate spend and incompatible integrations until consolidation is far more expensive."
+      "Location-level independence often masks duplicate spend and incompatible integrations until consolidation is far more expensive."
     );
-  }
-
-  if (event.executiveMindset && !spots.some((s) => s.includes(event.executiveMindset!))) {
-    spots.push(event.executiveMindset);
   }
 
   const contextual = [
-    "Total technology cost by location is often unknown until renewal cycles — after decisions are already locked in.",
-    "The last successful opening is treated as the template, even when its technology choices were accidental rather than deliberate.",
-    "Business timelines and technology readiness are rarely tracked on the same plan.",
+    "Total technology cost by location is frequently unknown until renewal cycles — after commitments are already locked in.",
+    "The last successful opening is often treated as the template, even when its technology choices were accidental rather than deliberate.",
+    "Business milestones and technology readiness are rarely tracked on the same plan.",
+    "Vendor contracts signed at individual locations can constrain enterprise architecture decisions for years.",
   ];
 
   for (const spot of contextual) {
@@ -302,63 +350,61 @@ function buildBlindSpots(
 
 function buildQuestionsToExplore(
   event: BusinessEvent,
-  answered: AnsweredQuestion[],
+  ctx: SituationContext,
   domains: string[]
 ): string[] {
   const questions: string[] = [];
-  const catalyst = findAnswer(answered, "expansion-catalyst");
-  const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
-  const model = findAnswer(answered, "model");
-  const scale = findAnswer(answered, "location-count");
 
-  if (catalyst) {
+  if (ctx.catalyst) {
     questions.push(
-      `You cited ${catalyst.toLowerCase()} as the catalyst — what business assumptions behind that decision still need to be validated before technology commitments are made?`
+      "What business assumptions behind the expansion still need validation before technology commitments are made?"
     );
   }
 
-  if (concern) {
+  if (ctx.concern) {
     questions.push(
-      `You raised ${concern.toLowerCase()} — where is that pressure showing up first: in budgets, in operations, or in customer-facing performance?`
+      "Where does the current pressure manifest first — in budgets, in operations, or in customer-facing performance?"
     );
   }
 
-  if (model) {
+  if (ctx.model) {
     questions.push(
-      `You described your standardization approach as "${model.toLowerCase()}" — what is explicitly standardized today, and what is left to local discretion?`
+      "What is explicitly standardized today, and what remains at local discretion without central review?"
     );
   }
 
-  if (scale) {
+  if (ctx.scale) {
     questions.push(
-      `At ${scale.toLowerCase()}, what would need to be true for the next opening to require no special technology project team?`
+      "What would need to be true for the next opening to proceed without a dedicated technology project team?"
     );
   }
 
-  for (const { question } of answered) {
-    if (question.reportSection) {
-      questions.push(
-        `On ${question.reportSection.toLowerCase()}: what has already been decided, and what still lacks a single owner?`
-      );
-    }
+  if (ctx.stage) {
+    questions.push(
+      "Which integration decisions must be made during the current phase to preserve options at later milestones?"
+    );
   }
 
   const domainQuestions: Record<string, string> = {
     "Networking & Connectivity":
-      "Where do connectivity decisions get made today — centrally, by region, or by each opening team?",
+      "Where are connectivity decisions made today — centrally, by region, or by each opening team?",
     "IT Operations":
-      "Do we have a documented location playbook, or does each site inherit the preferences of whoever managed the last opening?",
+      "Is there a documented location playbook, or does each site inherit the preferences of whoever managed the last opening?",
     "Security & Compliance":
-      "Can we describe security and compliance requirements the same way at every location — or only at headquarters?",
+      "Can security and compliance requirements be described the same way at every location — or only at headquarters?",
+    "Customer Experience":
+      "Which customer-facing capabilities must match flagship standards, and which can legitimately vary by location?",
+    "Data & Analytics":
+      "Who owns data quality and access authorization across locations — and is that ownership reflected in governance?",
   };
 
   for (const domain of domains.slice(0, 2)) {
-    const q = domainQuestions[domain];
-    if (q) questions.push(q);
+    const question = domainQuestions[domain];
+    if (question) questions.push(question);
   }
 
   questions.push(
-    `Who in the organization owns the technology implications of ${event.title.toLowerCase()} — and do they have visibility across all locations?`
+    `Who owns the technology implications of ${event.title.toLowerCase()} — and do they have visibility across the full footprint?`
   );
 
   return Array.from(new Set(questions)).slice(0, 6);
@@ -373,7 +419,6 @@ function buildAreasToExploreNext(
 
   for (const { question } of answered) {
     if (question.reportSection) areas.add(question.reportSection);
-    if (question.purpose) areas.add(question.purpose);
   }
 
   for (const domain of domains.slice(0, 4)) {
@@ -381,7 +426,7 @@ function buildAreasToExploreNext(
   }
 
   if (areas.size === 0) {
-    event.technologyDomains.slice(0, 3).forEach((d) => areas.add(resolveDomainLabel(d)));
+    event.technologyDomains.slice(0, 3).forEach((domain) => areas.add(resolveDomainLabel(domain)));
   }
 
   return Array.from(areas).slice(0, 6);
@@ -389,21 +434,20 @@ function buildAreasToExploreNext(
 
 function buildRoadmap(
   event: BusinessEvent,
-  answered: AnsweredQuestion[]
+  ctx: SituationContext
 ): TechnologyImpactReview["roadmap"] {
-  const timeline = findAnswer(answered, "expansion-scale") ?? findAnswer(answered, "timeline");
   const urgent =
-    timeline?.toLowerCase().includes("3 months") ||
-    timeline?.toLowerCase().includes("due diligence") ||
+    ctx.timeline?.toLowerCase().includes("3 month") ||
+    ctx.timeline?.toLowerCase().includes("due diligence") ||
     event.triggerLevel === "high";
 
   const immediate: string[] = [
-    "Confirm executive owner for technology decisions tied to this change",
+    "Confirm executive ownership for technology decisions tied to this change",
     "Document what was deployed at the most recent location opening or integration — not the ideal state",
   ];
 
   const next30Days: string[] = [
-    "Define non-negotiable technology standards vs. acceptable local variation",
+    "Define non-negotiable technology standards versus acceptable local variation",
     "Inventory connectivity, tooling, and support contracts that will repeat at each location",
   ];
 
@@ -418,23 +462,25 @@ function buildRoadmap(
     );
   }
 
-  const concern = findAnswer(answered, "challenge");
-  if (concern?.toLowerCase().includes("cost")) {
+  if (ctx.concern && includesAny(ctx.concern, ["cost"])) {
     next30Days.push("Map recurring technology spend by location and contract renewal date");
   }
-  if (concern?.toLowerCase().includes("consistency")) {
-    next30Days.push("Compare technology stack and configuration across three representative locations");
+  if (ctx.concern && includesAny(ctx.concern, ["consistency"])) {
+    next30Days.push(
+      "Compare technology stack and configuration across three representative locations"
+    );
   }
 
-  const systems = findAnswer(answered, "systems");
-  if (systems) {
+  if (ctx.systems) {
     next90Days.unshift(
-      `Sequence integration or deployment priorities for: ${systems.toLowerCase()}`
+      `Sequence integration or deployment priorities for ${ctx.systems.toLowerCase()}`
     );
   }
 
   if (event.reportTemplate === "expansion-brief") {
-    immediate.push("Validate whether a location technology blueprint exists — or whether each opening is still bespoke");
+    immediate.push(
+      "Validate whether a location technology blueprint exists — or whether each opening remains bespoke"
+    );
   }
 
   return {
@@ -444,16 +490,14 @@ function buildRoadmap(
   };
 }
 
-function buildNextConversation(event: BusinessEvent, answered: AnsweredQuestion[]): string {
-  const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
-  const catalyst = findAnswer(answered, "expansion-catalyst");
-  const focus = concern
-    ? `particularly around ${concern.toLowerCase()}`
-    : catalyst
-      ? `in the context of expansion driven by ${catalyst.toLowerCase()}`
-      : `in the context of ${event.title.toLowerCase()}`;
+function buildNextConversation(event: BusinessEvent, ctx: SituationContext): string {
+  const focus = ctx.concern
+    ? ctx.concern.toLowerCase()
+    : ctx.catalyst
+      ? ctx.catalyst.toLowerCase()
+      : event.title.toLowerCase();
 
-  return `This review captures what you shared today. The useful next step is a working session ${focus} — to pressure-test assumptions, sequence what to evaluate, and agree what must be standardized before the business timeline narrows your options. That conversation is evaluative, not a vendor selection exercise.`;
+  return `A working session focused on ${focus} would be the logical next step — to pressure-test assumptions, sequence what to evaluate, and agree what must be standardized before the business timeline narrows the options. This is evaluative preparation, not vendor selection.`;
 }
 
 function buildReviewTitle(event: BusinessEvent, industryTitle?: string): string {
@@ -468,6 +512,7 @@ function generateBaseTechnologyImpactReview(
   answers: ConversationAnswers
 ): TechnologyImpactReview {
   const answered = getAnsweredQuestions(event, answers);
+  const ctx = extractSituation(answered);
   const domains = collectDomains(event, answered);
   const insights = getTriggeredInsights(answered);
 
@@ -475,14 +520,14 @@ function generateBaseTechnologyImpactReview(
     title: buildReviewTitle(event),
     eventTitle: event.title,
     generatedAt: new Date().toISOString(),
-    executiveSummary: buildExecutiveSummary(event, answered),
-    whatWeHeard: buildWhatWeHeard(answered),
-    likelyImpacts: buildLikelyImpacts(event, answered, domains),
-    blindSpots: buildBlindSpots(event, answered, insights),
-    questionsToExplore: buildQuestionsToExplore(event, answered, domains),
+    executiveSummary: buildExecutiveSummary(event, ctx, answered),
+    whatWeHeard: buildWhatWeHeard(event, ctx),
+    likelyImpacts: buildLikelyImpacts(event, ctx, domains),
+    blindSpots: buildBlindSpots(event, ctx, insights),
+    questionsToExplore: buildQuestionsToExplore(event, ctx, domains),
     areasToExploreNext: buildAreasToExploreNext(event, answered, domains),
-    roadmap: buildRoadmap(event, answered),
-    nextConversation: buildNextConversation(event, answered),
+    roadmap: buildRoadmap(event, ctx),
+    nextConversation: buildNextConversation(event, ctx),
     ctaLabel: event.cta ?? "Request a collaborative session",
   };
 }
