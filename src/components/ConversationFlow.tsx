@@ -1,10 +1,12 @@
 "use client";
 
-import type { BusinessEvent } from "@/lib/types";
+import type { BusinessEvent, Industry } from "@/lib/types";
+import type { IndustryOverlayRegistry } from "@/lib/context/types";
 import type { ConversationStep } from "@/lib/conversation";
 import { generateTechnologyImpactReview } from "@/lib/brief";
 import { useConversationState } from "@/hooks/useConversationState";
 import { EventSelector } from "./EventSelector";
+import { IndustrySelector } from "./IndustrySelector";
 import { ConversationIntro } from "./ConversationIntro";
 import { ConversationProgress } from "./ConversationProgress";
 import { QuestionStep } from "./QuestionStep";
@@ -12,6 +14,8 @@ import { ExecutiveBriefDisplay } from "./ExecutiveBriefDisplay";
 
 interface ConversationFlowProps {
   events: BusinessEvent[];
+  contextIndustries: Industry[];
+  overlayRegistry: IndustryOverlayRegistry;
   basePath?: string;
   variant?: "home" | "page";
   onStepChange?: (step: ConversationStep) => void;
@@ -19,6 +23,8 @@ interface ConversationFlowProps {
 
 export function ConversationFlow({
   events,
+  contextIndustries,
+  overlayRegistry,
   basePath = "/",
   variant = "home",
   onStepChange,
@@ -26,20 +32,31 @@ export function ConversationFlow({
   const {
     step,
     selectedEvent,
+    industryContext,
     questionIndex,
     answers,
     currentQuestion,
     selectEvent,
+    selectIndustry,
+    skipIndustry,
     reset,
     goBack,
     continueFromIntro,
     handleAnswer,
     handleMultiselectToggle,
     handleMultiselectContinue,
-  } = useConversationState({ events, basePath, onStepChange });
+  } = useConversationState({ events, contextIndustries, basePath, onStepChange });
 
   if (step === "brief" && selectedEvent) {
-    const brief = generateTechnologyImpactReview(selectedEvent, answers);
+    const brief = generateTechnologyImpactReview(
+      {
+        event: selectedEvent,
+        answers,
+        context: { industry: industryContext },
+      },
+      overlayRegistry
+    );
+
     return (
       <div className="animate-fade-in">
         <button
@@ -57,7 +74,20 @@ export function ConversationFlow({
     return (
       <ConversationIntro
         event={selectedEvent}
+        industryTitle={industryContext?.title}
         onContinue={continueFromIntro}
+        onBack={goBack}
+      />
+    );
+  }
+
+  if (step === "industry" && selectedEvent) {
+    return (
+      <IndustrySelector
+        eventTitle={selectedEvent.title}
+        industries={contextIndustries}
+        onSelect={selectIndustry}
+        onSkip={skipIndustry}
         onBack={goBack}
       />
     );

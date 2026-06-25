@@ -1,12 +1,21 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import type { BusinessEvent } from "@/lib/types";
+import type { BusinessEvent, Industry } from "@/lib/types";
+import type { IndustryOverlayRegistry } from "@/lib/context/types";
 import type { ConversationStep } from "@/lib/conversation";
 import { HOME_HEADLINE, HOME_SUBHEAD } from "@/lib/copy";
 import { ConversationFlow } from "./ConversationFlow";
 
-export function HomeExperience({ events }: { events: BusinessEvent[] }) {
+export function HomeExperience({
+  events,
+  contextIndustries,
+  overlayRegistry,
+}: {
+  events: BusinessEvent[];
+  contextIndustries: Industry[];
+  overlayRegistry: IndustryOverlayRegistry;
+}) {
   const [step, setStep] = useState<ConversationStep>("select");
 
   return (
@@ -19,6 +28,8 @@ export function HomeExperience({ events }: { events: BusinessEvent[] }) {
         <Suspense fallback={<HomeExperienceFallback events={events} />}>
           <ConversationFlow
             events={events}
+            contextIndustries={contextIndustries}
+            overlayRegistry={overlayRegistry}
             basePath="/"
             variant="home"
             onStepChange={setStep}

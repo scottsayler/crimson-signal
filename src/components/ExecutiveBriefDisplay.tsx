@@ -51,6 +51,11 @@ export function ExecutiveBriefDisplay({ brief }: ExecutiveBriefDisplayProps) {
         <h1 className="text-2xl font-medium tracking-tight text-foreground md:text-3xl">
           {brief.title}
         </h1>
+        {brief.industryTitle && (
+          <p className="mt-2 text-sm text-muted-light">
+            Industry context: {brief.industryTitle}
+          </p>
+        )}
         <p className="mt-3 text-sm text-muted-light">{formattedDate}</p>
       </div>
 

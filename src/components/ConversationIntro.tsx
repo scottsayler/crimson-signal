@@ -4,11 +4,17 @@ import { CTAButton } from "./CTAButton";
 
 interface ConversationIntroProps {
   event: BusinessEvent;
+  industryTitle?: string;
   onContinue: () => void;
   onBack: () => void;
 }
 
-export function ConversationIntro({ event, onContinue, onBack }: ConversationIntroProps) {
+export function ConversationIntro({
+  event,
+  industryTitle,
+  onContinue,
+  onBack,
+}: ConversationIntroProps) {
   const framing = event.executiveMindset ?? event.summary ?? event.shortDescription;
 
   return (
@@ -27,6 +33,12 @@ export function ConversationIntro({ event, onContinue, onBack }: ConversationInt
       <h2 className="mb-4 text-xl font-medium tracking-tight text-foreground md:text-2xl">
         {event.title}
       </h2>
+
+      {industryTitle && (
+        <p className="mb-4 text-sm text-muted-light">
+          Industry context: <span className="text-muted">{industryTitle}</span>
+        </p>
+      )}
 
       {framing && (
         <p className="mb-4 text-[15px] leading-relaxed text-muted">{framing}</p>

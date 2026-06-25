@@ -84,7 +84,7 @@ export default async function IndustryPage({
                 {industry.relatedEvents.map((event) => (
                   <li key={event}>
                     <Link
-                      href={`/business-events/${event}`}
+                      href={`/?event=${event}&industry=${industry.slug}`}
                       className="text-sm text-muted capitalize transition-colors hover:text-crimson"
                     >
                       {event.replace(/-/g, " ")}
@@ -103,7 +103,7 @@ export default async function IndustryPage({
               Start with what changed and receive a personalized Executive
               Brief.
             </p>
-            <CTAButton href="/" className="w-full">
+            <CTAButton href={`/?industry=${industry.slug}`} className="w-full">
               What&apos;s changed?
             </CTAButton>
           </div>

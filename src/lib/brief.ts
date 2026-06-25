@@ -1,10 +1,14 @@
 import type { BusinessEvent, ConversationQuestion } from "./types";
 import { getDomainLabel } from "./types";
 import type { ConversationAnswers } from "./conversation";
+import { applyIndustryOverlay } from "./context/compose";
+import { getIndustryOverlay } from "./context/resolve-overlay";
+import type { IndustryOverlayRegistry, ReportContext } from "./context/types";
 
 export interface TechnologyImpactReview {
   title: string;
   eventTitle: string;
+  industryTitle?: string;
   generatedAt: string;
   executiveSummary: string;
   whatWeHeard: string[];
@@ -452,7 +456,14 @@ function buildNextConversation(event: BusinessEvent, answered: AnsweredQuestion[
   return `This review captures what you shared today. The useful next step is a working session ${focus} — to pressure-test assumptions, sequence what to evaluate, and agree what must be standardized before the business timeline narrows your options. That conversation is evaluative, not a vendor selection exercise.`;
 }
 
-export function generateTechnologyImpactReview(
+function buildReviewTitle(event: BusinessEvent, industryTitle?: string): string {
+  if (industryTitle) {
+    return `Technology Impact Review — ${event.title} (${industryTitle})`;
+  }
+  return `Technology Impact Review — ${event.title}`;
+}
+
+function generateBaseTechnologyImpactReview(
   event: BusinessEvent,
   answers: ConversationAnswers
 ): TechnologyImpactReview {
@@ -461,7 +472,7 @@ export function generateTechnologyImpactReview(
   const insights = getTriggeredInsights(answered);
 
   return {
-    title: `Technology Impact Review — ${event.title}`,
+    title: buildReviewTitle(event),
     eventTitle: event.title,
     generatedAt: new Date().toISOString(),
     executiveSummary: buildExecutiveSummary(event, answered),
@@ -474,6 +485,33 @@ export function generateTechnologyImpactReview(
     nextConversation: buildNextConversation(event, answered),
     ctaLabel: event.cta ?? "Schedule a Technology Strategy Session",
   };
+}
+
+export function generateTechnologyImpactReview(
+  reportContext: ReportContext,
+  overlayRegistry: IndustryOverlayRegistry = {}
+): TechnologyImpactReview {
+  const { event, answers, context } = reportContext;
+  const industry = context.industry ?? null;
+
+  const base = generateBaseTechnologyImpactReview(event, answers);
+  const overlay = getIndustryOverlay(
+    overlayRegistry,
+    event.slug,
+    industry?.slug
+  );
+
+  const review = applyIndustryOverlay(base, overlay);
+
+  if (industry) {
+    return {
+      ...review,
+      title: buildReviewTitle(event, industry.title),
+      industryTitle: industry.title,
+    };
+  }
+
+  return review;
 }
 
 /** @deprecated Use generateTechnologyImpactReview */

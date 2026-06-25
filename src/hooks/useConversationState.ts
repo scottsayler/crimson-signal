@@ -2,7 +2,8 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { BusinessEvent, ConversationQuestion } from "@/lib/types";
+import type { BusinessEvent, ConversationQuestion, Industry } from "@/lib/types";
+import type { IndustryContext } from "@/lib/context/types";
 import type { ConversationAnswers, ConversationStep } from "@/lib/conversation";
 import {
   clearConversation,
@@ -10,9 +11,11 @@ import {
   saveConversation,
 } from "@/lib/conversation-storage";
 import { resolveEvent } from "@/lib/resolve-event";
+import { resolveIndustry } from "@/lib/resolve-industry";
 
 interface UseConversationStateOptions {
   events: BusinessEvent[];
+  contextIndustries: Industry[];
   basePath?: string;
   onStepChange?: (step: ConversationStep) => void;
 }
@@ -20,22 +23,38 @@ interface UseConversationStateOptions {
 interface ConversationState {
   step: ConversationStep;
   selectedEvent: BusinessEvent | null;
+  industrySlug: string | null;
   questionIndex: number;
   answers: ConversationAnswers;
 }
 
+function toIndustryContext(industry: Industry): IndustryContext {
+  return { slug: industry.slug, title: industry.title };
+}
+
 function getInitialState(
   events: BusinessEvent[],
-  urlEventSlug: string | null
+  contextIndustries: Industry[],
+  urlEventSlug: string | null,
+  urlIndustrySlug: string | null
 ): ConversationState {
   const event = resolveEvent(events, urlEventSlug);
   if (!event) {
-    return { step: "select", selectedEvent: null, questionIndex: 0, answers: {} };
+    return {
+      step: "select",
+      selectedEvent: null,
+      industrySlug: null,
+      questionIndex: 0,
+      answers: {},
+    };
   }
 
+  const industry = resolveIndustry(contextIndustries, urlIndustrySlug);
+
   return {
-    step: "intro",
+    step: industry ? "intro" : "industry",
     selectedEvent: event,
+    industrySlug: industry?.slug ?? null,
     questionIndex: 0,
     answers: {},
   };
@@ -43,30 +62,37 @@ function getInitialState(
 
 export function useConversationState({
   events,
+  contextIndustries,
   basePath = "/",
   onStepChange,
 }: UseConversationStateOptions) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlEventSlug = searchParams.get("event");
+  const urlIndustrySlug = searchParams.get("industry");
 
   const [step, setStep] = useState<ConversationStep>(() =>
-    getInitialState(events, urlEventSlug).step
+    getInitialState(events, contextIndustries, urlEventSlug, urlIndustrySlug).step
   );
   const [selectedEvent, setSelectedEvent] = useState<BusinessEvent | null>(
-    () => getInitialState(events, urlEventSlug).selectedEvent
+    () => getInitialState(events, contextIndustries, urlEventSlug, urlIndustrySlug).selectedEvent
+  );
+  const [industrySlug, setIndustrySlug] = useState<string | null>(
+    () => getInitialState(events, contextIndustries, urlEventSlug, urlIndustrySlug).industrySlug
   );
   const [questionIndex, setQuestionIndex] = useState(
-    () => getInitialState(events, urlEventSlug).questionIndex
+    () => getInitialState(events, contextIndustries, urlEventSlug, urlIndustrySlug).questionIndex
   );
   const [answers, setAnswers] = useState<ConversationAnswers>(
-    () => getInitialState(events, urlEventSlug).answers
+    () => getInitialState(events, contextIndustries, urlEventSlug, urlIndustrySlug).answers
   );
 
   const stepRef = useRef(step);
   const selectedSlugRef = useRef(selectedEvent?.slug);
+  const industrySlugRef = useRef(industrySlug);
   stepRef.current = step;
   selectedSlugRef.current = selectedEvent?.slug;
+  industrySlugRef.current = industrySlug;
 
   const setStepWithCallback = useCallback(
     (next: ConversationStep) => {
@@ -77,9 +103,23 @@ export function useConversationState({
   );
 
   const buildPath = useCallback(
-    (eventSlug?: string) => (eventSlug ? `${basePath}?event=${eventSlug}` : basePath),
+    (eventSlug?: string, nextIndustrySlug?: string | null) => {
+      if (!eventSlug) return basePath;
+
+      const params = new URLSearchParams();
+      params.set("event", eventSlug);
+      if (nextIndustrySlug) {
+        params.set("industry", nextIndustrySlug);
+      }
+
+      return `${basePath}?${params.toString()}`;
+    },
     [basePath]
   );
+
+  const selectedIndustry = industrySlug
+    ? (contextIndustries.find((industry) => industry.slug === industrySlug) ?? null)
+    : null;
 
   const resetConversation = useCallback(
     (eventSlugToClear?: string) => {
@@ -87,6 +127,7 @@ export function useConversationState({
         clearConversation(eventSlugToClear);
       }
       setSelectedEvent(null);
+      setIndustrySlug(null);
       setQuestionIndex(0);
       setAnswers({});
       setStepWithCallback("select");
@@ -102,6 +143,7 @@ export function useConversationState({
         step?: ConversationStep;
         questionIndex?: number;
         answers?: ConversationAnswers;
+        industrySlug?: string | null;
       }
     ) => {
       const resetAnswers = options?.resetAnswers ?? true;
@@ -112,24 +154,45 @@ export function useConversationState({
         clearConversation(event.slug);
         setQuestionIndex(0);
         setAnswers({});
-        setStepWithCallback(options?.step ?? "intro");
+        setIndustrySlug(options?.industrySlug ?? null);
+        setStepWithCallback(options?.step ?? "industry");
         return;
       }
 
       if (options?.step) setStepWithCallback(options.step);
       if (options?.questionIndex !== undefined) setQuestionIndex(options.questionIndex);
       if (options?.answers) setAnswers(options.answers);
+      if (options?.industrySlug !== undefined) setIndustrySlug(options.industrySlug);
     },
     [setStepWithCallback]
   );
 
   const selectEvent = useCallback(
     (event: BusinessEvent) => {
-      beginEvent(event, { resetAnswers: true, step: "intro" });
+      beginEvent(event, { resetAnswers: true, step: "industry", industrySlug: null });
       router.push(buildPath(event.slug), { scroll: false });
     },
     [router, buildPath, beginEvent]
   );
+
+  const selectIndustry = useCallback(
+    (industry: Industry) => {
+      if (!selectedEvent) return;
+
+      setIndustrySlug(industry.slug);
+      setStepWithCallback("intro");
+      router.push(buildPath(selectedEvent.slug, industry.slug), { scroll: false });
+    },
+    [selectedEvent, setStepWithCallback, router, buildPath]
+  );
+
+  const skipIndustry = useCallback(() => {
+    if (!selectedEvent) return;
+
+    setIndustrySlug(null);
+    setStepWithCallback("intro");
+    router.push(buildPath(selectedEvent.slug), { scroll: false });
+  }, [selectedEvent, setStepWithCallback, router, buildPath]);
 
   const reset = useCallback(() => {
     const slug = selectedSlugRef.current;
@@ -152,6 +215,11 @@ export function useConversationState({
     }
 
     if (stepRef.current === "intro") {
+      setStepWithCallback("industry");
+      return;
+    }
+
+    if (stepRef.current === "industry") {
       reset();
     }
   }, [questionIndex, setStepWithCallback, reset]);
@@ -196,7 +264,6 @@ export function useConversationState({
 
   const hasRestoredRef = useRef(false);
 
-  // Restore persisted progress after mount (sessionStorage is client-only)
   useEffect(() => {
     const event = resolveEvent(events, urlEventSlug);
     if (event) {
@@ -206,6 +273,7 @@ export function useConversationState({
         setStep(persisted.step);
         setQuestionIndex(persisted.questionIndex);
         setAnswers(persisted.answers);
+        setIndustrySlug(persisted.industrySlug ?? null);
         onStepChange?.(persisted.step);
       }
     }
@@ -213,7 +281,6 @@ export function useConversationState({
     hasRestoredRef.current = true;
   }, [events, urlEventSlug, onStepChange]);
 
-  // Persist conversation progress for refresh and return visits
   useEffect(() => {
     if (!hasRestoredRef.current) return;
     if (!selectedEvent || step === "select") return;
@@ -222,10 +289,10 @@ export function useConversationState({
       step,
       questionIndex,
       answers,
+      industrySlug,
     });
-  }, [selectedEvent, step, questionIndex, answers]);
+  }, [selectedEvent, step, questionIndex, answers, industrySlug]);
 
-  // Keep conversation state aligned with ?event= for deep links, refresh, and browser navigation
   useEffect(() => {
     if (!urlEventSlug) {
       if (stepRef.current !== "select") {
@@ -243,12 +310,18 @@ export function useConversationState({
       return;
     }
 
-    const canonicalPath = buildPath(event.slug);
+    const canonicalPath = buildPath(event.slug, urlIndustrySlug);
     if (urlEventSlug !== event.slug) {
       router.replace(canonicalPath, { scroll: false });
     }
 
-    if (selectedSlugRef.current === event.slug) {
+    const resolvedIndustry = resolveIndustry(contextIndustries, urlIndustrySlug);
+    if (urlIndustrySlug && !resolvedIndustry) {
+      router.replace(buildPath(event.slug), { scroll: false });
+      return;
+    }
+
+    if (selectedSlugRef.current === event.slug && industrySlugRef.current === (resolvedIndustry?.slug ?? null)) {
       return;
     }
 
@@ -259,28 +332,45 @@ export function useConversationState({
         step: persisted.step,
         questionIndex: persisted.questionIndex,
         answers: persisted.answers,
+        industrySlug: persisted.industrySlug ?? resolvedIndustry?.slug ?? null,
       });
       return;
     }
 
-    beginEvent(event, { resetAnswers: true, step: "intro" });
-  }, [urlEventSlug, events, buildPath, router, resetConversation, beginEvent]);
+    beginEvent(event, {
+      resetAnswers: true,
+      step: resolvedIndustry ? "intro" : "industry",
+      industrySlug: resolvedIndustry?.slug ?? null,
+    });
+  }, [
+    urlEventSlug,
+    urlIndustrySlug,
+    events,
+    contextIndustries,
+    buildPath,
+    router,
+    resetConversation,
+    beginEvent,
+  ]);
 
-  // Notify parent layout when conversation is entered directly from URL on first mount
   useEffect(() => {
     const event = resolveEvent(events, urlEventSlug);
     if (!event) return;
 
-    onStepChange?.("intro");
-  }, [urlEventSlug, events, onStepChange]);
+    onStepChange?.(resolveIndustry(contextIndustries, urlIndustrySlug) ? "intro" : "industry");
+  }, [urlEventSlug, urlIndustrySlug, events, contextIndustries, onStepChange]);
 
   return {
     step,
     selectedEvent,
+    selectedIndustry,
+    industryContext: selectedIndustry ? toIndustryContext(selectedIndustry) : null,
     questionIndex,
     answers,
     currentQuestion,
     selectEvent,
+    selectIndustry,
+    skipIndustry,
     reset,
     goBack,
     continueFromIntro,

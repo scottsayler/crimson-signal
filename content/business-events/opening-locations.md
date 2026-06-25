@@ -14,6 +14,7 @@ industries:
   - retail
   - hospitality
   - healthcare
+  - restaurants
 technology_domains:
   - networking
   - cloud

@@ -6,6 +6,7 @@ export interface PersistedConversation {
   step: ConversationStep;
   questionIndex: number;
   answers: ConversationAnswers;
+  industrySlug?: string | null;
 }
 
 function storageKey(eventSlug: string): string {
