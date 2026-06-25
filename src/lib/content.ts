@@ -1,12 +1,12 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { parseBusinessEvent } from "./parse-business-event";
 import type {
   BusinessEvent,
   Industry,
   ResearchArticle,
   ExecutiveBriefSample,
-  ConversationQuestion,
 } from "./types";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
@@ -26,17 +26,9 @@ function readMarkdownFiles(dir: string): { slug: string; data: matter.GrayMatter
 export function getAllBusinessEvents(): BusinessEvent[] {
   const files = readMarkdownFiles(path.join(CONTENT_DIR, "business-events"));
   return files
-    .map(({ slug, data }) => ({
-      slug,
-      title: data.data.title as string,
-      shortDescription: data.data.shortDescription as string,
-      icon: (data.data.icon as string) ?? "→",
-      technologyDomains: (data.data.technologyDomains as string[]) ?? [],
-      relatedIndustries: (data.data.relatedIndustries as string[]) ?? [],
-      questions: (data.data.questions as ConversationQuestion[]) ?? [],
-      content: data.content,
-      order: (data.data.order as number) ?? 99,
-    }))
+    .map(({ slug, data }) =>
+      parseBusinessEvent(slug, data.data as Record<string, unknown>, data.content)
+    )
     .sort((a, b) => a.order - b.order);
 }
 

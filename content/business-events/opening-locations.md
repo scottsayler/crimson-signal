@@ -1,34 +1,84 @@
 ---
 title: Opening new locations
-shortDescription: Expanding your footprint creates technology decisions that compound across every new site.
-icon: "◈"
-order: 1
-technologyDomains:
+slug: opening-locations
+category: Growth
+summary: Expanding your footprint creates technology decisions that compound across every new site.
+executive_mindset: Expansion is treated as a real estate decision first — technology becomes the constraint later.
+business_problem: New sites open without a repeatable technology blueprint, creating inconsistency and hidden cost.
+trigger_level: high
+target_personas:
+  - CIO
+  - VP Operations
+  - CFO
+industries:
+  - retail
+  - hospitality
+  - healthcare
+technology_domains:
   - networking
   - cloud
   - operations
   - customer-experience
-relatedIndustries:
-  - retail
-  - hospitality
-  - healthcare
+related_events:
+  - rising-costs
+  - customer-complaints
+related_articles: []
+related_research:
+  - multi-location-technology-tax
+interactive_tool: guided-conversation
+report_template: expansion-brief
+strategy_session: true
+cta: Schedule a Technology Strategy Session
+search_intent:
+  - opening new locations technology
+  - multi-location expansion IT strategy
+  - store opening technology checklist
+icon: "◈"
+order: 1
 questions:
   - id: location-count
     question: How many new locations are you opening?
+    description: Scale determines whether expansion can follow a playbook or becomes a custom project each time.
     type: select
+    required: true
     options:
       - "1–5 locations"
       - "6–20 locations"
       - "21–50 locations"
       - "50+ locations"
-  - id: timeline
+    purpose: Measure expansion complexity
+    business_signal:
+      - Growth
+      - Operational scale
+    technology_domains:
+      - networking
+      - operations
+    report_section: Expansion Risk
+    weight: high
+    follow_up: expansion-scale
+    executive_insight: Organizations expanding beyond 20 locations often begin experiencing operational inconsistency unless technology standards are established early.
+    scoring_logic:
+      "21–50 locations": expansion_elevated
+      "50+ locations": expansion_high
+
+  - id: expansion-scale
     question: What is your expansion timeline?
     type: select
+    required: true
     options:
       - "Next 3 months"
       - "3–12 months"
       - "12–24 months"
       - "Ongoing rollout"
+    purpose: Assess delivery pressure on technology teams
+    business_signal:
+      - Urgency
+    technology_domains:
+      - operations
+      - cloud
+    report_section: Delivery Timeline
+    weight: medium
+
   - id: model
     question: How standardized should new locations be?
     type: select
@@ -36,6 +86,17 @@ questions:
       - "Identical technology at every site"
       - "Core standards with local flexibility"
       - "Each location largely independent"
+    purpose: Determine architecture and governance requirements
+    business_signal:
+      - Standardization
+      - Governance
+    technology_domains:
+      - operations
+      - networking
+    report_section: Location Blueprint
+    weight: high
+    executive_insight: Local flexibility without core standards usually creates the highest long-term technology cost.
+
   - id: challenge
     question: What is your biggest technology concern with expansion?
     type: select
@@ -44,6 +105,15 @@ questions:
       - "Consistency and quality"
       - "Cost predictability"
       - "Integration with existing systems"
+    purpose: Identify the primary executive concern driving technology evaluation
+    business_signal:
+      - Risk
+      - Cost
+    technology_domains:
+      - networking
+      - customer-experience
+    report_section: Primary Concern
+    weight: medium
 ---
 
 ## Technology implications of expansion

@@ -3,17 +3,33 @@ export interface TechnologyDomain {
   label: string;
 }
 
+export type QuestionType = "select" | "text" | "multiselect";
+
+export type QuestionWeight = "low" | "medium" | "high" | string;
+
 export interface ConversationQuestion {
   id: string;
   question: string;
-  type: "select" | "text" | "multiselect";
+  type: QuestionType;
   options?: string[];
   placeholder?: string;
+  /** Optional guidance shown alongside the question (not rendered yet) */
+  description?: string;
+  required?: boolean;
+  purpose?: string;
+  businessSignal?: string[];
+  technologyDomains?: string[];
+  reportSection?: string;
+  weight?: QuestionWeight;
+  followUp?: string;
+  executiveInsight?: string;
+  scoringLogic?: Record<string, string>;
 }
 
 export interface BusinessEvent {
   slug: string;
   title: string;
+  /** Populated from `summary` or legacy `shortDescription` */
   shortDescription: string;
   icon: string;
   technologyDomains: string[];
@@ -21,6 +37,23 @@ export interface BusinessEvent {
   questions: ConversationQuestion[];
   content: string;
   order: number;
+
+  // Extended schema (all optional)
+  category?: string;
+  summary?: string;
+  executiveMindset?: string;
+  businessProblem?: string;
+  triggerLevel?: string;
+  targetPersonas?: string[];
+  industries?: string[];
+  relatedEvents?: string[];
+  relatedArticles?: string[];
+  relatedResearch?: string[];
+  interactiveTool?: string;
+  reportTemplate?: string;
+  strategySession?: boolean | string;
+  cta?: string;
+  searchIntent?: string[];
 }
 
 export interface Industry {
