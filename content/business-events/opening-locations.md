@@ -36,6 +36,26 @@ search_intent:
 icon: "◈"
 order: 1
 questions:
+  - id: expansion-catalyst
+    question: What prompted this expansion?
+    description: Every meaningful technology conversation starts with the business catalyst — why this change is happening now.
+    type: select
+    required: true
+    options:
+      - "Market or geographic growth"
+      - "Customer demand or revenue opportunity"
+      - "Competitive pressure"
+      - "Acquisition of locations or franchise growth"
+      - "Portfolio optimization"
+    purpose: Identify the business catalyst driving the change
+    business_signal:
+      - Strategy
+      - Growth
+    technology_domains:
+      - operations
+    report_section: Business Catalyst
+    weight: high
+
   - id: location-count
     question: How many new locations are you opening?
     description: Scale determines whether expansion can follow a playbook or becomes a custom project each time.
@@ -63,6 +83,7 @@ questions:
 
   - id: expansion-scale
     question: What is your expansion timeline?
+    description: Aggressive timelines compress technology planning — decisions made now limit options at each opening.
     type: select
     required: true
     options:
@@ -81,6 +102,7 @@ questions:
 
   - id: model
     question: How standardized should new locations be?
+    description: Your standardization posture determines how much governance and integration work each opening requires.
     type: select
     options:
       - "Identical technology at every site"
@@ -99,6 +121,7 @@ questions:
 
   - id: challenge
     question: What is your biggest technology concern with expansion?
+    description: This helps prioritize what to evaluate first in a strategy conversation.
     type: select
     options:
       - "Speed of deployment"

@@ -4,12 +4,41 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { BusinessEvent, ConversationQuestion } from "@/lib/types";
 import type { ConversationAnswers, ConversationStep } from "@/lib/conversation";
+import {
+  clearConversation,
+  loadConversation,
+  saveConversation,
+} from "@/lib/conversation-storage";
 import { resolveEvent } from "@/lib/resolve-event";
 
 interface UseConversationStateOptions {
   events: BusinessEvent[];
   basePath?: string;
   onStepChange?: (step: ConversationStep) => void;
+}
+
+interface ConversationState {
+  step: ConversationStep;
+  selectedEvent: BusinessEvent | null;
+  questionIndex: number;
+  answers: ConversationAnswers;
+}
+
+function getInitialState(
+  events: BusinessEvent[],
+  urlEventSlug: string | null
+): ConversationState {
+  const event = resolveEvent(events, urlEventSlug);
+  if (!event) {
+    return { step: "select", selectedEvent: null, questionIndex: 0, answers: {} };
+  }
+
+  return {
+    step: "intro",
+    selectedEvent: event,
+    questionIndex: 0,
+    answers: {},
+  };
 }
 
 export function useConversationState({
@@ -21,16 +50,18 @@ export function useConversationState({
   const searchParams = useSearchParams();
   const urlEventSlug = searchParams.get("event");
 
-  const resolvedFromUrl = resolveEvent(events, urlEventSlug);
-
   const [step, setStep] = useState<ConversationStep>(() =>
-    resolvedFromUrl ? "conversation" : "select"
+    getInitialState(events, urlEventSlug).step
   );
   const [selectedEvent, setSelectedEvent] = useState<BusinessEvent | null>(
-    () => resolvedFromUrl
+    () => getInitialState(events, urlEventSlug).selectedEvent
   );
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<ConversationAnswers>({});
+  const [questionIndex, setQuestionIndex] = useState(
+    () => getInitialState(events, urlEventSlug).questionIndex
+  );
+  const [answers, setAnswers] = useState<ConversationAnswers>(
+    () => getInitialState(events, urlEventSlug).answers
+  );
 
   const stepRef = useRef(step);
   const selectedSlugRef = useRef(selectedEvent?.slug);
@@ -50,46 +81,80 @@ export function useConversationState({
     [basePath]
   );
 
-  const resetConversation = useCallback(() => {
-    setSelectedEvent(null);
-    setQuestionIndex(0);
-    setAnswers({});
-    setStepWithCallback("select");
-  }, [setStepWithCallback]);
+  const resetConversation = useCallback(
+    (eventSlugToClear?: string) => {
+      if (eventSlugToClear) {
+        clearConversation(eventSlugToClear);
+      }
+      setSelectedEvent(null);
+      setQuestionIndex(0);
+      setAnswers({});
+      setStepWithCallback("select");
+    },
+    [setStepWithCallback]
+  );
 
-  const startConversation = useCallback(
-    (event: BusinessEvent, options?: { resetAnswers?: boolean }) => {
+  const beginEvent = useCallback(
+    (
+      event: BusinessEvent,
+      options?: {
+        resetAnswers?: boolean;
+        step?: ConversationStep;
+        questionIndex?: number;
+        answers?: ConversationAnswers;
+      }
+    ) => {
       const resetAnswers = options?.resetAnswers ?? true;
+
       setSelectedEvent(event);
+
       if (resetAnswers) {
+        clearConversation(event.slug);
         setQuestionIndex(0);
         setAnswers({});
+        setStepWithCallback(options?.step ?? "intro");
+        return;
       }
-      setStepWithCallback("conversation");
+
+      if (options?.step) setStepWithCallback(options.step);
+      if (options?.questionIndex !== undefined) setQuestionIndex(options.questionIndex);
+      if (options?.answers) setAnswers(options.answers);
     },
     [setStepWithCallback]
   );
 
   const selectEvent = useCallback(
     (event: BusinessEvent) => {
-      startConversation(event, { resetAnswers: true });
+      beginEvent(event, { resetAnswers: true, step: "intro" });
       router.push(buildPath(event.slug), { scroll: false });
     },
-    [router, buildPath, startConversation]
+    [router, buildPath, beginEvent]
   );
 
   const reset = useCallback(() => {
-    resetConversation();
+    const slug = selectedSlugRef.current;
+    resetConversation(slug);
     router.replace(buildPath(), { scroll: false });
   }, [router, buildPath, resetConversation]);
 
+  const continueFromIntro = useCallback(() => {
+    setStepWithCallback("conversation");
+  }, [setStepWithCallback]);
+
   const goBack = useCallback(() => {
-    if (questionIndex > 0) {
-      setQuestionIndex((i) => i - 1);
-    } else {
+    if (stepRef.current === "conversation") {
+      if (questionIndex > 0) {
+        setQuestionIndex((i) => i - 1);
+      } else {
+        setStepWithCallback("intro");
+      }
+      return;
+    }
+
+    if (stepRef.current === "intro") {
       reset();
     }
-  }, [questionIndex, reset]);
+  }, [questionIndex, setStepWithCallback, reset]);
 
   const currentQuestion: ConversationQuestion | undefined =
     selectedEvent?.questions[questionIndex];
@@ -129,11 +194,42 @@ export function useConversationState({
     handleAnswer(current);
   }, [currentQuestion, answers, handleAnswer]);
 
+  const hasRestoredRef = useRef(false);
+
+  // Restore persisted progress after mount (sessionStorage is client-only)
+  useEffect(() => {
+    const event = resolveEvent(events, urlEventSlug);
+    if (event) {
+      const persisted = loadConversation(event.slug);
+      if (persisted) {
+        setSelectedEvent(event);
+        setStep(persisted.step);
+        setQuestionIndex(persisted.questionIndex);
+        setAnswers(persisted.answers);
+        onStepChange?.(persisted.step);
+      }
+    }
+
+    hasRestoredRef.current = true;
+  }, [events, urlEventSlug, onStepChange]);
+
+  // Persist conversation progress for refresh and return visits
+  useEffect(() => {
+    if (!hasRestoredRef.current) return;
+    if (!selectedEvent || step === "select") return;
+
+    saveConversation(selectedEvent.slug, {
+      step,
+      questionIndex,
+      answers,
+    });
+  }, [selectedEvent, step, questionIndex, answers]);
+
   // Keep conversation state aligned with ?event= for deep links, refresh, and browser navigation
   useEffect(() => {
     if (!urlEventSlug) {
       if (stepRef.current !== "select") {
-        resetConversation();
+        resetConversation(selectedSlugRef.current);
       }
       return;
     }
@@ -141,7 +237,7 @@ export function useConversationState({
     const event = resolveEvent(events, urlEventSlug);
     if (!event) {
       if (stepRef.current !== "select") {
-        resetConversation();
+        resetConversation(selectedSlugRef.current);
       }
       router.replace(buildPath(), { scroll: false });
       return;
@@ -152,37 +248,31 @@ export function useConversationState({
       router.replace(canonicalPath, { scroll: false });
     }
 
-    if (stepRef.current === "brief") {
-      if (selectedSlugRef.current !== event.slug) {
-        startConversation(event, { resetAnswers: true });
-      }
+    if (selectedSlugRef.current === event.slug) {
       return;
     }
 
-    if (selectedSlugRef.current !== event.slug) {
-      startConversation(event, { resetAnswers: true });
+    const persisted = loadConversation(event.slug);
+    if (persisted) {
+      beginEvent(event, {
+        resetAnswers: false,
+        step: persisted.step,
+        questionIndex: persisted.questionIndex,
+        answers: persisted.answers,
+      });
       return;
     }
 
-    if (stepRef.current === "select") {
-      startConversation(event, { resetAnswers: false });
-    }
-  }, [
-    urlEventSlug,
-    events,
-    basePath,
-    buildPath,
-    router,
-    resetConversation,
-    startConversation,
-  ]);
+    beginEvent(event, { resetAnswers: true, step: "intro" });
+  }, [urlEventSlug, events, buildPath, router, resetConversation, beginEvent]);
 
   // Notify parent layout when conversation is entered directly from URL on first mount
   useEffect(() => {
-    if (resolvedFromUrl) {
-      onStepChange?.("conversation");
-    }
-  }, [resolvedFromUrl, onStepChange]);
+    const event = resolveEvent(events, urlEventSlug);
+    if (!event) return;
+
+    onStepChange?.("intro");
+  }, [urlEventSlug, events, onStepChange]);
 
   return {
     step,
@@ -193,6 +283,7 @@ export function useConversationState({
     selectEvent,
     reset,
     goBack,
+    continueFromIntro,
     handleAnswer,
     handleMultiselectToggle,
     handleMultiselectContinue,

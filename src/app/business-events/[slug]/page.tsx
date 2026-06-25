@@ -100,11 +100,11 @@ export default async function BusinessEventPage({
 
           <div className="rounded-xl border border-crimson/20 bg-crimson-light p-6">
             <h3 className="mb-2 font-semibold text-foreground">
-              Get your Executive Brief
+              Get your Technology Impact Review
             </h3>
             <p className="mb-4 text-sm leading-relaxed text-muted">
               Answer a few questions about your situation and receive a
-              personalized brief.
+              personalized Technology Impact Review.
             </p>
             <CTAButton href={`/?event=${event.slug}`} className="w-full">
               Start guided conversation

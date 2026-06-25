@@ -64,6 +64,8 @@ function naturalizeResponse(question: ConversationQuestion, answer: string): str
   const q = question.question.toLowerCase();
 
   if (q.includes("how many")) return `you are planning for **${answer}**`;
+  if (q.includes("prompted") || q.includes("catalyst"))
+    return `this expansion was driven by **${answer.toLowerCase()}**`;
   if (q.includes("timeline") || q.includes("when"))
     return `your timeline is **${answer}**`;
   if (q.includes("standardized") || q.includes("standard"))
@@ -101,8 +103,13 @@ function buildExecutiveSummary(event: BusinessEvent, answered: AnsweredQuestion[
 
   const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
   const scale = findAnswer(answered, "location-count") ?? findAnswer(answered, "entity-count");
+  const catalyst = findAnswer(answered, "expansion-catalyst");
 
   let summary = `You are navigating ${event.title.toLowerCase()}`;
+
+  if (catalyst) {
+    summary += `, driven by ${catalyst.toLowerCase()}`;
+  }
 
   if (scale) {
     summary += ` at a scale of ${scale.toLowerCase()}`;
@@ -146,11 +153,34 @@ function buildLikelyImpacts(
   domains: string[]
 ): string[] {
   const impacts: string[] = [];
+  const catalyst = findAnswer(answered, "expansion-catalyst");
   const scale = findAnswer(answered, "location-count");
   const timeline = findAnswer(answered, "expansion-scale") ?? findAnswer(answered, "timeline");
   const model = findAnswer(answered, "model");
   const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
   const systems = findAnswer(answered, "systems");
+
+  if (catalyst?.toLowerCase().includes("competitive")) {
+    impacts.push(
+      `Competitive pressure often accelerates opening timelines before technology standards are defined — creating short-term wins that become long-term integration debt.`
+    );
+  } else if (catalyst?.toLowerCase().includes("acquisition") || catalyst?.toLowerCase().includes("franchise")) {
+    impacts.push(
+      `Growth through acquired or franchised locations typically inherits heterogeneous technology — standardization decisions made early determine how much integration work follows.`
+    );
+  } else if (catalyst?.toLowerCase().includes("customer demand")) {
+    impacts.push(
+      `Revenue-driven expansion puts customer-facing technology under immediate scrutiny — inconsistencies between locations become visible to customers before internal teams align.`
+    );
+  } else if (catalyst?.toLowerCase().includes("portfolio")) {
+    impacts.push(
+      `Portfolio optimization usually surfaces duplicate spend and incompatible systems across locations — technology visibility is often the limiting factor in realizing savings.`
+    );
+  } else if (catalyst?.toLowerCase().includes("market") || catalyst?.toLowerCase().includes("geographic")) {
+    impacts.push(
+      `Geographic growth multiplies connectivity, compliance, and operational variables — what works in one market rarely transfers without deliberate adaptation.`
+    );
+  }
 
   if (scale && timeline) {
     impacts.push(
@@ -272,9 +302,16 @@ function buildQuestionsToExplore(
   domains: string[]
 ): string[] {
   const questions: string[] = [];
+  const catalyst = findAnswer(answered, "expansion-catalyst");
   const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
   const model = findAnswer(answered, "model");
   const scale = findAnswer(answered, "location-count");
+
+  if (catalyst) {
+    questions.push(
+      `You cited ${catalyst.toLowerCase()} as the catalyst — what business assumptions behind that decision still need to be validated before technology commitments are made?`
+    );
+  }
 
   if (concern) {
     questions.push(
@@ -405,9 +442,12 @@ function buildRoadmap(
 
 function buildNextConversation(event: BusinessEvent, answered: AnsweredQuestion[]): string {
   const concern = findAnswer(answered, "challenge") ?? findAnswer(answered, "priority");
+  const catalyst = findAnswer(answered, "expansion-catalyst");
   const focus = concern
     ? `particularly around ${concern.toLowerCase()}`
-    : `in the context of ${event.title.toLowerCase()}`;
+    : catalyst
+      ? `in the context of expansion driven by ${catalyst.toLowerCase()}`
+      : `in the context of ${event.title.toLowerCase()}`;
 
   return `This review captures what you shared today. The useful next step is a working session ${focus} — to pressure-test assumptions, sequence what to evaluate, and agree what must be standardized before the business timeline narrows your options. That conversation is evaluative, not a vendor selection exercise.`;
 }

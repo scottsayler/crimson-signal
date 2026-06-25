@@ -5,6 +5,7 @@ import type { ConversationStep } from "@/lib/conversation";
 import { generateTechnologyImpactReview } from "@/lib/brief";
 import { useConversationState } from "@/hooks/useConversationState";
 import { EventSelector } from "./EventSelector";
+import { ConversationIntro } from "./ConversationIntro";
 import { ConversationProgress } from "./ConversationProgress";
 import { QuestionStep } from "./QuestionStep";
 import { ExecutiveBriefDisplay } from "./ExecutiveBriefDisplay";
@@ -31,6 +32,7 @@ export function ConversationFlow({
     selectEvent,
     reset,
     goBack,
+    continueFromIntro,
     handleAnswer,
     handleMultiselectToggle,
     handleMultiselectContinue,
@@ -48,6 +50,16 @@ export function ConversationFlow({
         </button>
         <ExecutiveBriefDisplay brief={brief} />
       </div>
+    );
+  }
+
+  if (step === "intro" && selectedEvent) {
+    return (
+      <ConversationIntro
+        event={selectedEvent}
+        onContinue={continueFromIntro}
+        onBack={goBack}
+      />
     );
   }
 

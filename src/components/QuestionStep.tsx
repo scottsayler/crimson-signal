@@ -19,9 +19,15 @@ export function QuestionStep({
 }: QuestionStepProps) {
   return (
     <>
-      <h2 className="mb-6 text-xl font-medium tracking-tight text-foreground md:text-2xl">
+      <h2 className="mb-3 text-xl font-medium tracking-tight text-foreground md:text-2xl">
         {question.question}
       </h2>
+
+      {question.description && (
+        <p className="mb-6 text-sm leading-relaxed text-muted">{question.description}</p>
+      )}
+
+      {!question.description && <div className="mb-3" />}
 
       {question.type === "multiselect" ? (
         <div>
