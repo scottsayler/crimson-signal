@@ -4,6 +4,9 @@ const NAV_ITEMS = [
   { href: "/business-events", label: "Business Events" },
   { href: "/industries", label: "Industries" },
   { href: "/research", label: "Research" },
+  { href: "/evidence", label: "Evidence" },
+  { href: "/benchmarks", label: "Benchmarks" },
+  { href: "/experience", label: "Experience" },
   { href: "/about", label: "About" },
 ];
 

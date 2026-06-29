@@ -3,6 +3,8 @@ import path from "path";
 import matter from "gray-matter";
 import { parseBusinessEvent } from "./parse-business-event";
 import type { TechnologyImpactReview } from "./brief";
+import { parseEvidenceEntry } from "./parse-evidence";
+import { parseBenchmarkEntry } from "./parse-benchmark";
 import type {
   BusinessEvent,
   Industry,
@@ -11,6 +13,10 @@ import type {
   SampleReview,
   SampleReviewContent,
   SampleReviewListing,
+  EvidenceEntry,
+  EvidenceEntryResolved,
+  BenchmarkEntry,
+  BenchmarkEntryResolved,
 } from "./types";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
@@ -221,4 +227,76 @@ export function getFeaturedSampleReviews(limit = 3): SampleReviewListing[] {
   return getAllSampleReviews()
     .filter((review) => review.featured)
     .slice(0, limit);
+}
+
+function resolveEvidenceEntry(entry: EvidenceEntry): EvidenceEntryResolved {
+  const industry =
+    entry.industryLabel ??
+    getIndustry(entry.industrySlug)?.title ??
+    entry.industrySlug.replace(/-/g, " ");
+  const businessEvent =
+    entry.businessEventLabel ??
+    getBusinessEvent(entry.eventSlug)?.title ??
+    entry.eventSlug.replace(/-/g, " ");
+
+  return {
+    ...entry,
+    industry,
+    businessEvent,
+  };
+}
+
+export function getAllEvidence(): EvidenceEntryResolved[] {
+  const files = readMarkdownFiles(path.join(CONTENT_DIR, "evidence"));
+  return files
+    .map(({ slug, data }) =>
+      resolveEvidenceEntry(
+        parseEvidenceEntry(slug, data.data as Record<string, unknown>, data.content)
+      )
+    )
+    .sort((a, b) => {
+      const orderDiff = a.order - b.order;
+      if (orderDiff !== 0) return orderDiff;
+      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    });
+}
+
+export function getEvidenceEntry(slug: string): EvidenceEntryResolved | null {
+  return getAllEvidence().find((entry) => entry.slug === slug) ?? null;
+}
+
+function resolveBenchmarkEntry(entry: BenchmarkEntry): BenchmarkEntryResolved {
+  const industry =
+    entry.industryLabel ??
+    getIndustry(entry.industrySlug)?.title ??
+    entry.industrySlug.replace(/-/g, " ");
+  const businessEvent =
+    entry.businessEventLabel ??
+    getBusinessEvent(entry.eventSlug)?.title ??
+    entry.eventSlug.replace(/-/g, " ");
+
+  return {
+    ...entry,
+    industry,
+    businessEvent,
+  };
+}
+
+export function getAllBenchmarks(): BenchmarkEntryResolved[] {
+  const files = readMarkdownFiles(path.join(CONTENT_DIR, "benchmarks"));
+  return files
+    .map(({ slug, data }) =>
+      resolveBenchmarkEntry(
+        parseBenchmarkEntry(slug, data.data as Record<string, unknown>, data.content)
+      )
+    )
+    .sort((a, b) => {
+      const orderDiff = a.order - b.order;
+      if (orderDiff !== 0) return orderDiff;
+      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    });
+}
+
+export function getBenchmarkEntry(slug: string): BenchmarkEntryResolved | null {
+  return getAllBenchmarks().find((entry) => entry.slug === slug) ?? null;
 }

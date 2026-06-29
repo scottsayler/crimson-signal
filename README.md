@@ -179,6 +179,50 @@ Add a file to `content/industries/` with frontmatter: `title`, `shortDescription
 
 Add a file to `content/research/` with frontmatter: `title`, `excerpt`, `publishedAt`, `technologyDomains`.
 
+### Evidence Library
+
+Add a file to `content/evidence/` with frontmatter:
+
+| Field | TypeScript property | Required |
+|-------|---------------------|----------|
+| `title` | `title` | yes |
+| `excerpt` | `excerpt` | yes |
+| `publishedAt` | `publishedAt` | yes |
+| `industrySlug` | `industrySlug` | yes |
+| `eventSlug` | `eventSlug` | yes |
+| `evidenceReviewed` | `evidenceReviewed` | yes — array of strings or `{ source, note? }` objects |
+| `executivePatterns` | `executivePatterns` | yes |
+| `blindSpots` | `blindSpots` | yes |
+| `outcomes` | `outcomes` | yes |
+| `leadershipQuestions` | `leadershipQuestions` | yes |
+| `technologyDomains` | `technologyDomains` | optional |
+| `order` | `order` | optional |
+
+Snake_case aliases are supported (e.g. `industry_slug`, `evidence_reviewed`). Optional markdown body renders as **Synthesis Notes**.
+
+Parser: `src/lib/parse-evidence.ts`
+
+### Benchmarks
+
+Add a file to `content/benchmarks/` with frontmatter:
+
+| Field | TypeScript property | Required |
+|-------|---------------------|----------|
+| `title` | `title` | yes |
+| `excerpt` | `excerpt` | yes |
+| `publishedAt` | `publishedAt` | yes |
+| `industrySlug` | `industrySlug` | yes |
+| `eventSlug` | `eventSlug` | yes |
+| `ranges` | `ranges` | yes — array of `{ metric, range, note? }` objects |
+| `maturityObservations` | `maturityObservations` | yes |
+| `operationalPatterns` | `operationalPatterns` | yes |
+| `technologyDomains` | `technologyDomains` | optional |
+| `order` | `order` | optional |
+
+Snake_case aliases are supported (e.g. `benchmark_ranges`, `maturity_observations`). Optional markdown body renders as **Observations**.
+
+Parser: `src/lib/parse-benchmark.ts`
+
 ### Technology Domains
 
 Defined in `src/lib/types.ts`. Used as metadata tags across content.
@@ -205,5 +249,8 @@ Defined in `src/lib/types.ts`. Used as metadata tags across content.
 | `/business-events` | All business events |
 | `/industries` | Industry context |
 | `/research` | Independent research |
+| `/evidence` | Evidence Library — synthesized implementation evidence |
+| `/benchmarks` | Directional industry benchmarks and operational observations |
+| `/experience` | Advisory practice and credentials |
 | `/executive-briefs` | Sample briefs (not in primary navigation) |
 | `/about` | About Crimson Signal |

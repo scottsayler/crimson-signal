@@ -11,6 +11,9 @@ export function Footer() {
           {[
             { href: "/industries", label: "Industries" },
             { href: "/research", label: "Research" },
+            { href: "/evidence", label: "Evidence" },
+            { href: "/benchmarks", label: "Benchmarks" },
+            { href: "/experience", label: "Experience" },
             { href: "/about", label: "About" },
           ].map((item) => (
             <Link

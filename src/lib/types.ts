@@ -117,6 +117,64 @@ export interface BriefAnswers {
   answers: Record<string, string | string[]>;
 }
 
+export interface EvidenceReviewedItem {
+  source: string;
+  note?: string;
+}
+
+export interface EvidenceEntry {
+  slug: string;
+  title: string;
+  excerpt: string;
+  publishedAt: string;
+  industrySlug: string;
+  eventSlug: string;
+  /** Optional display override from frontmatter */
+  industryLabel?: string;
+  businessEventLabel?: string;
+  evidenceReviewed: EvidenceReviewedItem[];
+  executivePatterns: string[];
+  blindSpots: string[];
+  outcomes: string[];
+  leadershipQuestions: string[];
+  technologyDomains: string[];
+  content: string;
+  order: number;
+}
+
+export interface EvidenceEntryResolved extends EvidenceEntry {
+  industry: string;
+  businessEvent: string;
+}
+
+export interface BenchmarkRange {
+  metric: string;
+  range: string;
+  note?: string;
+}
+
+export interface BenchmarkEntry {
+  slug: string;
+  title: string;
+  excerpt: string;
+  publishedAt: string;
+  industrySlug: string;
+  eventSlug: string;
+  industryLabel?: string;
+  businessEventLabel?: string;
+  ranges: BenchmarkRange[];
+  maturityObservations: string[];
+  operationalPatterns: string[];
+  technologyDomains: string[];
+  content: string;
+  order: number;
+}
+
+export interface BenchmarkEntryResolved extends BenchmarkEntry {
+  industry: string;
+  businessEvent: string;
+}
+
 export const TECHNOLOGY_DOMAINS: TechnologyDomain[] = [
   { id: "cloud", label: "Cloud & Infrastructure" },
   { id: "security", label: "Security & Compliance" },
