@@ -11,6 +11,26 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Environment variables
+
+Contact form submissions are sent by email through [Resend](https://resend.com). Add these to `.env.local` for local development and to your hosting provider (for example Vercel) for production:
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `RESEND_API_KEY` | Yes | Resend API key with sending access |
+| `CONTACT_TO_EMAIL` | Yes | Inbox that receives contact form submissions |
+
+Example:
+
+```bash
+RESEND_API_KEY=re_xxxxxxxx
+CONTACT_TO_EMAIL=scott.sayler@crimsontech.co
+```
+
+The API route sends from `contact@crimsontech.co` (derived from `CONTACT_TO_EMAIL`) and sets `reply-to` to the submitter's email. Verify `crimsontech.co` in the Resend dashboard before deploying.
+
+Without these variables, the contact form returns a temporary-unavailable error after validation.
+
 ## Content Model
 
 All content is markdown-driven. Add new pages without code changes.
