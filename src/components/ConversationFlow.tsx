@@ -69,7 +69,11 @@ export function ConversationFlow({
         >
           ← Start over
         </button>
-        <ExecutiveBriefDisplay brief={brief} />
+        <ExecutiveBriefDisplay
+          brief={brief}
+          eventSlug={selectedEvent.slug}
+          industrySlug={industryContext?.slug ?? null}
+        />
       </div>
     );
   }

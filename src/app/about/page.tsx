@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AboutScott } from "@/components/AboutScott";
-import { StrategySessionCTA } from "@/components/StrategySessionCTA";
+import { ValidateAssessmentCTA } from "@/components/ValidateAssessmentCTA";
 
 export const metadata: Metadata = {
   title: "About",
@@ -68,7 +68,7 @@ export default function AboutPage() {
         <AboutScott />
 
         <div className="mt-16 rounded-2xl border border-crimson/20 bg-crimson-light p-8">
-          <StrategySessionCTA />
+          <ValidateAssessmentCTA />
         </div>
       </div>
     </div>

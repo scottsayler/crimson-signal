@@ -12,6 +12,7 @@ import {
 } from "@/lib/conversation-storage";
 import { resolveEvent } from "@/lib/resolve-event";
 import { resolveIndustry } from "@/lib/resolve-industry";
+import { trackEvent } from "@/lib/analytics";
 
 interface UseConversationStateOptions {
   events: BusinessEvent[];
@@ -169,6 +170,7 @@ export function useConversationState({
 
   const selectEvent = useCallback(
     (event: BusinessEvent) => {
+      trackEvent("event_selected", { eventSlug: event.slug });
       beginEvent(event, { resetAnswers: true, step: "industry", industrySlug: null });
       router.push(buildPath(event.slug), { scroll: false });
     },
@@ -179,6 +181,10 @@ export function useConversationState({
     (industry: Industry) => {
       if (!selectedEvent) return;
 
+      trackEvent("industry_selected", {
+        eventSlug: selectedEvent.slug,
+        industrySlug: industry.slug,
+      });
       setIndustrySlug(industry.slug);
       setStepWithCallback("intro");
       router.push(buildPath(selectedEvent.slug, industry.slug), { scroll: false });
@@ -189,6 +195,11 @@ export function useConversationState({
   const skipIndustry = useCallback(() => {
     if (!selectedEvent) return;
 
+    trackEvent("industry_selected", {
+      eventSlug: selectedEvent.slug,
+      industrySlug: null,
+      skipped: true,
+    });
     setIndustrySlug(null);
     setStepWithCallback("intro");
     router.push(buildPath(selectedEvent.slug), { scroll: false });
@@ -237,6 +248,10 @@ export function useConversationState({
       if (questionIndex < selectedEvent.questions.length - 1) {
         setQuestionIndex((i) => i + 1);
       } else {
+        trackEvent("assessment_completed", {
+          eventSlug: selectedEvent.slug,
+          industrySlug: industrySlugRef.current,
+        });
         setStepWithCallback("brief");
       }
     },

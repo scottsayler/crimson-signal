@@ -1,10 +1,16 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { useState } from "react";
 import type { TechnologyImpactReview } from "@/lib/brief";
 import { AboutScott } from "./AboutScott";
-import { StrategySessionCTA } from "./StrategySessionCTA";
+import { ValidateAssessmentCTA } from "./ValidateAssessmentCTA";
+import type { UnexpectedResponse } from "./UnexpectedFeedback";
 
 interface ExecutiveBriefDisplayProps {
   brief: TechnologyImpactReview;
+  eventSlug?: string | null;
+  industrySlug?: string | null;
 }
 
 function ReviewSection({
@@ -36,7 +42,15 @@ function BulletList({ items }: { items: string[] }) {
   );
 }
 
-export function ExecutiveBriefDisplay({ brief }: ExecutiveBriefDisplayProps) {
+export function ExecutiveBriefDisplay({
+  brief,
+  eventSlug = null,
+  industrySlug = null,
+}: ExecutiveBriefDisplayProps) {
+  const [unexpectedResponse, setUnexpectedResponse] = useState<UnexpectedResponse | null>(
+    null
+  );
+
   const formattedDate = new Date(brief.generatedAt).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -66,7 +80,15 @@ export function ExecutiveBriefDisplay({ brief }: ExecutiveBriefDisplayProps) {
         </p>
       </ReviewSection>
 
-      <StrategySessionCTA variant="prominent" label={brief.ctaLabel} />
+      <ValidateAssessmentCTA
+        variant="prominent"
+        showUnexpectedFeedback
+        unexpectedResponse={unexpectedResponse}
+        onUnexpectedChange={setUnexpectedResponse}
+        label={brief.ctaLabel}
+        eventSlug={eventSlug}
+        industrySlug={industrySlug}
+      />
 
       <ReviewSection title="Here's what we heard">
         <BulletList items={brief.whatWeHeard} />
@@ -112,7 +134,12 @@ export function ExecutiveBriefDisplay({ brief }: ExecutiveBriefDisplayProps) {
       </ReviewSection>
 
       <AboutScott />
-      <StrategySessionCTA label={brief.ctaLabel} />
+      <ValidateAssessmentCTA
+        unexpectedResponse={unexpectedResponse}
+        label={brief.ctaLabel}
+        eventSlug={eventSlug}
+        industrySlug={industrySlug}
+      />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { getIndustryOverlay } from "./context/resolve-overlay";
 import {
   composeReport,
   runPatternEngine,
+  polishReview,
   type PatternEngineResult,
   type PatternRegistry,
 } from "./patterns";
@@ -66,6 +67,7 @@ export function generateTechnologyImpactReviewWithTrace(
     industry?.slug
   );
   review = applyIndustryOverlay(review, overlay);
+  review = polishReview(review);
 
   return { review, engine: engineResult };
 }

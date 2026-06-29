@@ -13,3 +13,4 @@ export type {
 export { SECTION_LIMITS } from "./config";
 export { runPatternEngine } from "./engine/run";
 export { composeReport } from "./writer/compose";
+export { polishReview } from "./writer/polish";

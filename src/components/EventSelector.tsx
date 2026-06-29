@@ -1,9 +1,14 @@
+"use client";
+
+import { useEffect } from "react";
 import type { BusinessEvent } from "@/lib/types";
 import {
   HOME_HEADLINE,
   HOME_SUBHEAD,
   CONVERSATION_PAGE_SUBHEAD,
 } from "@/lib/copy";
+import { trackEvent } from "@/lib/analytics";
+import { HomeBanner } from "./HomeBanner";
 
 interface EventSelectorProps {
   events: BusinessEvent[];
@@ -13,6 +18,12 @@ interface EventSelectorProps {
 
 export function EventSelector({ events, variant, onSelect }: EventSelectorProps) {
   const isHome = variant === "home";
+
+  useEffect(() => {
+    if (isHome) {
+      trackEvent("landing");
+    }
+  }, [isHome]);
 
   return (
     <div className={isHome ? "w-full" : ""}>
@@ -30,6 +41,8 @@ export function EventSelector({ events, variant, onSelect }: EventSelectorProps)
           </p>
         )}
       </div>
+
+      {isHome && <HomeBanner />}
 
       {isHome ? (
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">

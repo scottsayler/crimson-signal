@@ -6,6 +6,7 @@ import type { IndustryOverlayRegistry } from "@/lib/context/types";
 import type { PatternRegistry } from "@/lib/patterns";
 import type { ConversationStep } from "@/lib/conversation";
 import { HOME_HEADLINE, HOME_SUBHEAD } from "@/lib/copy";
+import { HomeBanner } from "./HomeBanner";
 import { ConversationFlow } from "./ConversationFlow";
 
 export function HomeExperience({
@@ -51,6 +52,7 @@ function HomeExperienceFallback({ events }: { events: BusinessEvent[] }) {
         {HOME_HEADLINE}
       </h1>
       <p className="mx-auto mt-3 mb-8 max-w-md text-sm text-muted">{HOME_SUBHEAD}</p>
+      <HomeBanner />
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {events.map((event) => (
           <div
