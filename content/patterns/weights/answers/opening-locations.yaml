@@ -1,0 +1,18 @@
+event: opening-locations
+adjustments:
+  - question_id: model
+    answer: "Each location largely independent"
+    adjustments:
+      shared-independence-blind-spot: 35
+      expansion-impact-independence: 30
+
+  - question_id: challenge
+    answer: "Cost predictability"
+    adjustments:
+      expansion-urgent-cost-tension: 20
+      shared-roadmap-cost-visibility: 15
+
+  - question_id: expansion-scale
+    answer: "Next 3 months"
+    adjustments:
+      shared-timeline-compression: 25

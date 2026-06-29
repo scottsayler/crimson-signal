@@ -1,0 +1,161 @@
+family: expansion
+patterns:
+  - id: expansion-inherited-heterogeneity-tension
+    version: 1
+    section: executiveObservation
+    principle: Uniform standards across inherited sites require absorbing heterogeneity before the blueprint can take hold.
+    content: The strategic intent is uniform standards across inherited sites — but acquired and franchised locations rarely arrive with compatible architecture. The tension is not whether to standardize; it is how much heterogeneity must be absorbed before the blueprint can take hold.
+    base_priority: 82
+    events: [opening-locations]
+    theme: expansion-tension
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: acquisition
+      - question_id: model
+        operator: contains
+        value: Identical
+
+  - id: expansion-scale-speed-tension
+    version: 1
+    section: executiveObservation
+    principle: Speed without an enforced blueprint turns bespoke fixes into undocumented standards.
+    content: "Aggressive rollout tempo combined with local flexibility at this scale creates a predictable pattern: early locations absorb bespoke fixes that later sites inherit as undocumented standards. Speed is not the risk — speed without an enforced blueprint is."
+    base_priority: 80
+    events: [opening-locations]
+    theme: expansion-tension
+    conditions:
+      - question_id: location-count
+        operator: in
+        value: ["21–50 locations", "50+ locations"]
+      - question_id: model
+        operator: contains
+        value: flexibility
+      - question_id: challenge
+        operator: contains
+        value: Speed
+
+  - id: expansion-scale-cadence-tension
+    version: 1
+    section: executiveObservation
+    principle: At scale and cadence, each opening tests whether a repeatable operating model exists.
+    content: At this scale and cadence, each opening becomes a referendum on whether a repeatable operating model exists. Without one, the third and fourth sites will reveal whether technology is leading expansion or chasing it.
+    base_priority: 78
+    events: [opening-locations]
+    theme: expansion-tension
+    conditions:
+      - question_id: location-count
+        operator: in
+        value: ["21–50 locations", "50+ locations"]
+      - question_id: challenge
+        operator: contains
+        value: Speed
+
+  - id: expansion-inherited-flexibility-tension
+    version: 1
+    section: executiveObservation
+    principle: Inherited variation and local flexibility require explicit boundaries or the portfolio drifts by default.
+    content: Inherited site variation and a flexibility posture can coexist only with explicit boundaries — otherwise each opening team negotiates its own architecture and the portfolio drifts by default.
+    base_priority: 76
+    events: [opening-locations]
+    theme: expansion-tension
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: acquisition
+      - question_id: model
+        operator: contains
+        value: flexibility
+
+  - id: expansion-urgent-cost-tension
+    version: 1
+    section: executiveObservation
+    principle: Cost predictability and compressed timelines pull in opposite directions without consolidated architecture.
+    content: Cost predictability and compressed timelines are pulling in opposite directions — per-location provisioning and fragmented contracts will undermine forecasting precisely when leadership needs visibility most.
+    base_priority: 74
+    events: [opening-locations]
+    theme: expansion-tension
+    conditions:
+      - question_id: expansion-scale
+        operator: contains
+        value: "3 month"
+      - question_id: challenge
+        operator: contains
+        value: Cost
+
+  - id: expansion-consistency-flexibility-tension
+    version: 1
+    section: executiveObservation
+    principle: Consistency and local discretion coexist only when the standard-exception line is defined and enforced.
+    content: Leadership is prioritizing consistency while allowing local discretion — a workable combination only if the line between standard and exception is defined, enforced, and visible to operations.
+    base_priority: 72
+    events: [opening-locations]
+    theme: expansion-tension
+    conditions:
+      - question_id: challenge
+        operator: contains
+        value: Consistency
+      - question_id: model
+        operator: contains
+        value: flexibility
+
+  - id: expansion-consistency-pressure
+    version: 1
+    section: executiveObservation
+    principle: Visible consistency pressure means standards are missing or each location improvises.
+    content: Consistency pressure at this stage usually signals that customer- or patient-facing variation is already visible in the market — the technology question is whether standards exist or whether each location improvises.
+    base_priority: 70
+    events: [opening-locations]
+    theme: expansion-tension
+    conditions:
+      - question_id: challenge
+        operator: contains
+        value: Consistency
+
+  - id: expansion-competitive-urgency
+    version: 1
+    section: executiveObservation
+    principle: Competitive urgency accelerates real estate ahead of architecture; openings inherit what was fastest, not deliberate.
+    content: Competitive urgency is accelerating real estate decisions ahead of architecture — the openings that follow will inherit whatever was fastest at the last site, not what was deliberate.
+    base_priority: 68
+    events: [opening-locations]
+    theme: expansion-tension
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: Competitive
+
+  - id: expansion-geographic-complexity
+    version: 1
+    section: executiveObservation
+    principle: Geographic expansion multiplies variables that headquarters models rarely capture.
+    content: Geographic expansion multiplies variables that headquarters rarely models — connectivity, compliance, and operating assumptions that work in one market will not transfer without deliberate design.
+    base_priority: 66
+    events: [opening-locations]
+    theme: expansion-tension
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: geographic
+
+  - id: expansion-scale-operating-model
+    version: 1
+    section: executiveObservation
+    principle: Past a certain footprint, expansion becomes an operating model problem, not a project problem.
+    content: Past a certain footprint, expansion stops being a project problem and becomes an operating model problem — the architecture choices made now determine whether each new site strengthens or fragments the whole.
+    base_priority: 75
+    events: [opening-locations]
+    theme: expansion-scale
+    conditions:
+      - question_id: location-count
+        operator: in
+        value: ["21–50 locations", "50+ locations"]
+
+  - id: expansion-default-tension
+    version: 1
+    section: executiveObservation
+    principle: Expansion is treated as a real estate decision first; technology becomes the constraint later.
+    content: Expansion is treated as a real estate decision first — technology becomes the constraint later, when each opening inherits whatever worked last time rather than what was deliberately designed.
+    base_priority: 50
+    events: [opening-locations]
+    theme: expansion-default

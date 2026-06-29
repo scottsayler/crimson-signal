@@ -1,0 +1,11 @@
+industry: retail
+patterns:
+  industry-retail-day-one-readiness: 1.15
+  industry-retail-pos-impact: 1.2
+  industry-retail-inventory-impact: 1.15
+  industry-retail-format-impact: 1.1
+  industry-retail-pos-blind-spot: 1.15
+  industry-retail-omnichannel-blind-spot: 1.1
+  industry-retail-transact-question: 1.15
+  industry-retail-flagship-question: 1.1
+  expansion-consistency-flexibility-tension: 0.6

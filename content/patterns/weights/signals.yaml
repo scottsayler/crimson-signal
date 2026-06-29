@@ -1,0 +1,8 @@
+signals:
+  expansion_high:
+    expansion-scale-operating-model: 30
+    shared-playbook-blind-spot: 25
+    shared-expansion-elevated-insight: 20
+  expansion_elevated:
+    expansion-scale-operating-model: 15
+    shared-playbook-blind-spot: 15

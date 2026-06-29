@@ -9,16 +9,17 @@ review:
   eventTitle: Opening new locations
   industryTitle: Restaurants
   generatedAt: "2026-04-20T12:00:00.000Z"
-  executiveSummary: >-
+  executiveObservation: >-
     In restaurants, new locations must deliver consistent guest experience from the first
     service — kitchen systems, POS, and connectivity failures are immediately visible to
-    customers and staff. This is an opening new locations initiative driven by acquisition
-    of locations or franchise growth, spanning 6–20 locations over 3–12 months. Guest
-    experience consistency is compressing the planning window — a signal that the business
-    case may be advancing faster than technology architecture can support. Expansion is
-    treated as a real estate decision first — technology becomes the constraint later.
-    The implications extend beyond any single site: standards, cost visibility, and decision
-    rights across the footprint will determine whether this change is manageable or compounding.
+    customers and staff. The strategic intent is uniform standards across inherited sites
+    — but acquired and franchised locations rarely arrive with compatible architecture.
+    The tension is not whether to standardize; it is how much heterogeneity must be
+    absorbed before the blueprint can take hold. Guest experience pressure at this stage
+    usually signals that inconsistency is already visible in the market — not a future
+    risk. Leadership should treat opening readiness as an end-to-end service test —
+    kitchen, POS, payments, and delivery channels integrated — not a facilities handoff
+    with technology to follow.
   whatWeHeard:
     - Growth through acquisition or franchising will inherit heterogeneous technology estates — early standardization decisions determine how much integration work follows.
     - A rollout of 6–20 locations across 3–12 months demands repeatable deployment — bespoke approaches at each site will not sustain the cadence.

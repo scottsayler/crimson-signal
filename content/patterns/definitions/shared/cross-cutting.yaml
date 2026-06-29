@@ -1,0 +1,468 @@
+family: shared
+patterns:
+  - id: shared-timeline-compression
+    version: 1
+    section: executiveObservation
+    principle: Aggressive timelines compress the space between business commitment and technology readiness.
+    content: An aggressive timeline is compressing the space between business commitment and technology readiness — decisions made under that pressure tend to become permanent standards.
+    base_priority: 64
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: timeline-pressure
+    conditions:
+      - question_id: expansion-scale
+        operator: contains
+        value: "3 month"
+
+  - id: shared-timeline-urgent-generic
+    version: 1
+    section: executiveObservation
+    principle: Aggressive timelines compress the space between business commitment and technology readiness.
+    content: An aggressive timeline is compressing the space between business commitment and technology readiness — decisions made under that pressure tend to become permanent standards.
+    base_priority: 64
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: timeline-pressure
+    conditions:
+      - question_id: timeline
+        operator: contains
+        value: urgent
+
+  - id: shared-concern-forcing-opening
+    version: 1
+    section: executiveObservation
+    principle: Executive pressure reveals whether architecture can respond without accumulating location-level exceptions.
+    content: "{{concern}} is acting as the forcing function — the technology architecture question is whether the organization can respond without accumulating location-level exceptions that compound over time."
+    base_priority: 58
+    events: [opening-locations]
+    theme: concern-forcing
+    conditions:
+      - question_id: challenge
+        operator: in
+        value:
+          - "Speed of deployment"
+          - "Consistency and quality"
+          - "Cost predictability"
+          - "Integration with existing systems"
+
+  - id: shared-concern-forcing-acquisition
+    version: 1
+    section: executiveObservation
+    principle: Integration priority reveals whether architecture can respond without accumulating exceptions.
+    content: "{{concern}} is acting as the forcing function — the technology architecture question is whether the organization can respond without accumulating location-level exceptions that compound over time."
+    base_priority: 58
+    events: [acquisition]
+    theme: concern-forcing
+    conditions:
+      - question_id: priority
+        operator: in
+        value:
+          - "Speed to unified operations"
+          - "Minimize disruption"
+          - "Cost reduction"
+          - "Security and compliance"
+
+  - id: shared-playbook-blind-spot
+    version: 1
+    section: blindSpots
+    principle: Scale reveals whether a repeatable playbook exists or each site remains a custom project.
+    content: Past the second or third opening, organizations at this scale typically discover whether a repeatable playbook exists — or whether each site remains a custom project.
+    base_priority: 65
+    events: [opening-locations]
+    theme: scale-blind-spot
+    conditions:
+      - question_id: location-count
+        operator: in
+        value: ["21–50 locations", "50+ locations"]
+
+  - id: shared-independence-blind-spot
+    version: 1
+    section: blindSpots
+    principle: Location independence masks duplicate spend until consolidation is expensive.
+    content: Location-level independence often masks duplicate spend and incompatible integrations until consolidation is far more expensive.
+    base_priority: 63
+    events: [opening-locations]
+    theme: model-blind-spot
+    conditions:
+      - question_id: model
+        operator: contains
+        value: independent
+
+  - id: shared-cost-by-location-blind-spot
+    version: 1
+    section: blindSpots
+    principle: Total technology cost by location is often unknown until renewals lock commitments.
+    content: Total technology cost by location is frequently unknown until renewal cycles — after commitments are already locked in.
+    base_priority: 50
+    events:
+      - opening-locations
+      - acquisition
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: contextual-blind-spot
+
+  - id: shared-last-opening-template-blind-spot
+    version: 1
+    section: blindSpots
+    principle: The last successful opening is often mistaken for a deliberate template.
+    content: The last successful opening is often treated as the template, even when its technology choices were accidental rather than deliberate.
+    base_priority: 48
+    events:
+      - opening-locations
+      - acquisition
+      - rising-costs
+      - outages
+      - customer-complaints
+      - microsoft-modernization
+    theme: contextual-blind-spot
+
+  - id: shared-milestone-misalignment-blind-spot
+    version: 1
+    section: blindSpots
+    principle: Business milestones and technology readiness rarely share the same plan.
+    content: Business milestones and technology readiness are rarely tracked on the same plan.
+    base_priority: 46
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: contextual-blind-spot
+
+  - id: shared-vendor-contract-blind-spot
+    version: 1
+    section: blindSpots
+    principle: Location-level vendor contracts constrain enterprise architecture for years.
+    content: Vendor contracts signed at individual locations can constrain enterprise architecture decisions for years.
+    base_priority: 44
+    events:
+      - opening-locations
+      - acquisition
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: contextual-blind-spot
+
+  - id: shared-expansion-elevated-insight
+    version: 1
+    section: blindSpots
+    principle: Expansion beyond 20 locations requires early technology standards to prevent inconsistency.
+    content: Organizations expanding beyond 20 locations often begin experiencing operational inconsistency unless technology standards are established early.
+    base_priority: 70
+    events: [opening-locations]
+    theme: signal-insight
+
+  - id: shared-question-catalyst
+    version: 1
+    section: questionsToExplore
+    principle: Business assumptions behind change need validation before technology commitments.
+    content: What business assumptions behind the expansion still need validation before technology commitments are made?
+    base_priority: 55
+    events: [opening-locations]
+    theme: explore-catalyst
+    conditions:
+      - question_id: expansion-catalyst
+        operator: in
+        value:
+          - "Market or geographic growth"
+          - "Customer demand or revenue opportunity"
+          - "Competitive pressure"
+          - "Acquisition of locations or franchise growth"
+          - "Portfolio optimization"
+
+  - id: shared-question-concern
+    version: 1
+    section: questionsToExplore
+    principle: Executive pressure manifests differently in budgets, operations, and customer performance.
+    content: Where does the current pressure manifest first — in budgets, in operations, or in customer-facing performance?
+    base_priority: 55
+    events: [opening-locations]
+    theme: explore-concern
+    conditions:
+      - question_id: challenge
+        operator: in
+        value:
+          - "Speed of deployment"
+          - "Consistency and quality"
+          - "Cost predictability"
+          - "Integration with existing systems"
+
+  - id: shared-question-model
+    version: 1
+    section: questionsToExplore
+    principle: Standardization boundaries must be explicit to be enforceable.
+    content: What is explicitly standardized today, and what remains at local discretion without central review?
+    base_priority: 55
+    events: [opening-locations]
+    theme: explore-model
+    conditions:
+      - question_id: model
+        operator: in
+        value:
+          - "Identical technology at every site"
+          - "Core standards with local flexibility"
+          - "Each location largely independent"
+
+  - id: shared-question-scale
+    version: 1
+    section: questionsToExplore
+    principle: Repeatable openings should not require a dedicated technology project team each time.
+    content: What would need to be true for the next opening to proceed without a dedicated technology project team?
+    base_priority: 55
+    events: [opening-locations]
+    theme: explore-scale
+    conditions:
+      - question_id: location-count
+        operator: in
+        value: ["1–5 locations", "6–20 locations", "21–50 locations", "50+ locations"]
+
+  - id: shared-question-ownership
+    version: 1
+    section: questionsToExplore
+    principle: Technology ownership requires visibility across the full footprint.
+    content: Who owns the technology implications of {{event_title}} — and do they have visibility across the full footprint?
+    base_priority: 40
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: explore-ownership
+
+  - id: shared-roadmap-ownership
+    version: 1
+    section: roadmap.immediate
+    principle: Executive ownership must be explicit before technology commitments accumulate.
+    content: Confirm executive ownership for technology decisions tied to this change
+    base_priority: 50
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: roadmap-immediate
+
+  - id: shared-roadmap-document-reality
+    version: 1
+    section: roadmap.immediate
+    principle: Document actual deployment state, not the ideal state, before planning the next change.
+    content: Document what was deployed at the most recent location opening or integration — not the ideal state
+    base_priority: 48
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: roadmap-immediate
+
+  - id: shared-roadmap-standards
+    version: 1
+    section: roadmap.next30Days
+    principle: Non-negotiable standards versus local variation must be defined explicitly.
+    content: Define non-negotiable technology standards versus acceptable local variation
+    base_priority: 50
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: roadmap-30
+
+  - id: shared-roadmap-inventory
+    version: 1
+    section: roadmap.next30Days
+    principle: Repeating contracts and tooling must be inventoried before the next commitment.
+    content: Inventory connectivity, tooling, and support contracts that will repeat at each location
+    base_priority: 48
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: roadmap-30
+
+  - id: shared-roadmap-readiness-checklist
+    version: 1
+    section: roadmap.next90Days
+    principle: Readiness criteria must be tied to business timelines, not IT convenience.
+    content: Establish a location readiness checklist tied to the business opening or integration timeline
+    base_priority: 50
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: roadmap-90
+
+  - id: shared-roadmap-cost-visibility
+    version: 1
+    section: roadmap.next90Days
+    principle: Cost and risk visibility by location must precede the next major commitment.
+    content: Build cost and risk visibility by location before the next major commitment
+    base_priority: 48
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: roadmap-90
+
+  - id: shared-next-conversation
+    version: 1
+    section: nextConversation
+    principle: The next step is evaluative preparation, not vendor selection.
+    content: A working session focused on {{concern}} would be the logical next step — to pressure-test assumptions, sequence what to evaluate, and agree what must be standardized before the business timeline narrows the options. This is evaluative preparation, not vendor selection.
+    base_priority: 45
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: next-conversation
+
+  - id: shared-domain-networking-impact
+    version: 1
+    section: likelyImpacts
+    principle: Connectivity becomes the bottleneck at the edge, not at headquarters.
+    content: Connectivity is rarely constrained at headquarters — it becomes the bottleneck at the edge, where landlord requirements and carrier options vary by site.
+    base_priority: 42
+    events:
+      - opening-locations
+      - acquisition
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: domain-networking
+    tags:
+      technology_domains: [networking]
+
+  - id: shared-domain-operations-impact
+    version: 1
+    section: likelyImpacts
+    principle: Campus-oriented operational tooling does not automatically support distributed footprints.
+    content: Operational tooling designed for a single campus does not automatically support provisioning, monitoring, and supporting a distributed footprint.
+    base_priority: 42
+    events:
+      - opening-locations
+      - acquisition
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: domain-operations
+    tags:
+      technology_domains: [operations]
+
+  - id: shared-domain-security-impact
+    version: 1
+    section: likelyImpacts
+    principle: Security scope expands with every new site and integration path.
+    content: Security scope expands with every new site and integration path — particularly where local staff, contractors, and third parties touch production systems.
+    base_priority: 42
+    events:
+      - opening-locations
+      - acquisition
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: domain-security
+    tags:
+      technology_domains: [security]
+
+  - id: shared-area-networking
+    version: 1
+    section: areasToExploreNext
+    principle: Connectivity decisions must be understood across central, regional, and local ownership.
+    content: Networking & Connectivity
+    base_priority: 40
+    events:
+      - opening-locations
+      - acquisition
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: area-networking
+    tags:
+      technology_domains: [networking]
+      report_sections: [Networking & Connectivity]
+
+  - id: shared-area-operations
+    version: 1
+    section: areasToExploreNext
+    principle: IT operations must support provisioning and monitoring at scale.
+    content: IT Operations
+    base_priority: 40
+    events:
+      - opening-locations
+      - acquisition
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: area-operations
+    tags:
+      technology_domains: [operations]
+      report_sections: [IT Operations]

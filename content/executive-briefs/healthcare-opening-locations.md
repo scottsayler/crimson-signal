@@ -9,16 +9,16 @@ review:
   eventTitle: Opening new locations
   industryTitle: Healthcare
   generatedAt: "2026-05-15T12:00:00.000Z"
-  executiveSummary: >-
+  executiveObservation: >-
     In healthcare, new site openings intersect clinical operations, HIPAA obligations,
-    and patient-facing systems — not just facilities readiness. This is an opening new
-    locations initiative driven by customer demand or revenue opportunity, spanning
-    6–20 locations over 3–12 months. Clinical system readiness is compressing the planning
-    window — a signal that the business case may be advancing faster than technology
-    architecture can support. Expansion is treated as a real estate decision first —
-    technology becomes the constraint later. The implications extend beyond any single
-    site: standards, cost visibility, and decision rights across the footprint will
-    determine whether this change is manageable or compounding.
+    and patient-facing systems — not just facilities readiness. Revenue-driven expansion
+    at this cadence creates a structural tension: facilities and market teams will measure
+    progress in square footage, while clinical operations measures progress in cutover
+    readiness. Local flexibility in a regulated care environment is not autonomy — it is
+    variation that auditors and clinicians will surface at the first patient encounter.
+    The decision leadership should be pressure-testing is not network provisioning — it is
+    which clinical workflows must be live on day one, and who owns the definition of
+    ready-to-open when facilities and IT are on different timelines.
   whatWeHeard:
     - Revenue opportunity is the primary driver, which means patient-facing technology consistency will be scrutinized before internal teams fully align.
     - A rollout of 6–20 locations across 3–12 months demands repeatable deployment — bespoke approaches at each site will not sustain the cadence.

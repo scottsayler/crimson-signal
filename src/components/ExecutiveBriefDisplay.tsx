@@ -60,9 +60,9 @@ export function ExecutiveBriefDisplay({ brief }: ExecutiveBriefDisplayProps) {
         <p className="mt-3 text-sm text-muted-light">{formattedDate}</p>
       </div>
 
-      <ReviewSection title="Executive Summary">
+      <ReviewSection title="Executive Observation">
         <p className="text-[15px] leading-relaxed text-muted">
-          {brief.executiveSummary}
+          {brief.executiveObservation}
         </p>
       </ReviewSection>
 

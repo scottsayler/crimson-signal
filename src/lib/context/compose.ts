@@ -28,14 +28,6 @@ export function applyIndustryOverlay(
 ): TechnologyImpactReview {
   if (!overlay) return review;
 
-  let executiveSummary = review.executiveSummary;
-  if (overlay.framing?.executiveSummaryPrefix) {
-    executiveSummary = `${overlay.framing.executiveSummaryPrefix} ${executiveSummary}`;
-  }
-  if (overlay.framing?.executiveSummarySuffix) {
-    executiveSummary = `${executiveSummary} ${overlay.framing.executiveSummarySuffix}`;
-  }
-
   const likelyImpacts = mergeCapped(
     review.likelyImpacts,
     overlay.likelyImpacts ?? [],
@@ -77,7 +69,6 @@ export function applyIndustryOverlay(
 
   return {
     ...review,
-    executiveSummary: executiveSummary.trim(),
     likelyImpacts,
     blindSpots,
     questionsToExplore,

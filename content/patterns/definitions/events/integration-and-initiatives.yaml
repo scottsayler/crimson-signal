@@ -1,0 +1,186 @@
+family: events
+patterns:
+  - id: acquisition-due-diligence-visibility
+    version: 1
+    section: executiveObservation
+    principle: Due diligence surfaces business value faster than technology visibility.
+    content: Due diligence is surfacing business value faster than technology visibility — integration constraints identified now will be far cheaper to address than those discovered after close.
+    base_priority: 80
+    events: [acquisition]
+    theme: acquisition-stage
+    conditions:
+      - question_id: deal-stage
+        operator: contains
+        value: diligence
+
+  - id: acquisition-post-close-parallel-models
+    version: 1
+    section: executiveObservation
+    principle: Post-close organizations run two operating models in parallel until integration architecture is set.
+    content: Post-close, the organization is running two operating models in parallel — the window to set integration architecture before habits and workarounds harden is narrow.
+    base_priority: 78
+    events: [acquisition]
+    theme: acquisition-stage
+    conditions:
+      - question_id: deal-stage
+        operator: contains
+        value: Post-integration
+
+  - id: acquisition-integration-architecture-stake
+    version: 1
+    section: executiveObservation
+    principle: Integration architecture decisions in the current phase constrain options long after the transaction.
+    content: The integration architecture decisions made in the current phase will constrain identity, data, and operational tooling options long after the transaction headlines fade.
+    base_priority: 70
+    events: [acquisition]
+    theme: acquisition-default
+
+  - id: acquisition-heard-stage
+    version: 1
+    section: whatWeHeard
+    principle: Integration stage determines which technology decisions are still reversible.
+    content: The organization is in {{stage}} — technology decisions made now will constrain integration options at later stages.
+    base_priority: 65
+    events: [acquisition]
+    theme: heard-stage
+    conditions:
+      - question_id: deal-stage
+        operator: in
+        value:
+          - "Due diligence"
+          - "Day 1 planning"
+          - "Active integration"
+          - "Post-integration optimization"
+
+  - id: acquisition-impact-stage
+    version: 1
+    section: likelyImpacts
+    principle: Identity, data, and tooling choices during integration are expensive to unwind later.
+    content: Identity, data boundaries, and operational tooling choices made during this phase will be expensive to unwind once integration milestones are set.
+    base_priority: 65
+    events: [acquisition]
+    theme: impact-stage
+    conditions:
+      - question_id: deal-stage
+        operator: in
+        value:
+          - "Due diligence"
+          - "Day 1 planning"
+          - "Active integration"
+          - "Post-integration optimization"
+
+  - id: acquisition-impact-systems
+    version: 1
+    section: likelyImpacts
+    principle: Integration sequencing centers on domains where executive trade-offs are unavoidable.
+    content: Integration sequencing will center on {{systems}} — these are the domains where executive trade-offs become unavoidable first.
+    base_priority: 62
+    events: [acquisition]
+    theme: impact-systems
+
+  - id: acquisition-question-stage
+    version: 1
+    section: questionsToExplore
+    principle: Phase-appropriate integration decisions preserve options at later milestones.
+    content: Which integration decisions must be made during the current phase to preserve options at later milestones?
+    base_priority: 60
+    events: [acquisition]
+    theme: question-stage
+    conditions:
+      - question_id: deal-stage
+        operator: in
+        value:
+          - "Due diligence"
+          - "Day 1 planning"
+          - "Active integration"
+          - "Post-integration optimization"
+
+  - id: acquisition-systems-observation
+    version: 1
+    section: executiveObservation
+    principle: Integration sequencing centers on domains that become executive decisions, not technical preferences.
+    content: Sequencing will inevitably center on {{systems}} — the domains where trade-offs become executive decisions rather than technical preferences.
+    base_priority: 68
+    events: [acquisition]
+    theme: acquisition-systems
+
+  - id: ai-governance-data-tension
+    version: 1
+    section: executiveObservation
+    principle: AI ambition outpaces data access and governance maturity.
+    content: The initiative's ambition is outpacing data access and governance maturity — a pattern that produces promising pilots and stalled production deployments.
+    base_priority: 75
+    events: [ai-initiative]
+    theme: ai-tension
+    conditions:
+      - question_id: governance
+        operator: in
+        value:
+          - "No formal governance"
+          - "Informal guidelines"
+      - question_id: data-readiness
+        operator: in
+        value:
+          - "Data is fragmented across locations"
+          - "Some centralized data, inconsistent quality"
+          - "Strong data foundation, governance gaps"
+
+  - id: ai-distributed-data-ownership
+    version: 1
+    section: executiveObservation
+    principle: AI value in distributed organizations depends on data ownership and auditability across locations.
+    content: AI value in distributed organizations depends less on model selection than on whether data ownership, access, and auditability are defined across locations.
+    base_priority: 65
+    events: [ai-initiative]
+    theme: ai-default
+
+  - id: rising-costs-location-opacity
+    version: 1
+    section: executiveObservation
+    principle: Aggregate cost pressure without location visibility makes rationalization political.
+    content: Cost pressure is visible at the aggregate level but often opaque by location — which makes rationalization debates political rather than architectural.
+    base_priority: 72
+    events: [rising-costs]
+    theme: costs-tension
+
+  - id: cross-ready-to-open-ownership
+    version: 1
+    section: executiveObservation
+    principle: Ready-to-open must have an explicit owner that travels with the business timeline.
+    content: The threshold question is who owns the definition of 'ready to open' — and whether that definition travels with the real estate team or remains implicit in IT.
+    base_priority: 52
+    events: [opening-locations]
+    theme: expansion-leadership
+
+  - id: cross-decision-rights-default
+    version: 1
+    section: executiveObservation
+    principle: Decision rights and readiness criteria must be explicit before timelines narrow options.
+    content: The useful next step is to make decision rights and readiness criteria explicit before the business timeline narrows the options.
+    base_priority: 42
+    events:
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: leadership-default
+
+  - id: cross-event-business-problem
+    version: 1
+    section: likelyImpacts
+    principle: Business events surface structural technology gaps, not tool gaps.
+    content: "{{event_problem}}"
+    base_priority: 35
+    events:
+      - opening-locations
+      - acquisition
+      - ai-initiative
+      - rising-costs
+      - outages
+      - customer-complaints
+      - security-requirements
+      - microsoft-modernization
+    theme: event-problem

@@ -1,0 +1,251 @@
+family: expansion
+patterns:
+  - id: expansion-heard-competitive
+    version: 1
+    section: whatWeHeard
+    principle: Competitive dynamics compress standardization timelines.
+    content: Competitive dynamics are shaping the pace of expansion — technology standardization is running behind market pressure.
+    base_priority: 70
+    events: [opening-locations]
+    theme: heard-catalyst
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: Competitive
+
+  - id: expansion-heard-inherited-growth
+    version: 1
+    section: whatWeHeard
+    principle: Acquired and franchised growth inherits heterogeneous estates.
+    content: Growth through acquisition or franchising will inherit heterogeneous technology estates — early standardization decisions determine how much integration work follows.
+    base_priority: 70
+    events: [opening-locations]
+    theme: heard-catalyst
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: acquisition
+
+  - id: expansion-heard-revenue-driver
+    version: 1
+    section: whatWeHeard
+    principle: Revenue-driven expansion puts customer-facing consistency under scrutiny first.
+    content: Revenue opportunity is the primary driver, which means customer-facing technology consistency will be scrutinized before internal teams fully align.
+    base_priority: 68
+    events: [opening-locations]
+    theme: heard-catalyst
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: revenue
+
+  - id: expansion-heard-portfolio
+    version: 1
+    section: whatWeHeard
+    principle: Portfolio optimization exposes duplicate spend and incompatible systems.
+    content: Portfolio optimization is the catalyst — duplicate spend and incompatible systems across locations are likely limiting the savings the business expects.
+    base_priority: 66
+    events: [opening-locations]
+    theme: heard-catalyst
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: Portfolio
+
+  - id: expansion-heard-geographic
+    version: 1
+    section: whatWeHeard
+    principle: Geographic expansion multiplies operational variables.
+    content: Geographic expansion is the strategic intent, multiplying connectivity, compliance, and operational variables that rarely transfer cleanly between markets.
+    base_priority: 66
+    events: [opening-locations]
+    theme: heard-catalyst
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: geographic
+
+  - id: expansion-heard-scale-timeline
+    version: 1
+    section: whatWeHeard
+    principle: Scale and timeline together demand repeatable deployment.
+    content: A rollout of {{scale}} across {{timeline}} demands repeatable deployment — bespoke approaches at each site will not sustain the cadence.
+    base_priority: 72
+    events: [opening-locations]
+    theme: heard-scale
+    conditions:
+      - question_id: location-count
+        operator: in
+        value: ["1–5 locations", "6–20 locations", "21–50 locations", "50+ locations"]
+      - question_id: expansion-scale
+        operator: in
+        value: ["Next 3 months", "3–12 months", "12–24 months", "Ongoing rollout"]
+
+  - id: expansion-heard-scale-only
+    version: 1
+    section: whatWeHeard
+    principle: Scope moves expansion from pilot to operating model.
+    content: The scope of {{scale}} moves this beyond a pilot exercise into an operating model question.
+    base_priority: 60
+    events: [opening-locations]
+    theme: heard-scale
+    conditions:
+      - question_id: location-count
+        operator: in
+        value: ["1–5 locations", "6–20 locations", "21–50 locations", "50+ locations"]
+
+  - id: expansion-heard-flexibility-model
+    version: 1
+    section: whatWeHeard
+    principle: Core standards with local flexibility require an explicit standard-exception boundary.
+    content: The target posture is core standards with local flexibility — workable only if the boundary between standard and local is explicit and enforced.
+    base_priority: 65
+    events: [opening-locations]
+    theme: heard-model
+    conditions:
+      - question_id: model
+        operator: contains
+        value: flexibility
+
+  - id: expansion-heard-independence-model
+    version: 1
+    section: whatWeHeard
+    principle: Location independence trades short-term friction for long-term integration cost.
+    content: Locations are expected to operate with significant independence — which reduces short-term friction but increases integration and audit complexity over time.
+    base_priority: 65
+    events: [opening-locations]
+    theme: heard-model
+    conditions:
+      - question_id: model
+        operator: contains
+        value: independent
+
+  - id: expansion-heard-standardization-model
+    version: 1
+    section: whatWeHeard
+    principle: Full standardization raises the bar for blueprint definition before the first opening.
+    content: Full standardization across sites is the ambition — which raises the bar for blueprint definition, testing, and governance before the first opening.
+    base_priority: 65
+    events: [opening-locations]
+    theme: heard-model
+    conditions:
+      - question_id: model
+        operator: contains
+        value: Identical
+
+  - id: expansion-heard-cost-concern
+    version: 1
+    section: whatWeHeard
+    principle: Cost predictability requires deliberate architecture, not fragmented provisioning.
+    content: Cost predictability is the executive priority — fragmented contracts and per-location provisioning will make forecasting difficult without deliberate architecture.
+    base_priority: 68
+    events: [opening-locations]
+    theme: heard-concern
+    conditions:
+      - question_id: challenge
+        operator: contains
+        value: Cost
+
+  - id: expansion-heard-speed-concern
+    version: 1
+    section: whatWeHeard
+    principle: Speed without a blueprint replicates the last opening including its debt.
+    content: Rollout speed is the binding constraint — without a location blueprint, each opening will inherit whatever worked last time, including accumulated technical debt.
+    base_priority: 68
+    events: [opening-locations]
+    theme: heard-concern
+    conditions:
+      - question_id: challenge
+        operator: contains
+        value: Speed
+
+  - id: expansion-heard-consistency-concern
+    version: 1
+    section: whatWeHeard
+    principle: Consistency pressure reflects gaps in standards and handoff between functions.
+    content: Consistency is the stated pressure point — which typically reflects gaps in standards, monitoring, or handoff between real estate, operations, and technology.
+    base_priority: 68
+    events: [opening-locations]
+    theme: heard-concern
+    conditions:
+      - question_id: challenge
+        operator: contains
+        value: Consistency
+
+  - id: expansion-impact-competitive
+    version: 1
+    section: likelyImpacts
+    principle: Accelerated timelines defer standards definition into integration debt.
+    content: Accelerated timelines tend to defer standards definition — creating short-term openings that become long-term integration debt.
+    base_priority: 65
+    events: [opening-locations]
+    theme: impact-catalyst
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: Competitive
+
+  - id: expansion-impact-inherited
+    version: 1
+    section: likelyImpacts
+    principle: Inherited estates require explicit rationalization or support and security costs compound.
+    content: Inherited technology from acquired or franchised sites will require explicit rationalization — deferring that work multiplies support cost and security exposure.
+    base_priority: 65
+    events: [opening-locations]
+    theme: impact-catalyst
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: acquisition
+
+  - id: expansion-impact-revenue
+    version: 1
+    section: likelyImpacts
+    principle: Customer-facing inconsistencies become market-visible before internal alignment.
+    content: Customer-facing systems at new locations will be compared against existing sites immediately — inconsistencies become visible to the market before internal teams reconcile them.
+    base_priority: 63
+    events: [opening-locations]
+    theme: impact-catalyst
+    conditions:
+      - question_id: expansion-catalyst
+        operator: contains
+        value: revenue
+
+  - id: expansion-impact-independence
+    version: 1
+    section: likelyImpacts
+    principle: Location independence expands audit surface and fragments enterprise leverage.
+    content: Location-level independence expands the audit surface and makes enterprise-wide reporting, security policy, and vendor negotiation harder to centralize.
+    base_priority: 62
+    events: [opening-locations]
+    theme: impact-model
+    conditions:
+      - question_id: model
+        operator: contains
+        value: independent
+
+  - id: expansion-impact-cost
+    version: 1
+    section: likelyImpacts
+    principle: Without location-level cost visibility, renewals lock in fragmented spend.
+    content: Without location-level cost visibility, renewal cycles will lock in fragmented spend before leadership can negotiate from a consolidated position.
+    base_priority: 62
+    events: [opening-locations]
+    theme: impact-concern
+    conditions:
+      - question_id: challenge
+        operator: contains
+        value: Cost
+
+  - id: expansion-impact-speed
+    version: 1
+    section: likelyImpacts
+    principle: Speed-driven deployments replicate undocumented workarounds as standards.
+    content: Speed-driven deployments default to replication of the last opening — including undocumented workarounds that become undocumented standards.
+    base_priority: 62
+    events: [opening-locations]
+    theme: impact-concern
+    conditions:
+      - question_id: challenge
+        operator: contains
+        value: Speed

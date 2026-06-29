@@ -86,7 +86,9 @@ function parsePublishedReview(data: Record<string, unknown>): TechnologyImpactRe
     eventTitle: review.eventTitle as string,
     industryTitle: review.industryTitle as string | undefined,
     generatedAt: review.generatedAt as string,
-    executiveSummary: review.executiveSummary as string,
+    executiveObservation:
+      (review.executiveObservation as string | undefined) ??
+      (review.executiveSummary as string),
     whatWeHeard: review.whatWeHeard as string[],
     likelyImpacts: review.likelyImpacts as string[],
     blindSpots: review.blindSpots as string[],

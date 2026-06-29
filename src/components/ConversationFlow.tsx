@@ -2,6 +2,7 @@
 
 import type { BusinessEvent, Industry } from "@/lib/types";
 import type { IndustryOverlayRegistry } from "@/lib/context/types";
+import type { PatternRegistry } from "@/lib/patterns";
 import type { ConversationStep } from "@/lib/conversation";
 import { generateTechnologyImpactReview } from "@/lib/brief";
 import { useConversationState } from "@/hooks/useConversationState";
@@ -16,6 +17,7 @@ interface ConversationFlowProps {
   events: BusinessEvent[];
   contextIndustries: Industry[];
   overlayRegistry: IndustryOverlayRegistry;
+  patternRegistry: PatternRegistry;
   basePath?: string;
   variant?: "home" | "page";
   onStepChange?: (step: ConversationStep) => void;
@@ -25,6 +27,7 @@ export function ConversationFlow({
   events,
   contextIndustries,
   overlayRegistry,
+  patternRegistry,
   basePath = "/",
   variant = "home",
   onStepChange,
@@ -54,6 +57,7 @@ export function ConversationFlow({
         answers,
         context: { industry: industryContext },
       },
+      patternRegistry,
       overlayRegistry
     );
 

@@ -9,16 +9,16 @@ review:
   eventTitle: Opening new locations
   industryTitle: Retail
   generatedAt: "2026-05-01T12:00:00.000Z"
-  executiveSummary: >-
+  executiveObservation: >-
     In retail, each new store is a revenue node — POS reliability, inventory visibility,
     and omnichannel consistency determine whether the opening delivers on its business case.
-    This is an opening new locations initiative driven by market or geographic growth,
-    spanning 21–50 locations over 3–12 months. Speed of rollout is compressing the
-    planning window — a signal that the business case may be advancing faster than
-    technology architecture can support. Expansion is treated as a real estate decision
-    first — technology becomes the constraint later. At this scale, the question is not
-    whether individual locations can open — it is whether each opening strengthens or
-    erodes the operating model.
+    Aggressive rollout tempo at this scale creates a predictable pattern: early locations
+    absorb bespoke fixes that later sites inherit as undocumented standards. Speed is not
+    the risk — speed without an enforced blueprint is. Geographic expansion multiplies
+    connectivity, landlord, and format variables that headquarters rarely models in a
+    single playbook. The debate worth having before the next opening is whether a location
+    can transact, fulfill, and report inventory on day one — not whether construction is
+    complete.
   whatWeHeard:
     - Geographic expansion is the strategic intent, multiplying connectivity, compliance, and operational variables that rarely transfer cleanly between markets.
     - A rollout of 21–50 locations across 3–12 months demands repeatable deployment — bespoke approaches at each site will not sustain the cadence.

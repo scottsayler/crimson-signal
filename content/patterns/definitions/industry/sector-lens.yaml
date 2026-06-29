@@ -1,0 +1,111 @@
+family: industry
+patterns:
+  - id: industry-healthcare-opening-readiness
+    version: 1
+    section: executiveObservation
+    principle: Opening readiness in healthcare is defined by clinical workflow readiness, not network provisioning.
+    content: The decision leadership should be pressure-testing is not network provisioning — it is which clinical workflows must be live on day one, and who owns the definition of ready-to-open when facilities and IT are on different timelines.
+    base_priority: 88
+    events: [opening-locations]
+    industries: [healthcare]
+    theme: industry-lens
+
+  - id: industry-retail-day-one-readiness
+    version: 1
+    section: executiveObservation
+    principle: A retail opening is ready when it can transact, fulfill, and report inventory on day one.
+    content: The debate worth having before the next opening is whether a location can transact, fulfill, and report inventory on day one — not whether construction is complete.
+    base_priority: 88
+    events: [opening-locations]
+    industries: [retail]
+    theme: industry-lens
+
+  - id: industry-restaurants-service-test
+    version: 1
+    section: executiveObservation
+    principle: Restaurant opening readiness is an end-to-end service test, not a facilities handoff.
+    content: Leadership should treat opening readiness as an end-to-end service test — kitchen, POS, payments, and delivery channels integrated — not a facilities handoff with technology to follow.
+    base_priority: 88
+    events: [opening-locations]
+    industries: [restaurants]
+    theme: industry-lens
+
+  - id: industry-financial-regulatory-readiness
+    version: 1
+    section: executiveObservation
+    principle: Financial openings require regulatory and operational readiness before the first customer interaction.
+    content: The threshold question is regulatory and operational readiness for the first customer interaction — identity, audit logging, and fraud controls must be active before the branch opens, not after.
+    base_priority: 88
+    events: [opening-locations]
+    industries: [financial-services]
+    theme: industry-lens
+
+  - id: industry-retail-pos-impact
+    version: 1
+    section: likelyImpacts
+    principle: POS and payment downtime at a new store is immediate lost revenue.
+    content: POS and payment downtime at a new store directly translates to lost revenue from day one.
+    base_priority: 75
+    events: [opening-locations]
+    industries: [retail]
+    theme: retail-impact
+
+  - id: industry-retail-inventory-impact
+    version: 1
+    section: likelyImpacts
+    principle: Inventory and fulfillment must be live before omnichannel promises can be kept.
+    content: Inventory and fulfillment systems must be live before the store can support buy-online-pickup-in-store or ship-from-store promises.
+    base_priority: 73
+    events: [opening-locations]
+    industries: [retail]
+    theme: retail-impact
+
+  - id: industry-retail-format-impact
+    version: 1
+    section: likelyImpacts
+    principle: Store format differences create connectivity constraints that affect deployment sequencing.
+    content: Store format differences (mall, strip center, flagship) create connectivity and landlord constraints that affect technology deployment sequencing.
+    base_priority: 70
+    events: [opening-locations]
+    industries: [retail]
+    theme: retail-impact
+
+  - id: industry-retail-pos-blind-spot
+    version: 1
+    section: blindSpots
+    principle: Seasonal staffing systems often lag POS go-live, slowing operational capacity.
+    content: Seasonal staffing and training systems are often provisioned after POS go-live, slowing time to full operational capacity.
+    base_priority: 72
+    events: [opening-locations]
+    industries: [retail]
+    theme: retail-blind-spot
+
+  - id: industry-retail-omnichannel-blind-spot
+    version: 1
+    section: blindSpots
+    principle: Omnichannel rules are often untested at new stores before opening.
+    content: Omnichannel pricing and promotion rules are frequently tested in one channel but not validated at the new store before opening.
+    base_priority: 70
+    events: [opening-locations]
+    industries: [retail]
+    theme: retail-blind-spot
+
+  - id: industry-retail-transact-question
+    version: 1
+    section: questionsToExplore
+    principle: Opening day requires transact, fulfill, and report without workarounds.
+    content: Can this location transact, fulfill, and report inventory on opening day without manual workarounds?
+    base_priority: 75
+    events: [opening-locations]
+    industries: [retail]
+    theme: retail-question
+
+  - id: industry-retail-flagship-question
+    version: 1
+    section: questionsToExplore
+    principle: Flagship standards and format variation must be explicitly defined.
+    content: Which customer-facing systems must match flagship standards versus what can vary by store format?
+    base_priority: 72
+    events: [opening-locations]
+    industries: [retail]
+    theme: retail-question
