@@ -1,4 +1,4 @@
-import { getAllBusinessEvents } from "@/lib/content";
+import { getAllBusinessEvents, getFeaturedSampleReviews } from "@/lib/content";
 import { getContextIndustries } from "@/lib/context/industry-options";
 import { loadIndustryOverlayRegistry } from "@/lib/context/overlays";
 import { loadPatternRegistry } from "@/lib/patterns/server";
@@ -9,6 +9,7 @@ export default function HomePage() {
   const contextIndustries = getContextIndustries();
   const overlayRegistry = loadIndustryOverlayRegistry();
   const patternRegistry = loadPatternRegistry();
+  const featuredSamples = getFeaturedSampleReviews(3);
 
   return (
     <HomeExperience
@@ -16,6 +17,7 @@ export default function HomePage() {
       contextIndustries={contextIndustries}
       overlayRegistry={overlayRegistry}
       patternRegistry={patternRegistry}
+      featuredSamples={featuredSamples}
     />
   );
 }

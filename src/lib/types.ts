@@ -84,6 +84,34 @@ export interface ExecutiveBriefSample {
   publishedAt: string;
 }
 
+export interface SampleReviewListing {
+  slug: string;
+  title: string;
+  industry: string;
+  businessEvent: string;
+  summary: string;
+  publishedDate: string;
+  featured: boolean;
+}
+
+export interface SampleReviewContent {
+  executiveSummary: string;
+  executiveObservations: string[];
+  commonBlindSpots: string[];
+  technologyImplications: string[];
+  questionsToExplore: string[];
+  suggestedSequencing: {
+    immediate: string[];
+    next30Days: string[];
+    next90Days: string[];
+  };
+  recommendedNextConversation: string;
+}
+
+export interface SampleReview extends SampleReviewListing {
+  review: SampleReviewContent;
+}
+
 export interface BriefAnswers {
   eventSlug: string;
   answers: Record<string, string | string[]>;

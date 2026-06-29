@@ -21,6 +21,7 @@ interface ConversationFlowProps {
   basePath?: string;
   variant?: "home" | "page";
   onStepChange?: (step: ConversationStep) => void;
+  showEventSelector?: boolean;
 }
 
 export function ConversationFlow({
@@ -31,6 +32,7 @@ export function ConversationFlow({
   basePath = "/",
   variant = "home",
   onStepChange,
+  showEventSelector = true,
 }: ConversationFlowProps) {
   const {
     step,
@@ -128,7 +130,11 @@ export function ConversationFlow({
     );
   }
 
-  return (
-    <EventSelector events={events} variant={variant} onSelect={selectEvent} />
-  );
+  if (step === "select" && showEventSelector) {
+    return (
+      <EventSelector events={events} variant={variant} onSelect={selectEvent} />
+    );
+  }
+
+  return null;
 }

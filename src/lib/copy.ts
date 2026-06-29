@@ -1,15 +1,117 @@
-export const HOME_HEADLINE = "What changed?";
+export const HOME_HEADLINE = "Business decisions create technology consequences.";
 
 export const HOME_SUBHEAD =
-  "Business change creates technology implications. Crimson Signal helps you understand what to evaluate before talking to vendors.";
+  "Understand the technology implications of organizational change before evaluating products or vendors.";
+
+export const HOME_HERO_PRIMARY_CTA = "Start Your Technology Impact Review";
+
+export const HOME_HERO_SECONDARY_CTA = "View Sample Reviews";
+
+export const HOME_BUSINESS_EVENTS_EYEBROW = "Business Events";
+
+export const HOME_BUSINESS_EVENTS_HEADING =
+  "What changed in your organization?";
+
+export const HOME_BUSINESS_EVENTS_SUBHEAD =
+  "Select the business situation driving your technology conversation. Each path leads to a focused Technology Impact Review.";
+
+export const HOME_HOW_IT_WORKS_EYEBROW = "How It Works";
+
+export const HOME_HOW_IT_WORKS_HEADING = "From business change to clarity";
+
+export const HOME_HOW_IT_WORKS_STEPS = [
+  {
+    title: "Choose your business situation",
+    body: "Start with what changed — expansion, acquisition, cost pressure, or another organizational shift.",
+  },
+  {
+    title: "Answer a few focused questions",
+    body: "A short conversation about your context. No vendor pitches, no product recommendations.",
+  },
+  {
+    title: "Receive a Technology Impact Review",
+    body: "Executive observations, technology implications, blind spots, and questions leadership should consider.",
+  },
+] as const;
+
+export const HOME_SAMPLE_REVIEWS_EYEBROW = "Sample Reviews";
+
+export const HOME_SAMPLE_REVIEWS_HEADING =
+  "See what a Technology Impact Review looks like";
+
+export const HOME_SAMPLE_REVIEWS_SUBHEAD =
+  "Real examples of how business change surfaces technology implications across industries.";
+
+export const HOME_WHY_EYEBROW = "Why Crimson Signal";
+
+export const HOME_WHY_HEADING = "Technology advisory without an agenda";
+
+export const HOME_WHY_POINTS = [
+  {
+    title: "Independent technology advisory",
+    body: "Guidance shaped by your business situation — not by a product catalog or carrier contract.",
+  },
+  {
+    title: "Vendor neutral",
+    body: "No technology products to sell and no vendor relationships to protect. The focus is on what you need to decide.",
+  },
+  {
+    title: "Built for executive teams",
+    body: "Focused on helping leadership understand technology consequences before timelines narrow the options.",
+  },
+] as const;
+
+export const HOME_FOOTER_CTA_HEADING = "Ready to understand what changed?";
+
+export const HOME_FOOTER_CTA_BUTTON = "Start Your Technology Impact Review";
 
 export const CONVERSATION_PAGE_SUBHEAD =
   "Business change creates technology implications. Select the event driving your organization's technology conversation.";
 
-export const CONVERSATION_INTRO_LABEL = "Technology discovery";
+export const CONVERSATION_INTRO_LABEL = "Technology Impact Review";
 
-export const CONVERSATION_INTRO_CLOSING =
-  "A few questions will help clarify your situation and produce a Technology Impact Review you can use before any vendor conversations.";
+export const CONVERSATION_INTRO_CONFIRM_SITUATION = "Situation";
+
+export const CONVERSATION_INTRO_CONFIRM_INDUSTRY = "Industry";
+
+export const CONVERSATION_INTRO_WHAT_HEADING = "What you'll do";
+
+export const CONVERSATION_INTRO_WHAT_BODY =
+  "Answer a short set of focused questions about your organization's situation.";
+
+export const CONVERSATION_INTRO_WHAT_BODY_SECOND =
+  "Your responses guide the review. We don't draw conclusions until we understand the context.";
+
+export const CONVERSATION_INTRO_DURATION_HEADING = "How long it takes";
+
+export const CONVERSATION_INTRO_DURATION_BODY = "About 2 minutes.";
+
+export function conversationIntroQuestionCountBody(questionCount: number) {
+  const questionLabel = questionCount === 1 ? "question" : "questions";
+
+  return `${questionCount} ${questionLabel}, answered one at a time.`;
+}
+
+export const CONVERSATION_INTRO_RECEIVE_HEADING = "What you'll receive";
+
+export const CONVERSATION_INTRO_RECEIVE_INTRO =
+  "A Technology Impact Review tailored to your responses, including:";
+
+export const CONVERSATION_INTRO_RECEIVE_ITEMS = [
+  "Executive observations",
+  "Technology implications",
+  "Common blind spots",
+  "Questions leadership should consider",
+  "Suggested sequencing",
+] as const;
+
+export const CONVERSATION_INTRO_WHY_HEADING = "Why this matters";
+
+export const CONVERSATION_INTRO_WHY_BODY =
+  "Business decisions create technology consequences.";
+
+export const CONVERSATION_INTRO_WHY_BODY_SECOND =
+  "Understanding those consequences before evaluating products or vendors helps leadership make better decisions.";
 
 export const HOME_BANNER_LINE_1 =
   "Business decisions create technology consequences.";

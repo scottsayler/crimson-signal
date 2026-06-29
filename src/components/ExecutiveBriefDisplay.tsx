@@ -1,45 +1,16 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { useState } from "react";
 import type { TechnologyImpactReview } from "@/lib/brief";
 import { AboutScott } from "./AboutScott";
 import { ValidateAssessmentCTA } from "./ValidateAssessmentCTA";
+import { BulletList, ReviewSection } from "./review-display-parts";
 import type { UnexpectedResponse } from "./UnexpectedFeedback";
 
 interface ExecutiveBriefDisplayProps {
   brief: TechnologyImpactReview;
   eventSlug?: string | null;
   industrySlug?: string | null;
-}
-
-function ReviewSection({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <section className="mb-10">
-      <h2 className="mb-4 text-lg font-medium tracking-tight text-foreground">
-        {title}
-      </h2>
-      {children}
-    </section>
-  );
-}
-
-function BulletList({ items }: { items: string[] }) {
-  return (
-    <ul className="list-disc space-y-2.5 pl-5">
-      {items.map((item) => (
-        <li key={item} className="text-[15px] leading-relaxed text-muted">
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
 }
 
 export function ExecutiveBriefDisplay({

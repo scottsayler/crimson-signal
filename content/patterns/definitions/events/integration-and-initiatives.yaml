@@ -165,6 +165,7 @@ patterns:
       - outages
       - customer-complaints
       - security-requirements
+      - leadership-change
       - microsoft-modernization
     theme: leadership-default
 
@@ -182,5 +183,6 @@ patterns:
       - outages
       - customer-complaints
       - security-requirements
+      - leadership-change
       - microsoft-modernization
     theme: event-problem
