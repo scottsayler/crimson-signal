@@ -1,0 +1,373 @@
+pages:
+  - slug: networking
+    title: Restaurant Networking
+    description: Independent research on store network architecture, failover, and standardization for multi-location restaurant operators.
+    contentType: industry-topic
+    industry: restaurants
+    persona: [it-director, operations, franchise-leader]
+    primaryKeyword: restaurant networking
+    secondaryKeywords:
+      - restaurant store network
+      - qsr network infrastructure
+      - restaurant wan architecture
+      - franchise network standards
+    buyerStage: awareness
+    relatedPages:
+      - /industries/restaurants
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/managed-it
+      - /technologies/sd-wan
+      - /technologies/managed-network
+      - /problems/internet-outages
+      - /tools/downtime-cost-calculator
+    recommendedTool: /tools/network-assessment
+    ctaLabel: Start a network assessment
+    ctaHref: /tools/network-assessment
+    order: 1
+    cluster:
+      problemFraming: |
+        Every restaurant location runs a small data center at the counter — POS, payment processing, kitchen displays, guest Wi-Fi, cameras, and back-office apps all share store network infrastructure. When that network is undersized, misconfigured, or lacks failover, outages surface immediately in lost transactions and guest complaints.
+      whoItIsFor: |
+        - IT leaders building or standardizing network architecture across locations
+        - Operations executives tired of learning about outages from store managers
+        - Franchise brands setting minimum connectivity requirements for franchisees
+      buyingTriggers: |
+        - Peak-hour outages that halt card payments or online orders
+        - Inconsistent network setups across new and legacy locations
+        - Opening new stores without a repeatable network playbook
+        - Evaluating SD-WAN or managed network after carrier or MSP issues
+      relatedTechnologies:
+        - href: /technologies/sd-wan
+          title: SD-WAN
+          description: Policy-based routing and centralized WAN management for multi-site operators.
+        - href: /technologies/managed-network
+          title: Managed Network
+          description: Outsourced provisioning, monitoring, and support when internal IT capacity is limited.
+        - href: /technologies/lte-5g-backup
+          title: LTE & 5G Backup
+          description: Cellular failover to keep POS alive when the primary circuit fails.
+      relatedProblems:
+        - href: /problems/internet-outages
+          title: Internet Outages
+          description: Understanding outage frequency, impact, and failover options at the store level.
+        - href: /problems/network-visibility
+          title: Network Visibility
+          description: Why many operators only learn about failures after guests are affected.
+        - href: /problems/store-openings
+          title: Store Openings
+          description: Network provisioning on the critical path to opening day.
+      recommendedTools:
+        - href: /tools/downtime-cost-calculator
+          title: Downtime Cost Calculator
+          description: Quantify outage impact to justify redundancy investments.
+        - href: /tools/bandwidth-calculator
+          title: Bandwidth Calculator
+          description: Right-size circuits for POS, Wi-Fi, and back-office traffic.
+    sections:
+      - heading: What good restaurant networking looks like
+        body: |
+          A resilient store network separates POS from guest Wi-Fi, includes automated failover, supports remote monitoring, and follows a documented standard every new location can replicate. The goal is not the most advanced architecture — it is predictable uptime during peak service.
+
+  - slug: downtime-cost-calculator
+    title: Restaurant Downtime Calculator
+    description: How to estimate the revenue impact of POS and connectivity downtime at restaurant locations — and when resilience investments pay off.
+    contentType: industry-topic
+    industry: restaurants
+    persona: [cfo, operations, it-director]
+    primaryKeyword: restaurant downtime cost calculator
+    secondaryKeywords:
+      - restaurant outage cost
+      - pos downtime revenue impact
+      - qsr downtime economics
+    buyerStage: awareness
+    relatedPages:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /problems/internet-outages
+      - /problems/pos-downtime
+      - /tools/downtime-cost-calculator
+    recommendedTool: /tools/downtime-cost-calculator
+    ctaLabel: Open the calculator
+    ctaHref: /tools/downtime-cost-calculator
+    order: 2
+    cluster:
+      problemFraming: |
+        Most restaurant operators know outages are bad but underestimate their cost. Finance teams see circuit bills; operations teams see angry guests. Without a shared number for hourly downtime cost, it is hard to justify cellular backup, redundant circuits, or managed monitoring.
+      whoItIsFor: |
+        - CFOs and operators building a business case for network resilience
+        - IT leaders prioritizing investments across a multi-location footprint
+        - Franchise executives comparing corporate standards vs. franchisee spend
+      buyingTriggers: |
+        - Recent outage during lunch or dinner rush with measurable revenue loss
+        - Board or ownership asking for ROI on backup internet
+        - Comparing cost of downtime against cost of LTE failover or SD-WAN
+      relatedTechnologies:
+        - href: /technologies/lte-5g-backup
+          title: LTE & 5G Backup
+          description: The most common first step after quantifying outage cost.
+        - href: /technologies/sd-wan
+          title: SD-WAN
+          description: Broader WAN investment when outage cost justifies architectural change.
+      relatedProblems:
+        - href: /problems/pos-downtime
+          title: POS Downtime
+          description: How register failures cascade into kitchen and online order disruption.
+        - href: /problems/internet-outages
+          title: Internet Outages
+          description: The upstream cause of many restaurant technology failures.
+      recommendedTools:
+        - href: /tools/downtime-cost-calculator
+          title: Downtime Cost Calculator
+          description: Model annual outage cost from ticket average, transaction volume, and outage duration.
+    sections:
+      - heading: What to include in your estimate
+        body: |
+          Start with average hourly sales, not just card volume. Factor in labor idle time, wasted prep, delivery platform penalties, and guest recovery cost. Even a 30-minute outage at a high-volume QSR location can exceed the annual cost of cellular backup.
+
+  - slug: best-internet
+    title: Best Internet for Restaurants
+    description: Independent guidance on selecting store internet — bandwidth, redundancy, carriers, and architecture for restaurant locations.
+    contentType: industry-topic
+    industry: restaurants
+    persona: [it-director, operations, franchise-leader]
+    primaryKeyword: best internet for restaurants
+    secondaryKeywords:
+      - restaurant internet service
+      - store internet redundancy
+      - qsr broadband requirements
+      - restaurant isp selection
+    buyerStage: consideration
+    relatedPages:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /technologies/lte-5g-backup
+      - /technologies/sd-wan
+      - /problems/internet-outages
+      - /tools/bandwidth-calculator
+    recommendedTool: /tools/bandwidth-calculator
+    ctaLabel: Estimate bandwidth needs
+    ctaHref: /tools/bandwidth-calculator
+    order: 3
+    cluster:
+      problemFraming: |
+        "Best internet" for a restaurant is not the fastest advertised speed — it is reliable connectivity that keeps POS, kitchen systems, and online orders running through peak volume, with a credible backup when the primary circuit fails. Single-circuit locations with no failover remain the most common point of failure.
+      whoItIsFor: |
+        - Operators selecting ISP and backup architecture for new or existing locations
+        - Franchise brands defining approved connectivity standards
+        - IT teams comparing dual-ISP, cellular backup, and SD-WAN approaches
+      buyingTriggers: |
+        - New store build requiring circuit orders and install timelines
+        - Repeated ISP outages without automatic failover
+        - Guest Wi-Fi complaints masking undersized bandwidth
+        - Cloud POS adoption increasing uptime requirements
+      relatedTechnologies:
+        - href: /technologies/lte-5g-backup
+          title: LTE & 5G Backup
+          description: Cellular failover when terrestrial redundancy is unavailable or too slow to provision.
+        - href: /technologies/sd-wan
+          title: SD-WAN
+          description: Policy-based routing when multiple circuits need intelligent management.
+        - href: /technologies/starlink
+          title: Starlink
+          description: Satellite option for rural or hard-to-serve locations.
+      relatedProblems:
+        - href: /problems/internet-outages
+          title: Internet Outages
+          description: Outage patterns and failover design for store locations.
+        - href: /problems/pos-downtime
+          title: POS Downtime
+          description: When connectivity failures become register failures.
+      recommendedTools:
+        - href: /tools/bandwidth-calculator
+          title: Bandwidth Calculator
+          description: Size primary and backup circuits for your application mix.
+        - href: /tools/downtime-cost-calculator
+          title: Downtime Cost Calculator
+          description: Compare circuit and backup cost against outage impact.
+    sections:
+      - heading: Evaluation framework
+        body: |
+          Assess bandwidth needs by application (POS, KDS, Wi-Fi, cameras), require diverse carriers where possible, automate failover testing quarterly, and document a standard stack new locations can order without reinventing the decision.
+
+  - slug: pots-replacement
+    title: POTS Replacement for Restaurants
+    description: Research on replacing legacy analog phone lines at restaurant locations — alarms, fax, credit card dial backup, and rising copper costs.
+    contentType: industry-topic
+    industry: restaurants
+    persona: [cfo, it-director, operations]
+    primaryKeyword: pots replacement restaurants
+    secondaryKeywords:
+      - restaurant analog phone lines
+      - copper line replacement restaurants
+      - legacy pots costs
+    buyerStage: consideration
+    relatedPages:
+      - /industries/restaurants
+      - /technologies/pots-replacement
+      - /problems/legacy-phone-lines
+      - /tools/pots-savings-calculator
+      - /comparisons/pots-replacement-options
+    recommendedTool: /tools/pots-savings-calculator
+    ctaLabel: Calculate POTS savings
+    ctaHref: /tools/pots-savings-calculator
+    order: 4
+    cluster:
+      problemFraming: |
+        Many restaurant locations still pay for analog POTS lines used for fire alarms, fax, elevator phones, or legacy credit card dial backup. Carriers are retiring copper and raising prices on remaining lines. Most operators do not have a complete location-by-location inventory of what each line actually supports.
+      whoItIsFor: |
+        - Finance teams responding to rising telecom bills
+        - IT leaders planning copper retirement across a store footprint
+        - Operations teams coordinating alarm, POS, and vendor compliance requirements
+      buyingTriggers: |
+        - Unexpected POTS price increases on store phone bills
+        - Carrier notice of copper retirement in a market
+        - New location openings where analog lines are no longer available
+        - Acquisition integration surfacing unknown legacy lines
+      relatedTechnologies:
+        - href: /technologies/pots-replacement
+          title: POTS Replacement
+          description: Technology approaches — LTE adapters, gateways, and managed replacement services.
+        - href: /technologies/lte-5g-backup
+          title: LTE & 5G Backup
+          description: Cellular connectivity often underlying POTS replacement devices.
+      relatedProblems:
+        - href: /problems/legacy-phone-lines
+          title: Legacy Phone Lines
+          description: The broader copper sunset problem across distributed footprints.
+        - href: /problems/vendor-sprawl
+          title: Vendor Sprawl
+          description: When each location has a different telecom vendor and line inventory.
+      recommendedTools:
+        - href: /tools/pots-savings-calculator
+          title: POTS Savings Calculator
+          description: Model per-location and portfolio-wide savings from replacement.
+    sections:
+      - heading: Restaurant-specific considerations
+        body: |
+          Alarm and elevator lines often have compliance requirements that dictate replacement approach. Inventory every line before selecting technology — a fax line and a fire alarm line do not belong on the same replacement path.
+
+  - slug: opening-technology-checklist
+    title: Restaurant Opening Technology Checklist
+    description: A practical technology checklist for opening new restaurant locations — networking, POS, failover, and go-live validation.
+    contentType: industry-topic
+    industry: restaurants
+    persona: [operations, franchise-leader, it-director]
+    primaryKeyword: restaurant opening technology checklist
+    secondaryKeywords:
+      - new restaurant it checklist
+      - store opening network setup
+      - franchise opening technology
+    buyerStage: consideration
+    relatedPages:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /industries/restaurants/best-internet
+      - /problems/store-openings
+      - /resources/restaurant-network-checklist
+      - /tools/network-assessment
+    recommendedTool: /tools/network-assessment
+    ctaLabel: Run network assessment
+    ctaHref: /tools/network-assessment
+    order: 5
+    cluster:
+      problemFraming: |
+        New restaurant openings fail technology go-live more often than operators admit. Circuits arrive late, POS segmentation is wrong, backup internet was never tested, and franchisees use unapproved vendors. Opening day is unforgiving — guests do not care that the ISP missed their date.
+      whoItIsFor: |
+        - Development and operations teams managing new store pipelines
+        - Franchise brands issuing opening standards to franchisees
+        - IT teams supporting 5–50+ openings per year
+      buyingTriggers: |
+        - Opening delays traced to technology provisioning
+        - Franchisee using non-standard ISP or equipment
+        - Post-opening PCI or security findings from flat networks
+        - Scaling openings faster than IT can physically visit each site
+      relatedTechnologies:
+        - href: /technologies/managed-network
+          title: Managed Network
+          description: Outsourced provisioning when internal teams cannot visit every opening.
+        - href: /technologies/sd-wan
+          title: SD-WAN
+          description: Repeatable WAN architecture for standardized rollouts.
+      relatedProblems:
+        - href: /problems/store-openings
+          title: Store Openings
+          description: The broader opening technology problem across industries.
+        - href: /problems/internet-outages
+          title: Internet Outages
+          description: Why failover must be tested before opening day, not after the first outage.
+      recommendedTools:
+        - href: /tools/network-assessment
+          title: Network Assessment
+          description: Structured readiness review before go-live.
+        - href: /tools/bandwidth-calculator
+          title: Bandwidth Calculator
+          description: Confirm circuit sizing during pre-opening planning.
+    sections:
+      - heading: Pre-opening essentials
+        body: |
+          - Primary circuit confirmed with hard install date
+          - Backup internet provisioned and failover tested
+          - POS VLAN separated from guest Wi-Fi
+          - End-to-end payment test including peak-volume simulation
+          - Remote monitoring live before staff training begins
+          - Escalation runbook posted with vendor contacts
+
+  - slug: managed-it
+    title: Restaurant Managed IT
+    description: Independent research on managed IT and network services for restaurant operators — when outsourcing makes sense and what to require.
+    contentType: industry-topic
+    industry: restaurants
+    persona: [it-director, cfo, franchise-leader]
+    primaryKeyword: restaurant managed it
+    secondaryKeywords:
+      - managed network restaurants
+      - outsourced restaurant it
+      - restaurant msp evaluation
+    buyerStage: evaluation
+    relatedPages:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /technologies/managed-network
+      - /problems/vendor-sprawl
+      - /tools/vendor-consolidation-calculator
+    recommendedTool: /tools/vendor-consolidation-calculator
+    ctaLabel: Model vendor consolidation
+    ctaHref: /tools/vendor-consolidation-calculator
+    order: 6
+    cluster:
+      problemFraming: |
+        Restaurant operators with lean IT teams often reach a point where store-level support does not scale. Managed IT and managed network services promise standardized monitoring, faster provisioning, and a single escalation path — but scope, SLAs, and franchise governance vary widely between providers.
+      whoItIsFor: |
+        - IT directors supporting dozens or hundreds of locations with a small team
+        - Franchise systems seeking a corporate-approved managed services model
+        - CFOs comparing fully loaded internal cost against outsourced operations
+      buyingTriggers: |
+        - IT ticket volume growing faster than headcount
+        - Inconsistent store technology after franchisee self-procurement
+        - Acquisition adding locations with unknown MSP relationships
+        - Repeated SLA misses from current telecom or break-fix vendors
+      relatedTechnologies:
+        - href: /technologies/managed-network
+          title: Managed Network
+          description: Core technology category for outsourced WAN and store connectivity.
+        - href: /technologies/sd-wan
+          title: SD-WAN
+          description: Often bundled with managed services for policy and routing.
+      relatedProblems:
+        - href: /problems/vendor-sprawl
+          title: Vendor Sprawl
+          description: The accumulation of carriers and MSPs managed services is meant to solve.
+        - href: /problems/network-visibility
+          title: Network Visibility
+          description: Monitoring gaps that push operators toward managed NOC services.
+      recommendedTools:
+        - href: /tools/vendor-consolidation-calculator
+          title: Vendor Consolidation Calculator
+          description: Estimate savings from reducing vendor count alongside managed services.
+        - href: /tools/network-assessment
+          title: Network Assessment
+          description: Baseline current state before defining managed scope.
+    sections:
+      - heading: What to require in any managed IT engagement
+        body: |
+          Define SLAs with financial teeth, require proactive monitoring not just break-fix, document who owns franchisee relationships, and insist on a complete circuit and asset inventory as a starting deliverable — not a future phase.

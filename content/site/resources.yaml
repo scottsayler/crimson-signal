@@ -1,0 +1,90 @@
+pages:
+  - slug: restaurant-network-checklist
+    title: Restaurant Network Checklist
+    description: Pre-opening and ongoing network checklist for restaurant locations — connectivity, POS, security, and failover requirements.
+    contentType: checklist
+    industry: restaurants
+    persona: [operations, it-director, franchise-leader]
+    primaryKeyword: restaurant network checklist
+    secondaryKeywords:
+      - restaurant opening it checklist
+      - store network requirements
+      - qsr network setup checklist
+    buyerStage: consideration
+    relatedPages:
+      - /industries/restaurants
+      - /problems/store-openings
+      - /tools/network-assessment
+      - /research/franchise-network-standards
+    order: 1
+    sections:
+      - heading: Pre-opening network checklist
+        body: |
+          - [ ] Primary internet circuit ordered with confirmed install date
+          - [ ] Backup circuit or cellular failover provisioned and tested
+          - [ ] Firewall configured with POS network segmentation
+          - [ ] Guest Wi-Fi isolated from POS and back-office VLANs
+          - [ ] POS connectivity verified end-to-end including payment processing
+          - [ ] Kitchen display and order routing systems tested
+          - [ ] Security cameras and access control on monitored network
+          - [ ] Voice lines or POTS replacement devices installed and tested
+          - [ ] Remote monitoring and alerting configured
+          - [ ] Store operations runbook documented with escalation contacts
+
+      - heading: Ongoing operations checklist
+        body: |
+          - [ ] Quarterly circuit and failover testing
+          - [ ] Firmware and security patch cadence defined
+          - [ ] Vendor SLA review and incident log analysis
+          - [ ] POTS line inventory updated
+          - [ ] New application impact assessment before deployment
+
+  - slug: store-opening-playbook
+    title: Store Opening Technology Playbook
+    description: Template playbook for technology provisioning and validation when opening new store or branch locations.
+    contentType: checklist
+    persona: [operations, it-director]
+    primaryKeyword: store opening technology playbook
+    secondaryKeywords:
+      - new location it setup
+      - branch opening technology
+    buyerStage: consideration
+    relatedPages:
+      - /problems/store-openings
+      - /industries/franchise
+      - /resources/restaurant-network-checklist
+    order: 2
+    sections:
+      - heading: 90 days before opening
+        body: "[Placeholder] Site survey, circuit ordering, vendor selection, equipment procurement, and project plan creation."
+      - heading: 30 days before opening
+        body: "[Placeholder] CPE installation, network configuration, application provisioning, and integration testing."
+      - heading: Opening week
+        body: "[Placeholder] Final validation, staff training on escalation procedures, and go-live monitoring."
+
+  - slug: vendor-evaluation-template
+    title: Vendor Evaluation Template
+    description: Structured template for evaluating telecom and managed network vendors for multi-location deployments.
+    contentType: checklist
+    persona: [procurement, it-director, cio]
+    primaryKeyword: telecom vendor evaluation template
+    secondaryKeywords:
+      - managed network vendor rfp
+      - wan vendor selection criteria
+    buyerStage: evaluation
+    relatedPages:
+      - /problems/vendor-sprawl
+      - /tools/vendor-consolidation-calculator
+      - /technologies/managed-network
+    order: 3
+    sections:
+      - heading: Evaluation criteria
+        body: |
+          - [ ] Multi-location deployment experience documented
+          - [ ] SLA terms defined with financial penalties
+          - [ ] Provisioning timeline commitments by location type
+          - [ ] Monitoring and NOC capabilities described
+          - [ ] Security and compliance certifications verified
+          - [ ] Reference customers in your industry contacted
+          - [ ] Total cost of ownership model including hidden fees
+          - [ ] Contract exit and migration terms reviewed

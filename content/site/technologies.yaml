@@ -1,0 +1,320 @@
+pages:
+  - slug: sd-wan
+    title: SD-WAN
+    description: Independent analysis of SD-WAN for multi-location restaurants and distributed operators — when it fits, what to evaluate, and common pitfalls.
+    contentType: technology
+    technology: sd-wan
+    industry: restaurants
+    persona: [it-director, cio]
+    primaryKeyword: sd-wan restaurants
+    secondaryKeywords:
+      - sd-wan multi-location
+      - restaurant sd-wan
+      - sd-wan evaluation
+      - sd-wan failover
+    buyerStage: consideration
+    relatedPages:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /industries/restaurants/best-internet
+      - /problems/internet-outages
+      - /technologies/managed-network
+      - /comparisons/sd-wan-vs-mpls
+      - /tools/network-assessment
+    recommendedTool: /tools/network-assessment
+    ctaLabel: Start network assessment
+    ctaHref: /tools/network-assessment
+    order: 1
+    cluster:
+      problemFraming: |
+        Restaurant WANs were built store-by-store — different ISPs, different routers, no central policy. SD-WAN promises centralized control, application-aware routing, and cheaper broadband instead of MPLS. It can deliver that, but only when the business case is grounded in outage cost, opening velocity, and IT capacity — not vendor slide decks.
+      whoItIsFor: |
+        - Multi-location operators with 20+ sites and inconsistent WAN setups
+        - IT teams managing POS, Wi-Fi, and back-office traffic across regions
+        - Organizations replacing MPLS or evaluating managed SD-WAN after outage patterns
+      buyingTriggers: |
+        - MPLS contract renewal with unfavorable pricing
+        - Need to standardize new store network deployments
+        - Frequent outages where manual failover is too slow
+        - Acquisition integration requiring WAN consolidation
+      relatedTechnologies:
+        - href: /technologies/managed-network
+          title: Managed Network
+          description: SD-WAN is often deployed and operated through a managed services partner.
+        - href: /technologies/lte-5g-backup
+          title: LTE & 5G Backup
+          description: Cellular circuits commonly integrated into SD-WAN failover policies.
+      relatedProblems:
+        - href: /problems/internet-outages
+          title: Internet Outages
+          description: The business problem SD-WAN failover is often meant to solve.
+        - href: /problems/network-visibility
+          title: Network Visibility
+          description: Centralized monitoring is a common SD-WAN adoption driver.
+      recommendedTools:
+        - href: /tools/network-assessment
+          title: Network Assessment
+          description: Baseline WAN maturity before selecting an architecture.
+        - href: /tools/downtime-cost-calculator
+          title: Downtime Cost Calculator
+          description: Build the business case from outage economics.
+    sections:
+      - heading: Evaluation criteria for restaurant operators
+        body: |
+          Prioritize POS traffic in failover policy, test peak-hour failover before signing, confirm franchise governance if franchisees own circuits, and compare fully loaded TCO — not just circuit savings.
+
+  - slug: pots-replacement
+    title: POTS Replacement
+    description: Independent research on replacing legacy analog phone lines at restaurant and store locations — technology options, compliance, and cost drivers.
+    contentType: technology
+    technology: pots-replacement
+    industry: restaurants
+    persona: [it-director, cfo, operations]
+    primaryKeyword: pots replacement
+    secondaryKeywords:
+      - analog line replacement
+      - pots replacement restaurants
+      - legacy phone line costs
+      - copper line retirement
+    buyerStage: consideration
+    relatedPages:
+      - /industries/restaurants/pots-replacement
+      - /industries/restaurants
+      - /problems/legacy-phone-lines
+      - /tools/pots-savings-calculator
+      - /comparisons/pots-replacement-options
+    recommendedTool: /tools/pots-savings-calculator
+    ctaLabel: Calculate POTS savings
+    ctaHref: /tools/pots-savings-calculator
+    order: 2
+    cluster:
+      problemFraming: |
+        Analog POTS lines persist at many restaurant locations long after voice moved to VoIP. They support alarms, elevators, fax, and legacy dial backup — and they are getting more expensive as carriers retire copper. Replacement technology exists, but use case and compliance requirements differ line by line.
+      whoItIsFor: |
+        - Finance and IT teams responding to rising analog line costs
+        - Operators planning copper retirement across a store portfolio
+        - Development teams opening locations where new POTS is unavailable
+      buyingTriggers: |
+        - Carrier copper retirement notice in one or more markets
+        - POTS line count unknown but bills keep increasing
+        - Acquisition due diligence surfacing legacy line obligations
+        - Compliance review of alarm and elevator connectivity
+      relatedTechnologies:
+        - href: /technologies/lte-5g-backup
+          title: LTE & 5G Backup
+          description: Cellular transport underlying many POTS replacement adapters.
+      relatedProblems:
+        - href: /problems/legacy-phone-lines
+          title: Legacy Phone Lines
+          description: Portfolio-wide copper sunset planning.
+        - href: /problems/vendor-sprawl
+          title: Vendor Sprawl
+          description: Multiple telecom vendors complicating line inventory.
+      recommendedTools:
+        - href: /tools/pots-savings-calculator
+          title: POTS Savings Calculator
+          description: Compare current line cost against replacement options.
+    sections:
+      - heading: Technology approaches
+        body: |
+          LTE/5G analog adapters, VoIP gateways, and fully managed replacement services each fit different use cases. Start with inventory, then match technology to line function — not the other way around.
+
+  - slug: managed-network
+    title: Managed Network Services
+    description: Independent guidance on managed network services for restaurant and multi-location operators — scope, SLAs, and evaluation criteria.
+    contentType: technology
+    technology: managed-network
+    industry: restaurants
+    persona: [it-director, cfo]
+    primaryKeyword: managed network services
+    secondaryKeywords:
+      - managed wan restaurants
+      - managed it restaurants
+      - outsourced network management
+      - restaurant msp
+    buyerStage: evaluation
+    relatedPages:
+      - /industries/restaurants/managed-it
+      - /industries/restaurants/networking
+      - /industries/restaurants
+      - /problems/vendor-sprawl
+      - /technologies/sd-wan
+      - /tools/vendor-consolidation-calculator
+    recommendedTool: /tools/vendor-consolidation-calculator
+    ctaLabel: Model vendor consolidation
+    ctaHref: /tools/vendor-consolidation-calculator
+    order: 3
+    cluster:
+      problemFraming: |
+        Managed network services exist because store-level technology does not scale linearly. Someone must monitor circuits, provision new sites, dispatch on outages, and maintain firewall policies — and many restaurant IT teams are too small to do it everywhere. The question is not whether to outsource, but what scope and accountability model fits your operating structure.
+      whoItIsFor: |
+        - Lean IT teams supporting growing location counts
+        - Franchise systems needing corporate-approved network partners
+        - Operators exiting break-fix relationships after repeated SLA failures
+      buyingTriggers: |
+        - Opening pipeline exceeding internal provisioning capacity
+        - No centralized monitoring across locations
+        - Franchisees procuring non-standard network equipment
+        - WAN or SD-WAN project needing ongoing operational support
+      relatedTechnologies:
+        - href: /technologies/sd-wan
+          title: SD-WAN
+          description: Frequently deployed and managed as a combined offering.
+        - href: /technologies/lte-5g-backup
+          title: LTE & 5G Backup
+          description: Backup circuit management often included in managed scope.
+      relatedProblems:
+        - href: /problems/vendor-sprawl
+          title: Vendor Sprawl
+          description: Consolidation is a common managed services outcome.
+        - href: /problems/network-visibility
+          title: Network Visibility
+          description: Monitoring gaps managed NOC services are hired to close.
+      recommendedTools:
+        - href: /tools/vendor-consolidation-calculator
+          title: Vendor Consolidation Calculator
+          description: Quantify sprawl cost before defining managed scope.
+        - href: /tools/network-assessment
+          title: Network Assessment
+          description: Document current state to scope a managed engagement.
+    sections:
+      - heading: Define before you buy
+        body: |
+          Scope boundaries, SLA metrics with remedies, escalation paths, franchisee governance, and who owns change management determine whether managed services reduce risk — or add another vendor to the sprawl.
+
+  - slug: microsoft-teams
+    title: Microsoft Teams
+    description: Research on Microsoft Teams deployment and voice integration for multi-location organizations.
+    contentType: technology
+    technology: microsoft-teams
+    persona: [it-director, cio]
+    primaryKeyword: microsoft teams multi-location
+    secondaryKeywords:
+      - teams phone system
+      - teams voice deployment
+      - microsoft 365 collaboration
+    buyerStage: consideration
+    relatedPages:
+      - /technologies/ucaas
+      - /technologies/ccaas
+    order: 4
+    sections:
+      - heading: Teams as collaboration platform
+        body: Microsoft Teams is often the starting point for unified communications modernization in Microsoft-centric organizations.
+      - heading: Voice and telephony decisions
+        body: Direct routing, operator connect, and third-party UCaaS integrations each carry different cost, control, and support implications.
+
+  - slug: ucaas
+    title: UCaaS
+    description: Unified communications as a service — evaluation framework for multi-location voice and collaboration modernization.
+    contentType: technology
+    technology: ucaas
+    persona: [it-director, cio]
+    primaryKeyword: ucaas multi-location
+    secondaryKeywords:
+      - unified communications evaluation
+      - cloud phone system
+      - ucaas comparison
+    buyerStage: consideration
+    relatedPages:
+      - /technologies/microsoft-teams
+      - /technologies/ccaas
+    order: 5
+    sections:
+      - heading: UCaaS fundamentals
+        body: Cloud-based voice, messaging, and meeting platforms replace on-premises PBX systems. Multi-location deployments require attention to E911, number porting, and store-level failover.
+      - heading: Evaluation approach
+        body: Start with call flow requirements, integration needs, and existing Microsoft or contact center investments before comparing platforms.
+
+  - slug: ccaas
+    title: CCaaS
+    description: Contact center as a service — research on cloud contact center strategy for customer-facing organizations.
+    contentType: technology
+    technology: ccaas
+    persona: [cio, operations]
+    primaryKeyword: ccaas evaluation
+    secondaryKeywords:
+      - cloud contact center
+      - ccaas multi-location
+    buyerStage: consideration
+    relatedPages:
+      - /technologies/ucaas
+      - /technologies/microsoft-teams
+    order: 6
+    sections:
+      - heading: CCaaS use cases
+        body: Organizations with centralized or distributed contact center operations evaluate CCaaS for scalability, remote agent support, and omnichannel integration.
+      - heading: Integration considerations
+        body: CRM integration, workforce management, and analytics requirements shape platform selection more than feature checklists.
+
+  - slug: sase
+    title: SASE
+    description: Secure access service edge — independent research on converged networking and security for distributed organizations.
+    contentType: technology
+    technology: sase
+    persona: [cio, it-director]
+    primaryKeyword: sase multi-location
+    secondaryKeywords:
+      - secure access service edge
+      - sase evaluation
+      - zero trust networking
+    buyerStage: consideration
+    relatedPages:
+      - /technologies/sd-wan
+      - /industries/financial-services
+      - /industries/healthcare
+    order: 7
+    sections:
+      - heading: What SASE converges
+        body: SASE combines WAN edge capabilities with cloud-delivered security services — SD-WAN, SWG, CASB, ZTNA, and FWaaS — into a unified architecture.
+      - heading: Fit assessment
+        body: Organizations with remote workers, cloud-first applications, and distributed branch security requirements are primary SASE candidates.
+
+  - slug: starlink
+    title: Starlink
+    description: Research on Starlink as a connectivity option for remote, rural, and backup use cases in multi-location networks.
+    contentType: technology
+    technology: starlink
+    persona: [it-director, operations]
+    primaryKeyword: starlink business multi-location
+    secondaryKeywords:
+      - starlink backup internet
+      - satellite internet business
+    buyerStage: awareness
+    relatedPages:
+      - /technologies/lte-5g-backup
+      - /problems/internet-outages
+    order: 8
+    sections:
+      - heading: Starlink use cases
+        body: Starlink is most commonly evaluated for locations with limited terrestrial options, temporary sites, and backup connectivity scenarios.
+      - heading: Considerations
+        body: Latency, weather sensitivity, SLA limitations, and integration with existing SD-WAN or firewall policies require upfront architectural planning.
+
+  - slug: lte-5g-backup
+    title: LTE & 5G Backup
+    description: Cellular backup internet for store and branch locations — architecture patterns, costs, and failover design.
+    contentType: technology
+    technology: lte-5g-backup
+    industry: restaurants
+    persona: [it-director, operations]
+    primaryKeyword: lte 5g internet backup
+    secondaryKeywords:
+      - cellular failover restaurants
+      - 4g backup internet
+      - store internet redundancy
+    buyerStage: consideration
+    relatedPages:
+      - /problems/internet-outages
+      - /problems/pos-downtime
+      - /industries/restaurants
+      - /tools/bandwidth-calculator
+    recommendedTool: /tools/bandwidth-calculator
+    ctaLabel: Estimate bandwidth needs
+    ctaHref: /tools/bandwidth-calculator
+    order: 9
+    sections:
+      - heading: Why cellular backup matters
+        body: A single ISP outage can halt POS transactions, online ordering, and guest Wi-Fi. Cellular failover is the most common first step toward store-level resilience.
+      - heading: Design decisions
+        body: Active-passive vs. active-active failover, bandwidth requirements for POS-only vs. full-store traffic, and carrier diversity all affect architecture and cost.

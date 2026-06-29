@@ -1,0 +1,82 @@
+pages:
+  - slug: sd-wan-vs-mpls
+    title: SD-WAN vs MPLS
+    description: Independent comparison of SD-WAN and MPLS for multi-location WAN architecture — cost, performance, security, and operational trade-offs.
+    contentType: comparison
+    technology: sd-wan
+    persona: [it-director, cio]
+    primaryKeyword: sd-wan vs mpls
+    secondaryKeywords:
+      - mpls replacement
+      - sd-wan comparison
+      - wan architecture comparison
+    buyerStage: evaluation
+    relatedPages:
+      - /technologies/sd-wan
+      - /tools/network-assessment
+      - /comparisons/restaurant-network-buying-guide
+    order: 1
+    sections:
+      - heading: Comparison overview
+        body: MPLS has been the default WAN architecture for distributed organizations for two decades. SD-WAN challenges that default — but not every organization is ready to migrate.
+      - heading: SD-WAN advantages
+        body: "[Placeholder] Lower circuit costs, application-aware routing, faster provisioning, and centralized policy management."
+      - heading: MPLS advantages
+        body: "[Placeholder] Predictable latency, mature SLA frameworks, and established operational models for regulated industries."
+      - heading: Decision criteria
+        body: "[Placeholder] Use case matrix by location count, application profile, security requirements, and internal IT capacity."
+
+  - slug: restaurant-network-buying-guide
+    title: Restaurant Network Buying Guide
+    description: Independent buying guide for restaurant operators evaluating store network infrastructure, failover, and managed services.
+    contentType: buying-guide
+    industry: restaurants
+    persona: [it-director, operations, franchise-leader]
+    primaryKeyword: restaurant network buying guide
+    secondaryKeywords:
+      - restaurant sd-wan guide
+      - qsr network infrastructure
+      - restaurant it vendor selection
+    buyerStage: evaluation
+    relatedPages:
+      - /industries/restaurants
+      - /technologies/sd-wan
+      - /technologies/lte-5g-backup
+      - /problems/pos-downtime
+      - /tools/downtime-cost-calculator
+    recommendedTool: /tools/downtime-cost-calculator
+    ctaLabel: Calculate downtime cost
+    ctaHref: /tools/downtime-cost-calculator
+    order: 2
+    sections:
+      - heading: Who this guide is for
+        body: Multi-location restaurant operators, franchise systems, and multi-unit operators evaluating network infrastructure decisions — without vendor bias.
+      - heading: Decision framework
+        body: "[Placeholder] Step-by-step evaluation process covering requirements gathering, architecture options, vendor criteria, and implementation planning."
+      - heading: Common mistakes
+        body: "[Placeholder] Under-sizing backup bandwidth, ignoring franchisee variance, selecting on circuit cost alone, and deferring monitoring investment."
+
+  - slug: pots-replacement-options
+    title: POTS Replacement Options Compared
+    description: Comparison of POTS replacement approaches — LTE adapters, VoIP gateways, and managed services — for multi-location deployments.
+    contentType: comparison
+    technology: pots-replacement
+    industry: restaurants
+    persona: [it-director, cfo]
+    primaryKeyword: pots replacement comparison
+    secondaryKeywords:
+      - lte pots adapter comparison
+      - analog line replacement options
+    buyerStage: evaluation
+    relatedPages:
+      - /technologies/pots-replacement
+      - /problems/legacy-phone-lines
+      - /tools/pots-savings-calculator
+    order: 3
+    sections:
+      - heading: Replacement approaches
+        body: Organizations retiring analog lines typically evaluate three paths — cellular adapters, VoIP gateways, and fully managed replacement services.
+      - heading: Comparison matrix
+        body: "[Placeholder] Side-by-side comparison of cost, deployment complexity, compliance support, monitoring, and fit by use case (alarm, fax, POS backup, elevator)."
+      - heading: Selection guidance
+        body: "[Placeholder] Decision tree based on line count, use case mix, internal IT capacity, and compliance requirements."

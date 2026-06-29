@@ -4,7 +4,7 @@ import {
   createSectionStaticParams,
 } from "@/lib/site/routes";
 
-export const generateStaticParams = () => createSectionStaticParams("industries");
+export const generateStaticParams = () => createSectionStaticParams("tools");
 
 export const generateMetadata = async ({
   params,
@@ -12,7 +12,7 @@ export const generateMetadata = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
-  return createSectionMetadata("industries", slug);
+  return createSectionMetadata("tools", slug);
 };
 
-export default createSectionPage("industries");
+export default createSectionPage("tools");

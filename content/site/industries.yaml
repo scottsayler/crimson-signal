@@ -1,0 +1,219 @@
+pages:
+  - slug: restaurants
+    title: Restaurants
+    description: Independent research on store networking, downtime risk, internet connectivity, POTS replacement, and managed IT for multi-location restaurant operators.
+    contentType: industry-hub
+    industry: restaurants
+    persona: [operations, it-director, franchise-leader]
+    primaryKeyword: restaurant technology strategy
+    secondaryKeywords:
+      - restaurant network infrastructure
+      - restaurant pos downtime
+      - franchise technology standards
+      - multi-location restaurant it
+    buyerStage: awareness
+    relatedPages:
+      - /industries/restaurants/networking
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/downtime-cost-calculator
+      - /industries/restaurants/pots-replacement
+      - /industries/restaurants/managed-it
+      - /industries/restaurants/opening-technology-checklist
+      - /problems/internet-outages
+      - /technologies/sd-wan
+      - /tools/downtime-cost-calculator
+    recommendedTool: /tools/downtime-cost-calculator
+    ctaLabel: Calculate downtime cost
+    ctaHref: /tools/downtime-cost-calculator
+    order: 1
+    cluster:
+      problemFraming: |
+        Restaurant operators depend on store-level technology that guests notice immediately when it fails. A single internet outage can stop POS transactions, kitchen routing, and online orders at the same time. Franchise models add another layer — corporate standards, franchisee-owned infrastructure, and inconsistent vendor relationships across locations.
+      whoItIsFor: |
+        - **Multi-unit operators** standardizing technology across company-owned locations
+        - **Franchise systems** defining minimum network and IT requirements for franchisees
+        - **IT and operations leaders** evaluating connectivity, failover, and managed services
+        - **Finance teams** quantifying downtime cost and legacy line expenses before investing in upgrades
+      buyingTriggers: |
+        - Repeated POS or internet outages during peak hours
+        - New store openings with tight technology deadlines
+        - Rising POTS line bills with no clear inventory of remaining analog lines
+        - Franchisee network inconsistency creating brand and compliance risk
+        - Lean internal IT team unable to support every location directly
+      relatedTechnologies:
+        - href: /technologies/sd-wan
+          title: SD-WAN
+          description: Centralized WAN policy and application-aware routing for distributed restaurant footprints.
+        - href: /technologies/pots-replacement
+          title: POTS Replacement
+          description: Options for retiring costly analog lines at store locations.
+        - href: /technologies/managed-network
+          title: Managed Network
+          description: Outsourced monitoring, provisioning, and support for store networks.
+      relatedProblems:
+        - href: /problems/internet-outages
+          title: Internet Outages
+          description: Store-level outage risk, failover design, and business impact.
+        - href: /problems/pos-downtime
+          title: POS Downtime
+          description: When register failures become a revenue and guest experience problem.
+        - href: /problems/store-openings
+          title: Store Openings
+          description: Technology dependencies on the critical path to opening day.
+      recommendedTools:
+        - href: /tools/downtime-cost-calculator
+          title: Downtime Cost Calculator
+          description: Estimate revenue impact before prioritizing resilience investments.
+        - href: /tools/pots-savings-calculator
+          title: POTS Savings Calculator
+          description: Model savings from replacing legacy analog lines.
+    sections:
+      - heading: Start with the restaurant research cluster
+        body: |
+          The highest-priority topics for restaurant operators are networking reliability, downtime economics, internet selection, POTS replacement, opening readiness, and managed IT. Each topic below connects to related technologies, problems, and tools elsewhere on Crimson Signal.
+
+  - slug: retail
+    title: Retail
+    description: Technology research for multi-location retail — store networks, POS, inventory systems, and customer experience infrastructure.
+    contentType: industry-hub
+    industry: retail
+    persona: [it-director, operations, cio]
+    primaryKeyword: retail technology strategy
+    secondaryKeywords:
+      - retail store networking
+      - retail pos systems
+      - multi-location retail it
+    buyerStage: awareness
+    relatedPages:
+      - /problems/pos-downtime
+      - /problems/store-openings
+      - /technologies/sd-wan
+      - /technologies/sase
+    recommendedTool: /tools/bandwidth-calculator
+    ctaLabel: Estimate bandwidth needs
+    ctaHref: /tools/bandwidth-calculator
+    order: 2
+    sections:
+      - heading: Retail technology context
+        body: Retail organizations operate at the intersection of physical and digital customer experience. Store-level technology failures directly affect revenue and brand perception.
+      - heading: Key pressures
+        body: POS reliability, inventory synchronization, in-store Wi-Fi, loss prevention systems, and seasonal traffic spikes all stress store network architecture.
+
+  - slug: automotive
+    title: Automotive
+    description: Technology guidance for automotive dealer groups and service networks operating across multiple locations.
+    contentType: industry-hub
+    industry: automotive
+    persona: [it-director, operations]
+    primaryKeyword: automotive dealer technology
+    secondaryKeywords:
+      - dealership network infrastructure
+      - dms connectivity
+      - automotive multi-location it
+    buyerStage: awareness
+    relatedPages:
+      - /problems/internet-outages
+      - /technologies/managed-network
+      - /technologies/ucaas
+    order: 3
+    sections:
+      - heading: Dealer group complexity
+        body: Automotive groups combine sales floors, service bays, and back-office DMS systems across geographically dispersed locations with varying carrier quality.
+      - heading: Common triggers
+        body: Acquisition integration, new dealership openings, and customer communication modernization drive most technology strategy conversations.
+
+  - slug: healthcare
+    title: Healthcare
+    description: Independent research on technology for multi-site healthcare organizations — clinics, ambulatory networks, and distributed care delivery.
+    contentType: industry-hub
+    industry: healthcare
+    persona: [cio, it-director]
+    primaryKeyword: healthcare multi-location technology
+    secondaryKeywords:
+      - clinic network infrastructure
+      - healthcare sd-wan
+      - hipaa network compliance
+    buyerStage: awareness
+    relatedPages:
+      - /problems/pci-compliance
+      - /technologies/sase
+      - /technologies/sd-wan
+    order: 4
+    sections:
+      - heading: Distributed care delivery
+        body: Healthcare organizations expanding clinic footprints face unique compliance, uptime, and integration requirements that differ from single-facility deployments.
+      - heading: Technology pressures
+        body: EHR connectivity, telehealth readiness, medical device networking, and HIPAA-compliant WAN architecture are recurring decision areas.
+
+  - slug: financial-services
+    title: Financial Services
+    description: Technology research for branch networks, regional banks, and financial services organizations with distributed footprints.
+    contentType: industry-hub
+    industry: financial-services
+    persona: [cio, it-director, cfo]
+    primaryKeyword: financial services branch technology
+    secondaryKeywords:
+      - bank branch networking
+      - financial services wan
+      - branch network security
+    buyerStage: awareness
+    relatedPages:
+      - /problems/pci-compliance
+      - /technologies/sase
+      - /technologies/sd-wan
+    order: 5
+    sections:
+      - heading: Branch network requirements
+        body: Financial services organizations must balance customer experience, regulatory compliance, and cost control across branch networks that vary in size and transaction volume.
+      - heading: Common pressures
+        body: Branch consolidation, digital banking integration, legacy MPLS costs, and security posture modernization drive technology evaluations.
+
+  - slug: manufacturing
+    title: Manufacturing
+    description: Technology guidance for manufacturers with multiple plants, warehouses, and distribution facilities.
+    contentType: industry-hub
+    industry: manufacturing
+    persona: [cio, operations]
+    primaryKeyword: manufacturing multi-site technology
+    secondaryKeywords:
+      - plant network infrastructure
+      - manufacturing sd-wan
+      - industrial connectivity
+    buyerStage: awareness
+    relatedPages:
+      - /problems/network-visibility
+      - /technologies/sd-wan
+      - /technologies/lte-5g-backup
+    order: 6
+    sections:
+      - heading: Plant and warehouse connectivity
+        body: Manufacturing organizations connect production systems, warehouse management, and corporate offices across facilities with varying connectivity requirements and uptime demands.
+      - heading: Key decision areas
+        body: OT/IT convergence, site-to-site connectivity, backup circuits, and network visibility across the production footprint.
+
+  - slug: franchise
+    title: Franchise
+    description: Technology research for franchise systems — brand standards, franchisee IT, and multi-unit operator network strategy.
+    contentType: industry-hub
+    industry: franchise
+    persona: [franchise-leader, operations, it-director]
+    primaryKeyword: franchise technology standards
+    secondaryKeywords:
+      - franchise network standards
+      - franchisee it management
+      - multi-unit operator technology
+    buyerStage: awareness
+    relatedPages:
+      - /industries/restaurants
+      - /problems/vendor-sprawl
+      - /problems/store-openings
+      - /tools/vendor-consolidation-calculator
+    recommendedTool: /tools/vendor-consolidation-calculator
+    ctaLabel: Model vendor consolidation
+    ctaHref: /tools/vendor-consolidation-calculator
+    order: 7
+    sections:
+      - heading: Franchise technology governance
+        body: Franchise systems must balance corporate brand standards with franchisee autonomy. Network architecture, vendor selection, and support models vary widely across concepts.
+      - heading: Recurring challenges
+        body: Inconsistent store openings, vendor sprawl across franchisees, and uneven IT maturity create operational risk and brand inconsistency.

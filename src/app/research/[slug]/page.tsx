@@ -2,12 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllResearch, getResearchArticle } from "@/lib/content";
+import {
+  buildPageMetadata,
+  getPagesBySection,
+  getSitePage,
+} from "@/lib/site/content";
+import { SitePageRenderer } from "@/components/site/SitePageRenderer";
 import { getDomainLabel } from "@/lib/types";
 import { MarkdownContent } from "@/components/MarkdownContent";
 import { CTAButton } from "@/components/CTAButton";
 
 export function generateStaticParams() {
-  return getAllResearch().map((article) => ({ slug: article.slug }));
+  const siteSlugs = getPagesBySection("research").map((page) => ({ slug: page.slug }));
+  const legacySlugs = getAllResearch().map((article) => ({ slug: article.slug }));
+  return [...siteSlugs, ...legacySlugs];
 }
 
 export async function generateMetadata({
@@ -16,6 +24,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const sitePage = getSitePage("research", slug);
+  if (sitePage) return buildPageMetadata(sitePage);
+
   const article = getResearchArticle(slug);
   if (!article) return { title: "Article Not Found" };
   return {
@@ -30,11 +41,14 @@ export default async function ResearchArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const sitePage = getSitePage("research", slug);
+  if (sitePage) return <SitePageRenderer page={sitePage} />;
+
   const article = getResearchArticle(slug);
   if (!article) notFound();
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
       <div className="mb-8">
         <Link
           href="/research"

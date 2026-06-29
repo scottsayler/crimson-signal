@@ -1,0 +1,78 @@
+pages:
+  - slug: restaurant-downtime-economics
+    title: Restaurant Downtime Economics
+    description: Research report on the true cost of connectivity and POS downtime for multi-location restaurant operators.
+    contentType: research-report
+    industry: restaurants
+    persona: [cfo, operations, it-director]
+    primaryKeyword: restaurant downtime cost research
+    secondaryKeywords:
+      - pos outage economics
+      - restaurant connectivity risk
+      - multi-location downtime impact
+    buyerStage: awareness
+    relatedPages:
+      - /industries/restaurants
+      - /problems/pos-downtime
+      - /tools/downtime-cost-calculator
+    recommendedTool: /tools/downtime-cost-calculator
+    ctaLabel: Calculate your downtime cost
+    ctaHref: /tools/downtime-cost-calculator
+    order: 1
+    sections:
+      - heading: Executive summary
+        body: Multi-location restaurant operators underestimate downtime cost by focusing on circuit fees rather than lost transactions, labor idle time, and guest experience damage. This report frames the economics leaders should use when prioritizing resilience investments.
+      - heading: Methodology
+        body: "[Placeholder] Analysis based on publicly available industry benchmarks, operator interviews, and outage pattern data across QSR, fast casual, and full-service segments."
+      - heading: Key findings
+        body: "[Placeholder] Findings on average outage frequency, revenue-per-hour sensitivity, failover adoption rates, and ROI thresholds for cellular backup and SD-WAN investments."
+
+  - slug: franchise-network-standards
+    title: Franchise Network Standards
+    description: Research on how franchise systems define, enforce, and evolve technology standards across franchisee-operated locations.
+    contentType: research-report
+    industry: franchise
+    persona: [franchise-leader, it-director]
+    primaryKeyword: franchise network standards research
+    secondaryKeywords:
+      - franchisee technology governance
+      - franchise it standards
+      - multi-unit operator networking
+    buyerStage: consideration
+    relatedPages:
+      - /industries/franchise
+      - /industries/restaurants
+      - /problems/store-openings
+      - /resources/restaurant-network-checklist
+    order: 2
+    sections:
+      - heading: Executive summary
+        body: Franchise systems face a structural tension between corporate brand standards and franchisee operational autonomy. Network architecture is where this tension most often creates guest-facing failures.
+      - heading: Standardization models
+        body: "[Placeholder] Comparison of corporate-managed, approved-vendor, and franchisee-choice network models across major franchise concepts."
+      - heading: Recommendations
+        body: "[Placeholder] Framework for defining minimum viable network standards, opening playbooks, and compliance verification without over-constraining franchisee operations."
+
+  - slug: pots-line-retirement-landscape
+    title: POTS Line Retirement Landscape
+    description: Research on carrier copper retirement timelines, replacement options, and cost implications for multi-location organizations.
+    contentType: research-report
+    persona: [cfo, it-director]
+    primaryKeyword: pots line retirement research
+    secondaryKeywords:
+      - copper sunset timeline
+      - analog line replacement options
+      - pots decommission planning
+    buyerStage: awareness
+    relatedPages:
+      - /technologies/pots-replacement
+      - /problems/legacy-phone-lines
+      - /tools/pots-savings-calculator
+    order: 3
+    sections:
+      - heading: Executive summary
+        body: Organizations maintaining analog lines across store and branch locations face a compounding cost and reliability problem as carriers accelerate copper retirement.
+      - heading: Carrier landscape
+        body: "[Placeholder] Overview of major carrier retirement timelines, grandfathering policies, and price escalation patterns."
+      - heading: Replacement decision framework
+        body: "[Placeholder] Criteria for evaluating LTE adapters, VoIP gateways, and managed POTS replacement by use case and compliance requirement."

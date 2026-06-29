@@ -1,0 +1,227 @@
+pages:
+  - slug: internet-outages
+    title: Internet Outages
+    description: How restaurant and multi-location operators should assess internet outage risk, failover design, and the business cost of store-level downtime.
+    contentType: problem
+    problem: internet-outages
+    industry: restaurants
+    persona: [operations, it-director, store-operations]
+    primaryKeyword: restaurant internet outage
+    secondaryKeywords:
+      - store internet outage
+      - internet failover restaurants
+      - store connectivity downtime
+    buyerStage: awareness
+    relatedPages:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/downtime-cost-calculator
+      - /technologies/lte-5g-backup
+      - /technologies/sd-wan
+      - /tools/downtime-cost-calculator
+    recommendedTool: /tools/downtime-cost-calculator
+    ctaLabel: Calculate outage cost
+    ctaHref: /tools/downtime-cost-calculator
+    order: 1
+    cluster:
+      problemFraming: |
+        A store internet outage is not an IT inconvenience — it is a revenue event. POS stops processing cards, kitchen displays lose orders, online platforms stop routing, and guests wait. Restaurants feel this within minutes. Yet many locations still run on a single circuit with no tested failover.
+      whoItIsFor: |
+        - Store operations leaders tracking repeat outage patterns
+        - IT directors designing resilience across a location portfolio
+        - Finance teams needing outage cost data to approve backup spend
+      buyingTriggers: |
+        - Outage during peak service with documented revenue loss
+        - Guest complaints and negative reviews citing payment failures
+        - New store opening without backup circuit in place
+        - ISP SLA credits that do not cover actual business impact
+      relatedTechnologies:
+        - href: /technologies/lte-5g-backup
+          title: LTE & 5G Backup
+          description: Fastest path to automated failover at the store edge.
+        - href: /technologies/sd-wan
+          title: SD-WAN
+          description: Policy-based multi-circuit management at scale.
+        - href: /technologies/managed-network
+          title: Managed Network
+          description: Outsourced monitoring and response when internal teams cannot watch every site.
+      relatedProblems:
+        - href: /problems/pos-downtime
+          title: POS Downtime
+          description: Downstream impact when connectivity fails at the register.
+        - href: /problems/network-visibility
+          title: Network Visibility
+          description: Learning about outages from staff instead of monitoring systems.
+      recommendedTools:
+        - href: /tools/downtime-cost-calculator
+          title: Downtime Cost Calculator
+          description: Quantify impact to prioritize failover investments.
+        - href: /tools/bandwidth-calculator
+          title: Bandwidth Calculator
+          description: Confirm primary and backup circuits are appropriately sized.
+    sections:
+      - heading: Resolution paths
+        body: |
+          Cellular backup, dual-ISP with automated failover, SD-WAN, and managed monitoring address different severity levels. Most operators start with cellular failover at high-volume locations, then standardize as opening volume grows.
+
+  - slug: pos-downtime
+    title: POS Downtime
+    description: Research on POS downtime risk for restaurants and retail — causes, costs, and technology decisions that reduce transaction failure.
+    contentType: problem
+    problem: pos-downtime
+    industry: restaurants
+    persona: [operations, store-operations, it-director]
+    primaryKeyword: restaurant pos downtime
+    secondaryKeywords:
+      - pos system outage cost
+      - retail pos downtime
+      - point of sale connectivity
+    buyerStage: awareness
+    relatedPages:
+      - /industries/restaurants
+      - /problems/internet-outages
+      - /technologies/lte-5g-backup
+      - /tools/downtime-cost-calculator
+    recommendedTool: /tools/downtime-cost-calculator
+    ctaLabel: Model downtime cost
+    ctaHref: /tools/downtime-cost-calculator
+    order: 2
+    sections:
+      - heading: Why POS downtime is a leadership issue
+        body: POS failures stop revenue at the register. In restaurants, they also disrupt kitchen display systems, online order routing, and loyalty program transactions.
+      - heading: Common failure modes
+        body: Network outages, cloud POS dependency, payment processor connectivity, and local hardware failures each require different mitigation strategies.
+      - heading: What to evaluate
+        body: Offline payment modes, cellular failover for POS traffic, vendor SLA terms, and store-level monitoring should be part of any POS resilience plan.
+
+  - slug: vendor-sprawl
+    title: Vendor Sprawl
+    description: How accumulated telecom and IT vendors create cost, complexity, and support gaps across multi-location footprints.
+    contentType: problem
+    problem: vendor-sprawl
+    persona: [cfo, it-director, procurement]
+    primaryKeyword: telecom vendor consolidation
+    secondaryKeywords:
+      - it vendor sprawl
+      - multi-location vendor management
+      - telecom cost reduction
+    buyerStage: consideration
+    relatedPages:
+      - /industries/franchise
+      - /technologies/managed-network
+      - /tools/vendor-consolidation-calculator
+    recommendedTool: /tools/vendor-consolidation-calculator
+    ctaLabel: Model consolidation savings
+    ctaHref: /tools/vendor-consolidation-calculator
+    order: 3
+    sections:
+      - heading: How sprawl develops
+        body: Store openings, acquisitions, and franchisee autonomy each introduce new carriers, MSPs, and equipment vendors. Over time, no one has a complete inventory.
+      - heading: Hidden costs
+        body: Duplicate circuits, inconsistent SLAs, fragmented billing, and unclear escalation paths inflate total cost of ownership beyond line-item telecom spend.
+      - heading: Consolidation approach
+        body: Start with a complete vendor and circuit inventory, identify overlap, and define a target operating model before selecting consolidation partners.
+
+  - slug: pci-compliance
+    title: PCI Compliance
+    description: Network and technology decisions that affect PCI compliance for organizations processing card payments across locations.
+    contentType: problem
+    problem: pci-compliance
+    persona: [it-director, cio]
+    primaryKeyword: pci compliance network
+    secondaryKeywords:
+      - pci dss multi-location
+      - retail pci compliance
+      - network segmentation pci
+    buyerStage: consideration
+    relatedPages:
+      - /industries/retail
+      - /industries/financial-services
+      - /technologies/sase
+    order: 4
+    sections:
+      - heading: PCI scope and network architecture
+        body: Cardholder data environment boundaries, network segmentation, and store-level security controls all affect PCI assessment scope and remediation cost.
+      - heading: Common gaps
+        body: Flat store networks, unmanaged guest Wi-Fi, outdated firewall policies, and inconsistent patching across locations are recurring findings.
+
+  - slug: legacy-phone-lines
+    title: Legacy Phone Lines
+    description: The rising cost and reliability risk of maintaining analog POTS lines across store and branch locations.
+    contentType: problem
+    problem: legacy-phone-lines
+    industry: restaurants
+    persona: [cfo, it-director, operations]
+    primaryKeyword: legacy pots line costs
+    secondaryKeywords:
+      - analog phone line retirement
+      - pots line replacement
+      - copper line decommission
+    buyerStage: awareness
+    relatedPages:
+      - /technologies/pots-replacement
+      - /industries/restaurants
+      - /tools/pots-savings-calculator
+    recommendedTool: /tools/pots-savings-calculator
+    ctaLabel: Calculate POTS savings
+    ctaHref: /tools/pots-savings-calculator
+    order: 5
+    sections:
+      - heading: The copper sunset
+        body: Carriers are actively retiring copper infrastructure. Organizations maintaining analog lines for alarms, fax, credit card dial backup, and elevators face escalating per-line costs.
+      - heading: Inventory first
+        body: Most organizations underestimate how many POTS lines remain across their footprint. A complete location-by-location inventory is the essential first step.
+
+  - slug: store-openings
+    title: Store Openings
+    description: Technology requirements and common failures when opening new store, restaurant, or branch locations.
+    contentType: problem
+    problem: store-openings
+    industry: restaurants
+    persona: [operations, franchise-leader, it-director]
+    primaryKeyword: new store opening technology
+    secondaryKeywords:
+      - restaurant opening it checklist
+      - store opening network setup
+      - franchise new location technology
+    buyerStage: consideration
+    relatedPages:
+      - /industries/restaurants
+      - /industries/franchise
+      - /resources/restaurant-network-checklist
+      - /tools/network-assessment
+    recommendedTool: /tools/network-assessment
+    ctaLabel: Start network assessment
+    ctaHref: /tools/network-assessment
+    order: 6
+    sections:
+      - heading: Opening day dependencies
+        body: POS, payment processing, kitchen systems, guest Wi-Fi, security cameras, and voice lines must all be live before the first customer. Network provisioning is on the critical path.
+      - heading: Common failures
+        body: Late circuit delivery, incorrect CPE configuration, missing firewall rules for PCI scope, and franchisee/vendor coordination gaps cause opening delays.
+      - heading: Standardization opportunity
+        body: Repeatable opening playbooks, pre-approved vendor lists, and template network designs reduce variance and accelerate time to revenue.
+
+  - slug: network-visibility
+    title: Network Visibility
+    description: Why multi-location organizations lack visibility into store and branch network health — and what to do about it.
+    contentType: problem
+    problem: network-visibility
+    persona: [it-director, cio]
+    primaryKeyword: multi-location network monitoring
+    secondaryKeywords:
+      - store network visibility
+      - branch network monitoring
+      - network operations center
+    buyerStage: consideration
+    relatedPages:
+      - /technologies/managed-network
+      - /technologies/sd-wan
+      - /tools/network-assessment
+    order: 7
+    sections:
+      - heading: The visibility gap
+        body: IT teams often learn about store outages from operations staff or customers — not from monitoring systems. Distributed footprints without centralized NOC capabilities operate reactively.
+      - heading: What good looks like
+        body: Proactive alerting on circuit status, application performance, and CPE health — with clear escalation to store operations and vendor partners.

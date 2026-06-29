@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllResearch } from "@/lib/content";
+import { getPagesBySection } from "@/lib/site/content";
+import { ContentCard } from "@/components/site/ContentCard";
 import { getDomainLabel } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -10,10 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default function ResearchPage() {
-  const articles = getAllResearch();
+  const siteReports = getPagesBySection("research");
+  const legacyArticles = getAllResearch();
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
       <div className="mb-12 max-w-2xl">
         <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-crimson">
           Research
@@ -27,43 +30,63 @@ export default function ResearchPage() {
         </p>
       </div>
 
-      <div className="divide-y divide-border">
-        {articles.map((article) => (
-          <Link
-            key={article.slug}
-            href={`/research/${article.slug}`}
-            className="group block py-8 transition-colors first:pt-0"
-          >
-            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-              <div className="max-w-2xl">
-                <time className="text-xs font-medium text-muted-light">
-                  {new Date(article.publishedAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-                <h2 className="mt-2 font-serif text-2xl font-medium tracking-tight text-foreground transition-colors group-hover:text-crimson">
-                  {article.title}
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {article.excerpt}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-1.5 md:max-w-xs md:justify-end">
-                {article.technologyDomains.map((domain) => (
-                  <span
-                    key={domain}
-                    className="rounded-full bg-border-light px-2.5 py-0.5 text-[11px] font-medium text-muted"
-                  >
-                    {getDomainLabel(domain)}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+      {siteReports.length > 0 && (
+        <section className="mb-16">
+          <h2 className="mb-6 font-serif text-2xl font-medium tracking-tight text-foreground">
+            Research reports
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {siteReports.map((page) => (
+              <ContentCard key={page.slug} page={page} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {legacyArticles.length > 0 && (
+        <section>
+          <h2 className="mb-6 font-serif text-2xl font-medium tracking-tight text-foreground">
+            Analysis & frameworks
+          </h2>
+          <div className="divide-y divide-border">
+            {legacyArticles.map((article) => (
+              <Link
+                key={article.slug}
+                href={`/research/${article.slug}`}
+                className="group block py-8 transition-colors first:pt-0"
+              >
+                <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                  <div className="max-w-2xl">
+                    <time className="text-xs font-medium text-muted-light">
+                      {new Date(article.publishedAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    <h3 className="mt-2 font-serif text-2xl font-medium tracking-tight text-foreground transition-colors group-hover:text-crimson">
+                      {article.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {article.excerpt}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 md:max-w-xs md:justify-end">
+                    {article.technologyDomains.map((domain) => (
+                      <span
+                        key={domain}
+                        className="rounded-full bg-border-light px-2.5 py-0.5 text-[11px] font-medium text-muted"
+                      >
+                        {getDomainLabel(domain)}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

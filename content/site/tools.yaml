@@ -1,0 +1,162 @@
+pages:
+  - slug: downtime-cost-calculator
+    title: Downtime Cost Calculator
+    description: Estimate the revenue impact of POS and connectivity downtime for restaurant locations — a research tool for building resilience business cases.
+    contentType: tool
+    industry: restaurants
+    persona: [cfo, operations, it-director]
+    primaryKeyword: downtime cost calculator
+    secondaryKeywords:
+      - restaurant downtime calculator
+      - pos downtime cost
+      - restaurant outage cost
+    buyerStage: awareness
+    relatedPages:
+      - /industries/restaurants/downtime-cost-calculator
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /problems/pos-downtime
+      - /problems/internet-outages
+      - /technologies/lte-5g-backup
+    order: 1
+    cluster:
+      problemFraming: |
+        Technology resilience investments struggle without a shared understanding of what downtime costs. This calculator helps restaurant operators model revenue impact from average ticket, transaction volume, and outage duration — so failover and redundancy decisions are grounded in business economics, not fear.
+      whoItIsFor: |
+        - CFOs approving backup internet or SD-WAN spend
+        - Operations leaders documenting outage impact after incidents
+        - IT directors prioritizing investments across locations
+      buyingTriggers: |
+        - Post-outage review requiring documented revenue impact
+        - Budget cycle comparing downtime cost vs. cellular backup pricing
+        - Franchise board evaluating corporate network standards
+      relatedTechnologies:
+        - href: /technologies/lte-5g-backup
+          title: LTE & 5G Backup
+          description: Most common investment after downtime cost is quantified.
+        - href: /technologies/sd-wan
+          title: SD-WAN
+          description: Broader architecture when outage patterns justify WAN change.
+      relatedProblems:
+        - href: /problems/internet-outages
+          title: Internet Outages
+          description: The upstream event this calculator helps you price.
+        - href: /problems/pos-downtime
+          title: POS Downtime
+          description: Register-level impact when connectivity fails.
+      recommendedTools:
+        - href: /industries/restaurants/downtime-cost-calculator
+          title: Restaurant Downtime Calculator Guide
+          description: Restaurant-specific context for interpreting calculator results.
+    sections:
+      - heading: Calculator
+        body: |
+          **[Interactive calculator — coming soon]** Enter average hourly revenue, expected outages per year, and average duration to estimate annual downtime cost. Compare the result against cellular backup or redundant circuit pricing to test ROI.
+
+  - slug: bandwidth-calculator
+    title: Bandwidth Calculator
+    description: Estimate bandwidth requirements for store and branch locations based on applications and user count.
+    contentType: tool
+    persona: [it-director]
+    primaryKeyword: store bandwidth calculator
+    secondaryKeywords:
+      - branch bandwidth requirements
+      - restaurant internet speed
+      - wan bandwidth planning
+    buyerStage: consideration
+    relatedPages:
+      - /technologies/lte-5g-backup
+      - /technologies/sd-wan
+      - /industries/restaurants
+    order: 2
+    sections:
+      - heading: About this tool
+        body: Right-size internet circuits for store locations by accounting for POS traffic, guest Wi-Fi, security cameras, back-office applications, and VoIP.
+      - heading: Calculator
+        body: "[Interactive calculator — coming soon] Input application types, concurrent users, and redundancy requirements to generate a bandwidth recommendation."
+
+  - slug: pots-savings-calculator
+    title: POTS Savings Calculator
+    description: Estimate cost savings from replacing legacy analog phone lines across your location footprint.
+    contentType: tool
+    industry: restaurants
+    persona: [cfo, it-director]
+    primaryKeyword: pots savings calculator
+    secondaryKeywords:
+      - pots replacement roi
+      - analog line cost savings
+      - copper line replacement calculator
+    buyerStage: consideration
+    relatedPages:
+      - /technologies/pots-replacement
+      - /problems/legacy-phone-lines
+      - /industries/restaurants
+    order: 3
+    sections:
+      - heading: About this tool
+        body: Compare current POTS line costs against LTE/5G adapter or managed replacement options across your location count.
+      - heading: Calculator
+        body: "[Interactive calculator — coming soon] Enter line count, average monthly cost per line, and replacement technology to model annual savings."
+
+  - slug: network-assessment
+    title: Network Assessment
+    description: Structured self-assessment for evaluating store and branch network readiness across your organization.
+    contentType: tool
+    persona: [it-director, cio]
+    primaryKeyword: network assessment tool
+    secondaryKeywords:
+      - store network assessment
+      - wan readiness evaluation
+      - network maturity assessment
+    buyerStage: evaluation
+    relatedPages:
+      - /technologies/sd-wan
+      - /problems/network-visibility
+      - /tools/technology-maturity-assessment
+    order: 4
+    sections:
+      - heading: About this tool
+        body: Walk through key dimensions of network architecture — redundancy, monitoring, security, vendor management, and standardization — to identify priority gaps.
+      - heading: Assessment
+        body: "[Interactive assessment — coming soon] Answer structured questions about your current network state to receive a maturity summary and recommended next steps."
+
+  - slug: vendor-consolidation-calculator
+    title: Vendor Consolidation Calculator
+    description: Model potential savings from consolidating telecom and IT vendors across a multi-location footprint.
+    contentType: tool
+    persona: [cfo, procurement, it-director]
+    primaryKeyword: vendor consolidation calculator
+    secondaryKeywords:
+      - telecom consolidation savings
+      - it vendor reduction roi
+    buyerStage: evaluation
+    relatedPages:
+      - /problems/vendor-sprawl
+      - /industries/franchise
+      - /technologies/managed-network
+    order: 5
+    sections:
+      - heading: About this tool
+        body: Estimate savings from reducing vendor count, consolidating circuits, and standardizing SLAs across locations.
+      - heading: Calculator
+        body: "[Interactive calculator — coming soon] Input vendor count, average monthly spend, and consolidation target to model potential savings."
+
+  - slug: technology-maturity-assessment
+    title: Technology Maturity Assessment
+    description: Evaluate overall technology maturity for multi-location organizations across networking, communications, and operations.
+    contentType: tool
+    persona: [cio, it-director]
+    primaryKeyword: technology maturity assessment
+    secondaryKeywords:
+      - it maturity model
+      - multi-location technology assessment
+    buyerStage: awareness
+    relatedPages:
+      - /tools/network-assessment
+      - /industries/restaurants
+    order: 6
+    sections:
+      - heading: About this tool
+        body: A broader maturity assessment covering network, communications, security, and operational technology across your distributed footprint.
+      - heading: Assessment
+        body: "[Interactive assessment — coming soon] Score your organization across key technology domains to identify where investment will have the highest impact."
