@@ -182,6 +182,10 @@ export function getAllSitePages(): CachedPage[] {
   return Array.from(getCache().values());
 }
 
+export function getPublishedSitePages(): CachedPage[] {
+  return getAllSitePages().filter((page) => page.publish);
+}
+
 export function resolveRelatedContent(page: SitePage): ResolvedRelatedContent {
   const cache = getCache();
   const cached = Array.from(cache.values()).find(

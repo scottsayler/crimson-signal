@@ -3,8 +3,8 @@ import type { BreadcrumbItem } from "@/components/site/Breadcrumbs";
 import type { DecisionGuide, SitePage, SiteSection } from "./types";
 import { getSitePageUrl } from "./types";
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://crimsonsignal.com";
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://crimsonsignal.co";
 
 export function getCanonicalUrl(page: SitePage & { section: SiteSection }): string {
   return `${SITE_URL}${getSitePageUrl(page)}`;
