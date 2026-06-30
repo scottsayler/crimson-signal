@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Inter, Newsreader } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "./globals.css";
+
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${newsreader.variable} h-full`}>
       <body className="flex min-h-full flex-col antialiased">
+        {gaMeasurementId ? <GoogleAnalytics measurementId={gaMeasurementId} /> : null}
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
