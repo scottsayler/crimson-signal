@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "validate:content": "npx --yes tsx scripts/validate-site-content.ts",
+    "new:page": "npx --yes tsx scripts/new-page.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

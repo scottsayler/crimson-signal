@@ -1,0 +1,114 @@
+# =============================================================================
+# Crimson Signal — Decision Tool
+# =============================================================================
+#
+# TARGET FILE:  content/site/tools.yaml
+# URL PATTERN:  /tools/{slug}
+# CONTENT TYPE: tool
+#
+# Use for calculators, assessments, and quantification tools that support
+# a decision. Pair with an industry-topic guide when the tool needs context.
+#
+# WORKFLOW:
+#   npm run new:page -- tool --slug my-tool --title "My Tool"
+#
+# NOTE: For restaurant-specific calculator guides, also consider an industry
+# topic page in content/site/industries/restaurants.yaml that explains how to
+# use the tool. See templates/examples/downtime-cost-calculator.yaml.
+#
+# =============================================================================
+
+- slug: {{slug}}
+  title: {{title}}
+  description: {{description}}
+
+  contentType: tool
+  industry: {{industry}}
+  # Optional. Set when the tool is primarily used in one industry.
+
+  persona:
+    - cfo
+    - it-director
+    - operations
+  primaryKeyword: {{primaryKeyword}}
+  secondaryKeywords:
+    - related phrase one
+    - related phrase two
+
+  searchIntent: decision-support
+  buyerStage: awareness
+  publish: false
+  order: 99
+
+  relatedEntities:
+    - /industries/restaurants
+    - /problems/internet-outages
+    - /technologies/lte-5g-backup
+    - /research/restaurant-downtime-economics
+
+  cta:
+    label: Open the calculator
+    href: /tools/{{slug}}
+
+  decisionGuide:
+    quickAnswer: |
+      40 to 80 words. What this tool calculates, who should use it, and what decision it supports.
+
+    whyYoureHere: |
+      The business moment: post-outage review, budget approval, prioritization across locations.
+
+    shouldConsider:
+      evaluateIf:
+        - You need a shared number before approving spend
+        - Leadership asked for ROI or payback period
+      probablyNotIf:
+        - You lack basic inputs such as hourly sales or outage history
+        - You already decided and only need procurement
+
+    whatProblemSolves: |
+      How quantification reduces debate and improves prioritization.
+
+    realityCheck: |
+      Caveat about assumptions. Models are directional, not precise accounting.
+
+    alternatives:
+      - title: Back-of-napkin estimate
+        description: When a rough number is enough.
+      - title: Finance-led model
+        description: When the CFO team will build their own spreadsheet.
+
+    questionsToAsk:
+      - What inputs are required?
+      - What should be included beyond lost sales?
+
+    decisionMatrix:
+      - situation: Single location
+        recommendation: Location-level estimate
+      - situation: Multi-location portfolio
+        recommendation: Tiered model by volume
+
+    worthKnowing: |
+      Insight about peak-hour cost versus daily averages.
+
+    askBeforeYouBuy:
+      - Did leadership accept the input assumptions?
+      - Did we compare result to cost of the proposed fix?
+
+    bottomLine: |
+      When this tool is worth running and what to do with the output.
+
+    faqs:
+      - question: What inputs do I need?
+        answer: List the minimum viable inputs.
+      - question: How accurate is the result?
+        answer: Explain limitations and purpose.
+      - question: What should I do after running it?
+        answer: Next step in the decision path.
+      - question: Is there a guide with more context?
+        answer: Link to related industry-topic guide if one exists.
+
+  sections:
+    - heading: Calculator
+      body: |
+        Describe the interactive tool behavior here when implemented.
+        Until then, explain the manual calculation method.

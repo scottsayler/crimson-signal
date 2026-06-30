@@ -1,0 +1,103 @@
+# =============================================================================
+# EXAMPLE — Restaurant Managed Network (Industry Topic)
+# =============================================================================
+#
+# Reference example for content/site/industries/restaurants.yaml
+# Live page: /industries/restaurants/managed-it
+#
+# Copy structure, not prose, when creating new industry guides.
+# =============================================================================
+
+- slug: managed-it
+  title: Restaurant Managed Network
+  description: When should restaurant operators outsource network monitoring, provisioning, and support? Independent guidance on scope, SLAs, and what to require from a managed services partner.
+
+  contentType: industry-topic
+  industry: restaurants
+  technology: managed-network
+  persona: [it-director, cfo, franchise-leader, cio]
+  primaryKeyword: restaurant managed network
+  secondaryKeywords:
+    - managed network restaurants
+    - outsourced restaurant it
+    - restaurant msp evaluation
+  searchIntent: decision-support
+  buyerStage: evaluation
+  publish: false
+  order: 8
+
+  relatedEntities:
+    - /industries/restaurants
+    - /industries/restaurants/networking
+    - /technologies/managed-network
+    - /problems/vendor-sprawl
+    - /problems/network-visibility
+    - /tools/vendor-consolidation-calculator
+    - /tools/network-assessment
+
+  cta:
+    label: Model vendor consolidation
+    href: /tools/vendor-consolidation-calculator
+
+  decisionGuide:
+    quickAnswer: |
+      Managed network services make sense when store count has outgrown IT capacity and outages are caught by managers instead of monitoring. Define scope before comparing vendors. Managed services do not replace your network standard.
+
+    whyYoureHere: |
+      Your IT team is small relative to store count. Opening support and ISP coordination consume the week. You need to know what scope reduces risk and what you still own internally.
+
+    shouldConsider:
+      evaluateIf:
+        - You support 30 or more locations with a lean IT team
+        - Store managers report outages before monitoring alerts fire
+        - New openings regularly miss network go-live dates
+      probablyNotIf:
+        - You have fewer than 10 locations and a responsive internal team
+        - You have not documented a network standard for partners to execute
+
+    whatProblemSolves: |
+      **Someone watches circuits when your team cannot.**
+
+      **Openings follow a repeatable playbook.**
+
+      **ISP trouble tickets get chased by someone else.**
+
+    realityCheck: |
+      Managed services do not fix a bad architecture. If stores have no backup internet, monitoring only tells you about outages faster.
+
+    alternatives:
+      - title: Hire network-focused IT staff
+        description: Internal ownership when location count is moderate.
+      - title: Monitoring tools only
+        description: Close the visibility gap before outsourcing full operations.
+
+    questionsToAsk:
+      - What is included in monitoring versus break-fix versus opening support?
+      - What are SLA response times during peak restaurant hours?
+      - Who owns franchisee-procured ISP relationships?
+
+    decisionMatrix:
+      - situation: Under 15 locations
+        recommendation: Internal IT with monitoring tools
+      - situation: 40 or more locations, lean IT
+        recommendation: Strong candidate for managed network services
+
+    worthKnowing: |
+      The most expensive contracts are the ones with vague scope. Define tasks before comparing monthly fees.
+
+    askBeforeYouBuy:
+      - What is the complete inventory deliverable at contract start?
+      - Who answers the phone at 6 p.m. on a Friday when POS is down?
+
+    bottomLine: |
+      Evaluate managed network services when scale and visibility gaps exceed internal capacity. Keep ownership of standards, security policy, and opening strategy.
+
+    faqs:
+      - question: What is the difference between managed network and managed IT?
+        answer: Managed network focuses on connectivity and store edge devices. Managed IT may include endpoints and help desk. Define scope in the contract.
+      - question: Can managed services replace an internal IT director?
+        answer: No. You still need internal ownership of standards and vendor relationships.
+      - question: How do I compare proposals?
+        answer: Use identical scope documents, SLA definitions, and three-year total cost.
+      - question: What should be delivered on day one?
+        answer: Circuit inventory, asset documentation, escalation contacts, and opening playbook.

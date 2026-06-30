@@ -1,0 +1,121 @@
+# =============================================================================
+# Crimson Signal — Research Report
+# =============================================================================
+#
+# TARGET FILE:  content/site/research.yaml
+# URL PATTERN:  /research/{slug}
+# CONTENT TYPE: research-report
+#
+# Use for independent summaries of trends, benchmarks, and public evidence.
+# Support decisions. Do not promote vendors.
+#
+# WORKFLOW:
+#   npm run new:page -- research-report --slug my-report --title "My Report"
+#
+# =============================================================================
+
+- slug: {{slug}}
+  title: {{title}}
+  description: {{description}}
+
+  contentType: research-report
+  industry: {{industry}}
+  # Optional primary industry lens.
+
+  persona:
+    - cio
+    - cfo
+    - it-director
+  primaryKeyword: {{primaryKeyword}}
+  secondaryKeywords:
+    - related phrase one
+    - related phrase two
+
+  searchIntent: informational
+  buyerStage: awareness
+  publish: false
+  order: 99
+
+  relatedEntities:
+    - /industries/restaurants
+    - /problems/internet-outages
+    - /technologies/sd-wan
+    - /tools/downtime-cost-calculator
+
+  cta:
+    label: Read the related guide
+    href: /industries/restaurants/networking
+
+  decisionGuide:
+    quickAnswer: |
+      40 to 80 words. What this research covers, who it is for, and the main takeaway.
+
+    whyYoureHere: |
+      Why leadership or IT needs evidence before funding a program or standard.
+
+    shouldConsider:
+      evaluateIf:
+        - You need external validation for a business case
+        - You are setting standards across a multi-location footprint
+      probablyNotIf:
+        - You need a vendor quote, not research context
+        - Your problem is limited to one store with a known fix
+
+    whatProblemSolves: |
+      How this research reduces uncertainty. What decisions it informs.
+
+    realityCheck: |
+      Limitations of the evidence. What this report does not claim.
+
+    alternatives:
+      - title: Internal data only
+        description: When your own outage logs are enough.
+      - title: Vendor-provided benchmarks
+        description: Why independent research still matters.
+
+    questionsToAsk:
+      - Is the sample relevant to our format and volume?
+      - What assumptions should we challenge?
+
+    decisionMatrix:
+      - situation: Early awareness
+        recommendation: Use research to frame the problem
+      - situation: Budget approval
+        recommendation: Combine research with your own outage cost model
+
+    worthKnowing: |
+      Key pattern or benchmark the reader should remember.
+
+    askBeforeYouBuy:
+      - Did we translate research into our own numbers?
+      - Did operations and finance review the assumptions?
+
+    bottomLine: |
+      How to use this report in the next decision meeting.
+
+    faqs:
+      - question: What sources does this report use?
+        answer: Describe methodology at a high level.
+      - question: Does this recommend a vendor?
+        answer: No. Explain independent stance.
+      - question: How often should we revisit this?
+        answer: Freshness guidance.
+      - question: What guide or tool should we read next?
+        answer: Point to next step in the graph.
+
+    evidence:
+      - title: Key finding headline
+        finding: What the evidence shows.
+        whyItMatters: Decision implication.
+        source: Public source name
+
+  sections:
+    - heading: Executive summary
+      body: |
+        One-paragraph overview for leadership.
+    - heading: Methodology
+      body: |
+        How the research was assembled. Public sources, interviews, field patterns.
+    - heading: Key findings
+      body: |
+        Bulleted findings with decision implications.

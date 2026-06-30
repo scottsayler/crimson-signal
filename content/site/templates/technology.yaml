@@ -1,0 +1,111 @@
+# =============================================================================
+# Crimson Signal — Technology Guide (Decision Guide)
+# =============================================================================
+#
+# TARGET FILE:  content/site/technologies.yaml
+# URL PATTERN:  /technologies/{slug}
+# CONTENT TYPE: technology
+#
+# Use when helping readers decide whether a technology is worth evaluating.
+# Examples: SD-WAN, Managed Network, POTS Replacement, LTE Backup.
+#
+# WORKFLOW:
+#   npm run new:page -- technology --slug my-technology --title "My Technology"
+#
+# =============================================================================
+
+- slug: {{slug}}
+  title: {{title}}
+  description: {{description}}
+
+  contentType: technology
+  technology: {{slug}}
+  # Technology entity slug. Usually matches the page slug.
+
+  industry: {{industry}}
+  # Optional primary industry context. Example: restaurants, retail.
+  # Remove if the guide is industry-neutral.
+
+  persona:
+    - it-director
+    - cio
+  primaryKeyword: {{primaryKeyword}}
+  secondaryKeywords:
+    - related phrase one
+    - related phrase two
+
+  searchIntent: decision-support
+  buyerStage: consideration
+  publish: false
+  order: 99
+
+  relatedEntities:
+    - /industries/restaurants
+    - /problems/internet-outages
+    - /technologies/managed-network
+    - /tools/network-assessment
+    - /comparisons/sd-wan-vs-mpls
+    - /research/restaurant-downtime-economics
+
+  cta:
+    label: Start network assessment
+    href: /tools/network-assessment
+
+  decisionGuide:
+    quickAnswer: |
+      40 to 80 words. Should I evaluate this technology? For whom? When is it not worth it?
+
+    whyYoureHere: |
+      The business trigger, not the technology definition.
+
+    shouldConsider:
+      evaluateIf:
+        - Fit signal tied to scale, outage cost, or IT capacity
+        - Another operational trigger
+      probablyNotIf:
+        - Clear reason to delay or choose a simpler option
+        - Another exclusion criterion
+
+    whatProblemSolves: |
+      Business outcomes first. What improves for operations, finance, and leadership?
+
+    realityCheck: |
+      One credible statement that challenges hype or assumptions.
+
+    alternatives:
+      - title: Simpler alternative
+        description: When it is the better first step.
+      - title: Adjacent technology
+        description: Tradeoff versus the main topic.
+
+    questionsToAsk:
+      - Evaluation question for internal teams
+      - Question for vendors during demos
+
+    decisionMatrix:
+      - situation: Low scale
+        recommendation: Start simpler
+      - situation: Mid scale
+        recommendation: Evaluate if pain is recurring
+      - situation: High scale
+        recommendation: Formal evaluation warranted
+
+    worthKnowing: |
+      One practical insight from field experience.
+
+    askBeforeYouBuy:
+      - Ownership and SLA question
+      - Cost and testing question
+
+    bottomLine: |
+      When this technology deserves further evaluation and when it does not.
+
+    faqs:
+      - question: Who needs this technology?
+        answer: Plain answer with scope limits.
+      - question: Who probably does not?
+        answer: Plain answer with simpler alternatives.
+      - question: What should we do before talking to vendors?
+        answer: Practical preparation steps.
+      - question: How does this relate to backup internet or managed services?
+        answer: Connect to adjacent topics.

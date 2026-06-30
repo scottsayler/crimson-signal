@@ -1,0 +1,101 @@
+# =============================================================================
+# EXAMPLE — Restaurant Downtime Cost Calculator (Industry Topic)
+# =============================================================================
+#
+# Reference example for content/site/industries/restaurants.yaml
+# Live page: /industries/restaurants/downtime-cost-calculator
+#
+# Pair with the tool page in content/site/tools.yaml when you add an
+# interactive calculator. The industry topic explains the decision.
+# The tool page hosts the calculator experience.
+#
+# =============================================================================
+
+- slug: downtime-cost-calculator
+  title: Restaurant Downtime Cost Calculator
+  description: How to estimate what POS and connectivity outages actually cost your restaurant group, and when backup internet or network investments pay for themselves.
+
+  contentType: industry-topic
+  industry: restaurants
+  persona: [cfo, operations, it-director, franchise-leader]
+  primaryKeyword: restaurant downtime cost calculator
+  secondaryKeywords:
+    - restaurant outage cost
+    - pos downtime revenue impact
+    - qsr downtime economics
+  searchIntent: decision-support
+  buyerStage: awareness
+  publish: false
+  order: 3
+
+  relatedEntities:
+    - /industries/restaurants
+    - /industries/restaurants/networking
+    - /problems/internet-outages
+    - /problems/pos-downtime
+    - /technologies/lte-5g-backup
+    - /tools/downtime-cost-calculator
+    - /research/restaurant-downtime-economics
+
+  cta:
+    label: Open the downtime calculator
+    href: /tools/downtime-cost-calculator
+
+  decisionGuide:
+    quickAnswer: |
+      Restaurant downtime cost is the revenue and labor you lose when POS or connectivity fails during service. A high-volume QSR location can lose thousands per hour during lunch or dinner rush. Compare that number to the annual cost of cellular backup before approving network spend.
+
+    whyYoureHere: |
+      Leadership asked what the last outage actually cost. Finance wants a number before approving backup internet. IT needs a business case beyond fear of downtime.
+
+    shouldConsider:
+      evaluateIf:
+        - You had outages during peak meal periods in the past year
+        - Finance requires ROI before approving LTE backup or redundant circuits
+        - You operate high-volume locations where card and online orders dominate
+      probablyNotIf:
+        - Outages are rare and always occur during closed hours
+        - You have not documented when outages happened or how long POS was down
+
+    whatProblemSolves: |
+      A credible estimate turns network spending from a technology debate into a business decision shared by finance, operations, and IT.
+
+    realityCheck: |
+      ISP service credits rarely cover real business impact during peak service.
+
+    alternatives:
+      - title: Average daily sales divided by hours
+        description: Quick estimate when transaction data is unavailable.
+      - title: Peak-hour model only
+        description: More accurate for restaurants with sharp lunch and dinner curves.
+
+    questionsToAsk:
+      - What is average hourly revenue at our busiest location during rush?
+      - What percentage of sales requires live connectivity?
+      - How many outage hours did we log last year?
+
+    decisionMatrix:
+      - situation: Outage cost under $500 per hour
+        recommendation: Monitoring and basic failover may be enough
+      - situation: Outage cost over $2,000 per hour
+        recommendation: Redundant circuits and formal resilience planning warranted
+
+    worthKnowing: |
+      A 45-minute outage at a busy Friday dinner can cost more than a full year of cellular backup at the same location.
+
+    askBeforeYouBuy:
+      - What hourly revenue figure did we use and does leadership accept it?
+      - Are labor, waste, and delivery penalties included?
+
+    bottomLine: |
+      Quantify peak-hour downtime cost first. Compare that number to backup internet or network project cost before evaluating vendors.
+
+    faqs:
+      - question: What inputs do I need for a downtime estimate?
+        answer: Hourly sales at your busiest location, share of sales requiring connectivity, outage hours per year, and average duration.
+      - question: Should I use gross sales or card volume only?
+        answer: Use gross sales for revenue you cannot capture when registers and online ordering are down.
+      - question: When does LTE backup pay for itself?
+        answer: Compare annual LTE cost to peak-hour downtime cost times expected outage hours.
+      - question: Does this apply to franchisees?
+        answer: Yes. Each party can run the math on their own ticket average and volume.

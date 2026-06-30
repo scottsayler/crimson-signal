@@ -1,8 +1,20 @@
 import fs from "fs";
 import path from "path";
 import yaml from "yaml";
-import type { SitePage, SiteSection } from "./types";
-import { getSitePageUrl, parsePagePath } from "./types";
+import type {
+  RelatedContentItem,
+  ResolvedRelatedContent,
+  SitePage,
+  SiteSection,
+} from "./types";
+import {
+  CONTENT_TYPE_LABELS,
+  getSitePageUrl,
+  parsePagePath,
+  sectionFromPath,
+} from "./types";
+import { processSitePage, type CachedPage } from "./pipeline";
+import { formatQualityReport, validateAllPages } from "./validate";
 
 const SITE_CONTENT_DIR = path.join(process.cwd(), "content", "site");
 
@@ -16,35 +28,16 @@ const SECTION_FILES: SiteSection[] = [
   "resources",
 ];
 
-type CachedPage = SitePage & { section: SiteSection };
-
-function normalizePage(page: SitePage): SitePage {
-  return {
-    ...page,
-    relatedPages: page.relatedPages ?? [],
-    secondaryKeywords: page.secondaryKeywords ?? [],
-    sections: page.sections ?? [],
-    cluster: page.cluster
-      ? {
-          ...page.cluster,
-          relatedTechnologies: page.cluster.relatedTechnologies ?? [],
-          relatedProblems: page.cluster.relatedProblems ?? [],
-          recommendedTools: page.cluster.recommendedTools ?? [],
-        }
-      : undefined,
-  };
-}
-
-function readSectionPages(section: SiteSection): SitePage[] {
+function readSectionPages(section: SiteSection): (SitePage & { section: SiteSection })[] {
   const filePath = path.join(SITE_CONTENT_DIR, `${section}.yaml`);
   if (!fs.existsSync(filePath)) return [];
 
   const raw = fs.readFileSync(filePath, "utf-8");
   const data = yaml.parse(raw) as { pages: SitePage[] };
-  return (data.pages ?? []).map(normalizePage);
+  return (data.pages ?? []).map((page) => ({ ...page, section }));
 }
 
-function readIndustryClusterPages(): SitePage[] {
+function readIndustryClusterPages(): (SitePage & { section: SiteSection })[] {
   const clusterDir = path.join(SITE_CONTENT_DIR, "industries");
   if (!fs.existsSync(clusterDir)) return [];
 
@@ -55,10 +48,24 @@ function readIndustryClusterPages(): SitePage[] {
       const parentIndustry = filename.replace(/\.yaml$/, "");
       const raw = fs.readFileSync(path.join(clusterDir, filename), "utf-8");
       const data = yaml.parse(raw) as { pages: SitePage[] };
-      return (data.pages ?? []).map((page) =>
-        normalizePage({ ...page, parentIndustry, industry: page.industry ?? parentIndustry })
-      );
+      return (data.pages ?? []).map((page) => ({
+        ...page,
+        section: "industries" as const,
+        parentIndustry,
+        industry: page.industry ?? parentIndustry,
+      }));
     });
+}
+
+function readAllRawPages(): (SitePage & { section: SiteSection })[] {
+  const pages: (SitePage & { section: SiteSection })[] = [];
+
+  for (const section of SECTION_FILES) {
+    pages.push(...readSectionPages(section));
+  }
+
+  pages.push(...readIndustryClusterPages());
+  return pages;
 }
 
 function cacheKey(page: SitePage & { section: SiteSection }): string {
@@ -71,21 +78,73 @@ function cacheKey(page: SitePage & { section: SiteSection }): string {
 let pageCache: Map<string, CachedPage> | null = null;
 
 function buildPageCache(): Map<string, CachedPage> {
+  const rawPages = readAllRawPages();
   const cache = new Map<string, CachedPage>();
 
-  for (const section of SECTION_FILES) {
-    for (const page of readSectionPages(section)) {
-      const cached = { ...page, section };
-      cache.set(cacheKey(cached), cached);
-    }
+  const resolvePath = (pathStr: string): CachedPage | null => {
+    const parsed = parsePagePath(pathStr);
+    if (!parsed) return null;
+
+    const key = parsed.topic
+      ? `industries/${parsed.slug}/${parsed.topic}`
+      : `${parsed.section}/${parsed.slug}`;
+
+    return cache.get(key) ?? null;
+  };
+
+  const toRelatedItem = (page: CachedPage): RelatedContentItem => ({
+    href: getSitePageUrl(page),
+    title: page.title,
+    description: page.description,
+    contentType: page.contentType,
+    section: page.section,
+    readingTime: page.readingTime,
+  });
+
+  for (const raw of rawPages) {
+    const processed = processSitePage(
+      raw,
+      raw.section,
+      rawPages as CachedPage[],
+      resolvePath,
+      toRelatedItem
+    );
+    cache.set(cacheKey(processed), processed);
   }
 
-  for (const page of readIndustryClusterPages()) {
-    const cached = { ...page, section: "industries" as const };
-    cache.set(cacheKey(cached), cached);
-  }
+  runQualityGate(Array.from(cache.values()), resolvePath, toRelatedItem);
 
   return cache;
+}
+
+function runQualityGate(
+  pages: CachedPage[],
+  resolvePath: (path: string) => CachedPage | null,
+  toRelatedItem: (page: CachedPage) => RelatedContentItem
+): void {
+  const reports = validateAllPages(pages, resolvePath, toRelatedItem);
+  const strict = process.env.SITE_CONTENT_STRICT === "true";
+  const published = reports.filter((r) => r.publish);
+  const failures = published.filter((r) => r.errors.length > 0);
+
+  if (failures.length > 0) {
+    const message = failures.map(formatQualityReport).join("\n\n");
+    if (strict) {
+      throw new Error(
+        `Site content quality gate failed for ${failures.length} published page(s):\n\n${message}`
+      );
+    }
+    console.warn(
+      `[crimson-signal] ${failures.length} published page(s) have quality issues:\n\n${message}`
+    );
+  }
+
+  const warnings = reports.filter((r) => r.issueCount > 0 && !r.publish);
+  if (warnings.length > 0 && process.env.NODE_ENV !== "production") {
+    console.info(
+      `[crimson-signal] ${warnings.length} draft page(s) have quality warnings (expected during authoring).`
+    );
+  }
 }
 
 function getCache(): Map<string, CachedPage> {
@@ -123,51 +182,112 @@ export function getAllSitePages(): CachedPage[] {
   return Array.from(getCache().values());
 }
 
+export function resolveRelatedContent(page: SitePage): ResolvedRelatedContent {
+  const cache = getCache();
+  const cached = Array.from(cache.values()).find(
+    (p) => p.slug === page.slug && p.section === (page as CachedPage).section
+  );
+
+  const paths = cached?.relatedEntities ?? page.relatedEntities ?? [];
+
+  const result: ResolvedRelatedContent = {
+    guides: [],
+    problems: [],
+    technologies: [],
+    tools: [],
+    comparisons: [],
+    research: [],
+  };
+
+  const seen = new Set<string>();
+
+  for (const pathStr of paths) {
+    if (seen.has(pathStr)) continue;
+    seen.add(pathStr);
+
+    const parsed = parsePagePath(pathStr);
+    if (!parsed) continue;
+
+    const key = parsed.topic
+      ? `industries/${parsed.slug}/${parsed.topic}`
+      : `${parsed.section}/${parsed.slug}`;
+
+    const related = cache.get(key);
+    if (!related) continue;
+
+    const section = sectionFromPath(pathStr);
+    if (!section) continue;
+
+    const item: RelatedContentItem = {
+      href: getSitePageUrl(related),
+      title: related.title,
+      description: related.description,
+      contentType: related.contentType,
+      section: related.section,
+      readingTime: related.readingTime,
+    };
+
+    switch (section) {
+      case "industries":
+        result.guides.push(item);
+        break;
+      case "problems":
+        result.problems.push(item);
+        break;
+      case "technologies":
+        result.technologies.push(item);
+        break;
+      case "tools":
+        result.tools.push(item);
+        break;
+      case "comparisons":
+        result.comparisons.push(item);
+        break;
+      case "research":
+        result.research.push(item);
+        break;
+      default:
+        result.guides.push(item);
+    }
+  }
+
+  return result;
+}
+
+/** @deprecated Use resolveRelatedContent */
 export function resolveRelatedPages(
   page: SitePage
 ): { href: string; title: string; section: SiteSection }[] {
-  const cache = getCache();
-
-  return page.relatedPages
-    .map((relatedPath) => {
-      const parsed = parsePagePath(relatedPath);
-      if (!parsed) return null;
-
-      const key = parsed.topic
-        ? `industries/${parsed.slug}/${parsed.topic}`
-        : `${parsed.section}/${parsed.slug}`;
-
-      const related = cache.get(key);
-      if (!related) return null;
-
-      return {
-        href: getSitePageUrl(related),
-        title: related.title,
-        section: related.section,
-      };
-    })
-    .filter((item): item is { href: string; title: string; section: SiteSection } => item !== null);
+  const related = resolveRelatedContent(page);
+  return [
+    ...related.guides,
+    ...related.problems,
+    ...related.technologies,
+    ...related.tools,
+    ...related.comparisons,
+    ...related.research,
+  ].map((item) => ({
+    href: item.href,
+    title: item.title,
+    section: item.section,
+  }));
 }
 
-export function buildPageMetadata(page: CachedPage) {
-  return {
-    title: page.title,
-    description: page.description,
-    keywords: [page.primaryKeyword, ...page.secondaryKeywords],
-    openGraph: {
-      title: page.title,
-      description: page.description,
-      type: "article" as const,
-    },
-  };
-}
+export { buildPageMetadata, getCanonicalUrl } from "./seo";
+export { validateAllPages, formatQualityReport } from "./validate";
+export type { PageQualityReport } from "./validate";
 
 export const RESTAURANT_CLUSTER_LINKS = [
   { href: "/industries/restaurants", title: "Restaurants" },
   { href: "/industries/restaurants/networking", title: "Restaurant Networking" },
+  { href: "/industries/restaurants/sd-wan", title: "Restaurant SD-WAN" },
   {
     href: "/industries/restaurants/downtime-cost-calculator",
-    title: "Restaurant Downtime Calculator",
+    title: "Restaurant Downtime Cost Calculator",
+  },
+  {
+    href: "/industries/restaurants/bandwidth-calculator",
+    title: "Restaurant Bandwidth Calculator",
   },
   { href: "/industries/restaurants/best-internet", title: "Best Internet for Restaurants" },
   {
@@ -178,7 +298,7 @@ export const RESTAURANT_CLUSTER_LINKS = [
     href: "/industries/restaurants/opening-technology-checklist",
     title: "Opening Technology Checklist",
   },
-  { href: "/industries/restaurants/managed-it", title: "Restaurant Managed IT" },
+  { href: "/industries/restaurants/managed-it", title: "Restaurant Managed Network" },
   { href: "/problems/internet-outages", title: "Internet Outages" },
   { href: "/technologies/sd-wan", title: "SD-WAN" },
   { href: "/technologies/managed-network", title: "Managed Network" },
@@ -190,6 +310,12 @@ export function isRestaurantClusterPage(page: SitePage): boolean {
   return (
     page.industry === "restaurants" ||
     page.parentIndustry === "restaurants" ||
-    page.relatedPages.some((p) => p.includes("/restaurants"))
+    (page.relatedEntities ?? page.relatedPages ?? []).some((p) =>
+      p.includes("/restaurants")
+    )
   );
+}
+
+export function getContentTypeLabel(contentType: SitePage["contentType"]): string {
+  return CONTENT_TYPE_LABELS[contentType] ?? "Guide";
 }

@@ -1,0 +1,108 @@
+# =============================================================================
+# Crimson Signal — Comparison Guide
+# =============================================================================
+#
+# TARGET FILE:  content/site/comparisons.yaml
+# URL PATTERN:  /comparisons/{slug}
+# CONTENT TYPE: comparison
+#
+# Use when comparing two or more technologies or approaches fairly.
+# Never rank vendors. Compare categories, tradeoffs, and fit.
+#
+# WORKFLOW:
+#   npm run new:page -- comparison --slug option-a-vs-option-b --title "A vs B"
+#
+# =============================================================================
+
+- slug: {{slug}}
+  title: {{title}}
+  description: {{description}}
+
+  contentType: comparison
+  technology: {{technology}}
+  # Primary technology entity when applicable.
+
+  industry: {{industry}}
+  persona:
+    - it-director
+    - cio
+  primaryKeyword: {{primaryKeyword}}
+  secondaryKeywords:
+    - related phrase one
+    - related phrase two
+
+  searchIntent: commercial-investigation
+  buyerStage: consideration
+  publish: false
+  order: 99
+
+  relatedEntities:
+    - /technologies/sd-wan
+    - /technologies/managed-network
+    - /problems/internet-outages
+    - /tools/network-assessment
+    - /research/restaurant-downtime-economics
+
+  cta:
+    label: Start network assessment
+    href: /tools/network-assessment
+
+  decisionGuide:
+    quickAnswer: |
+      40 to 80 words. When to choose each option and the main tradeoff in one paragraph.
+
+    whyYoureHere: |
+      The decision point: renewal, architecture change, vendor demo, board question.
+
+    shouldConsider:
+      evaluateIf:
+        - You are choosing between named approaches at scale
+        - Contract or architecture timing forces a decision
+      probablyNotIf:
+        - You have not documented requirements or outage cost
+        - One option is clearly mismatched to your scale
+
+    whatProblemSolves: |
+      What each option solves in business terms. Not feature lists.
+
+    realityCheck: |
+      Honest statement. Example: the cheaper option may cost more operationally.
+
+    alternatives:
+      - title: Option A
+        description: Best when... Main tradeoff...
+      - title: Option B
+        description: Best when... Main tradeoff...
+      - title: Hybrid or phased approach
+        description: When a staged path is smarter.
+
+    questionsToAsk:
+      - Question comparing operational ownership
+      - Question comparing total cost over three years
+      - Question comparing failover or risk reduction
+
+    decisionMatrix:
+      - situation: Criteria row one
+        recommendation: Which option fits
+      - situation: Criteria row two
+        recommendation: Which option fits
+
+    worthKnowing: |
+      Non-obvious comparison insight from the field.
+
+    askBeforeYouBuy:
+      - Question to ask whichever vendor or path you choose
+      - Question about migration and testing
+
+    bottomLine: |
+      Plain recommendation framework, not a single winner for every reader.
+
+    faqs:
+      - question: Which option is better for small operators?
+        answer: Scope-specific answer.
+      - question: Which option scales better?
+        answer: Scale-specific answer.
+      - question: Can we use both?
+        answer: Hybrid guidance.
+      - question: What should we decide before requesting quotes?
+        answer: Preparation checklist.

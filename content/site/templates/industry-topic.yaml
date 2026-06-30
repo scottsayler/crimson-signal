@@ -1,0 +1,189 @@
+# =============================================================================
+# Crimson Signal — Industry Topic (Decision Guide)
+# =============================================================================
+#
+# TARGET FILE:  content/site/industries/{industry}.yaml
+# URL PATTERN:  /industries/{industry}/{slug}
+# CONTENT TYPE: industry-topic
+#
+# Use for industry-specific decision guides such as Restaurant SD-WAN or
+# Restaurant Managed Network. Add this block under the top-level `pages:` key.
+#
+# WORKFLOW:
+#   npm run new:page -- industry-topic --slug my-topic --title "My Topic" --industry restaurants
+#
+# =============================================================================
+
+- slug: {{slug}}
+  # URL segment. Lowercase, hyphenated. Example: managed-it
+
+  title: {{title}}
+  # Page H1 and browser title. Be specific to the industry.
+
+  description: {{description}}
+  # Meta description (150-160 characters ideal). Summarize the decision this page supports.
+  # Do not use em dashes. Avoid vendor language.
+
+  contentType: industry-topic
+  # Always industry-topic for this template.
+
+  industry: {{industry}}
+  # Industry slug. Must match the parent YAML filename (e.g. restaurants).
+
+  technology: {{technology}}
+  # Optional. Technology entity slug when the guide focuses on one technology.
+  # Example: managed-network, sd-wan. Remove or leave blank if not applicable.
+
+  businessProblem: {{businessProblem}}
+  # Optional. Problem entity slug when the guide starts from a business problem.
+  # Example: internet-outages. Remove or leave blank if not applicable.
+
+  persona:
+    - it-director
+    - operations
+  # Who is reading. Options: it-director, cio, cfo, operations, franchise-leader,
+  # store-operations, procurement, security, executive-leadership
+
+  primaryKeyword: {{primaryKeyword}}
+  # One primary search phrase this page should rank for.
+
+  secondaryKeywords:
+    - related phrase one
+    - related phrase two
+    - related phrase three
+  # Supporting phrases. Use natural language, not keyword stuffing.
+
+  searchIntent: decision-support
+  # informational | commercial-investigation | decision-support | implementation
+
+  buyerStage: consideration
+  # awareness | consideration | evaluation | decision
+
+  publish: false
+  # Set to true only after npm run validate:content passes with no errors.
+
+  order: 99
+  # Sort order within the industry cluster navigation. Lower appears first.
+
+  relatedEntities:
+    - /industries/{{industry}}
+    - /problems/internet-outages
+    - /technologies/managed-network
+    - /tools/network-assessment
+    - /comparisons/sd-wan-vs-mpls
+    - /research/restaurant-downtime-economics
+  # Internal links. Minimum quotas are enforced automatically, but explicit links
+  # improve graph quality. Include guides, problems, technologies, tools,
+  # comparisons, and research where relevant.
+
+  cta:
+    label: Start a network assessment
+    href: /tools/network-assessment
+  # Next step for the reader. Point to a tool, guide, or comparison.
+
+  decisionGuide:
+    quickAnswer: |
+      Write 40 to 80 words. Answer the primary question immediately.
+      State who this is for, when it is worth evaluating, and when it is not.
+      No dictionary definitions. No marketing language.
+
+    whyYoureHere: |
+      Explain the business situation that brought the reader to this page.
+      Use operational examples: outages, openings, franchise variance, leadership questions.
+      Write in second person when helpful ("You are likely here because...").
+
+    shouldConsider:
+      evaluateIf:
+        - Specific signal that makes this topic worth research
+        - Another concrete operational or financial trigger
+        - A third fit criterion tied to scale, risk, or IT capacity
+      probablyNotIf:
+        - Clear reason this is not the right focus today
+        - Another situation where a simpler option is better
+        - A third exclusion that builds trust
+
+    whatProblemSolves: |
+      Describe business outcomes before technical features.
+      Use short paragraphs or bullet-style lines with bold lead-ins.
+
+      **Outcome one.** One sentence explaining the business result.
+
+      **Outcome two.** One sentence explaining another result.
+
+      **Outcome three.** One sentence explaining a third result.
+
+    realityCheck: |
+      One honest sentence that challenges a common assumption.
+      Example: Many groups researching this topic need a simpler fix first.
+
+    alternatives:
+      - title: Alternative one
+        description: When this path fits better and what tradeoff it involves.
+      - title: Alternative two
+        description: Another reasonable path and when to choose it.
+      - title: Alternative three
+        description: A simpler or adjacent option.
+
+    questionsToAsk:
+      - Practical question for internal evaluation
+      - Question about scope, cost, or risk
+      - Question about operations or franchise governance
+      - Question about timing or priorities
+      - Question that tests vendor claims
+
+    decisionMatrix:
+      - situation: Small footprint (example range)
+        recommendation: What to do first
+      - situation: Mid-size footprint
+        recommendation: When formal evaluation makes sense
+      - situation: Large or complex footprint
+        recommendation: Stronger recommendation with caveats
+
+    worthKnowing: |
+      One practical insight an experienced advisor would share.
+      Something the reader might not think about until peak operations.
+
+    askBeforeYouBuy:
+      - Vendor or partner question about ownership and SLAs
+      - Question about failover, monitoring, or support hours
+      - Question about implementation timeline and testing
+      - Question about total cost beyond the initial quote
+
+    bottomLine: |
+      Two to three sentences summarizing when to pursue this topic and when to stop.
+      Make the recommendation easy to repeat in a leadership meeting.
+
+    faqs:
+      - question: First useful reader question?
+        answer: Direct answer in plain English. Two to four sentences max.
+      - question: Second useful reader question?
+        answer: Direct answer expanding on tradeoffs or scope.
+      - question: Third useful reader question?
+        answer: Direct answer with a practical next step.
+      - question: Fourth useful reader question?
+        answer: Direct answer that connects to a related guide or tool.
+
+    # Optional editorial sections (remove if not needed):
+    # buyingTriggerTimeline:
+    #   - First event in the buyer journey
+    #   - Escalation or leadership attention
+    #   - Assessment or business case
+    #   - Vendor evaluation or decision
+  #
+  # industrySnapshot:
+  #   topChallenges:
+  #     - Challenge one
+  #     - Challenge two
+  #   typicalEnvironment: One paragraph describing the industry context.
+  #   commonPriorities:
+  #     - Priority one
+  #     - Priority two
+  #   buyingTriggers:
+  #     - Trigger one
+  #     - Trigger two
+  #
+  # evidence:
+  #   - title: Evidence headline
+  #     finding: What the evidence shows.
+  #     whyItMatters: Why the reader should care.
+  #     source: Public source or internal research name

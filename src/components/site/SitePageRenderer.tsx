@@ -1,8 +1,9 @@
-import type { SitePage, SiteSection } from "@/lib/site/types";
+import type { CachedPage } from "@/lib/site/pipeline";
 import { SECTION_LABELS } from "@/lib/site/types";
-import { resolveRelatedPages } from "@/lib/site/content";
+import { resolveRelatedContent } from "@/lib/site/content";
+import { buildPageSchemas, JsonLd } from "@/lib/site/seo";
 import { Breadcrumbs, type BreadcrumbItem } from "./Breadcrumbs";
-import { RelatedContent } from "./RelatedContent";
+import { ContinueResearch } from "./decision";
 import { PageCTA } from "./PageCTA";
 import {
   IndustryHubTemplate,
@@ -17,16 +18,17 @@ import {
 } from "./templates";
 
 interface SitePageRendererProps {
-  page: SitePage & { section: SiteSection };
+  page: CachedPage;
 }
 
-function renderTemplate(page: SitePage & { section: SiteSection }) {
+function renderTemplate(page: CachedPage) {
   switch (page.contentType) {
     case "industry-hub":
       return <IndustryHubTemplate page={page} />;
     case "industry-topic":
       return <IndustryTopicTemplate page={page} />;
     case "technology":
+    case "decision-guide":
       return <TechnologyPageTemplate page={page} />;
     case "problem":
       return <ProblemPageTemplate page={page} />;
@@ -45,7 +47,7 @@ function renderTemplate(page: SitePage & { section: SiteSection }) {
   }
 }
 
-function breadcrumbsForSitePage(page: SitePage & { section: SiteSection }): BreadcrumbItem[] {
+function breadcrumbsForSitePage(page: CachedPage): BreadcrumbItem[] {
   const items: BreadcrumbItem[] = [
     { label: SECTION_LABELS[page.section], href: `/${page.section}` },
   ];
@@ -63,23 +65,31 @@ function breadcrumbsForSitePage(page: SitePage & { section: SiteSection }): Brea
 }
 
 export function SitePageRenderer({ page }: SitePageRendererProps) {
-  const related = resolveRelatedPages(page);
-  const ctaLabel = page.ctaLabel ?? (page.recommendedTool ? "Explore recommended tool" : undefined);
-  const ctaHref = page.ctaHref ?? page.recommendedTool;
+  if (page.publish && page.quality && page.quality.errors.length > 0) {
+    throw new Error(
+      `Page "${page.title}" is marked publish but failed quality validation: ${page.quality.errors.map((e) => e.message).join("; ")}`
+    );
+  }
+
+  const related = resolveRelatedContent(page);
+  const breadcrumbs = breadcrumbsForSitePage(page);
+  const schemas = buildPageSchemas(page, breadcrumbs, page.decisionGuide);
+  const cta = page.cta;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
-      <Breadcrumbs items={breadcrumbsForSitePage(page)} />
+      <JsonLd data={schemas} />
+      <Breadcrumbs items={breadcrumbs} />
       {renderTemplate(page)}
-      {ctaLabel && ctaHref && (
+      {cta && (
         <PageCTA
-          label={ctaLabel}
-          href={ctaHref}
+          label={cta.label}
+          href={cta.href}
           title="Next step"
           description="Independent research is most useful when it leads to a concrete decision. Start here."
         />
       )}
-      <RelatedContent pages={related} />
+      <ContinueResearch related={related} />
     </div>
   );
 }

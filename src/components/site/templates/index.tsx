@@ -1,51 +1,37 @@
-import type { SitePage, SiteSection } from "@/lib/site/types";
+import type { CachedPage } from "@/lib/site/pipeline";
 import { getSitePageUrl } from "@/lib/site/types";
-import { getIndustryTopics, isRestaurantClusterPage } from "@/lib/site/content";
+import { getIndustryTopics } from "@/lib/site/content";
 import { PageHero } from "../PageHero";
-import { PageSections, PageSidebar } from "../PageSections";
-import { TopicClusterBody } from "../TopicClusterTemplate";
-import { RestaurantClusterNav } from "../RestaurantClusterNav";
+import { PageDevQualityPanel } from "../PageSections";
+import { DecisionGuideBody } from "../DecisionGuideBody";
+import { ContinueResearchSidebar } from "../ContinueResearchSidebar";
 import { ContentCard } from "../ContentCard";
 
 interface TemplateProps {
-  page: SitePage & { section: SiteSection };
+  page: CachedPage;
 }
 
-function ClusterTemplate({ page, eyebrow }: TemplateProps & { eyebrow?: string }) {
-  if (!page.cluster) {
-    return <BaseTemplate page={page} eyebrow={eyebrow} />;
-  }
-
-  const showClusterNav = isRestaurantClusterPage(page);
+function DecisionGuideTemplate({
+  page,
+  eyebrow,
+}: TemplateProps & { eyebrow?: string }) {
   const currentPath = getSitePageUrl(page);
 
   return (
-    <div className="grid gap-16 lg:grid-cols-3">
-      <div className="lg:col-span-2">
+    <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
+      <div className="min-w-0 lg:col-span-2">
         <PageHero page={page} eyebrow={eyebrow} />
-        <TopicClusterBody cluster={page.cluster} sections={page.sections} />
+        {page.decisionGuide && (
+          <DecisionGuideBody
+            guide={page.decisionGuide}
+            sections={page.sections}
+            presentationMode={page.presentationMode}
+          />
+        )}
       </div>
       <aside className="space-y-6">
-        {showClusterNav && <RestaurantClusterNav currentPath={currentPath} />}
-        <PageSidebar page={page} />
-      </aside>
-    </div>
-  );
-}
-
-function BaseTemplate({ page, eyebrow }: TemplateProps & { eyebrow?: string }) {
-  const showClusterNav = isRestaurantClusterPage(page);
-  const currentPath = getSitePageUrl(page);
-
-  return (
-    <div className="grid gap-16 lg:grid-cols-3">
-      <div className="lg:col-span-2">
-        <PageHero page={page} eyebrow={eyebrow} />
-        <PageSections sections={page.sections} />
-      </div>
-      <aside className="space-y-6">
-        {showClusterNav && <RestaurantClusterNav currentPath={currentPath} />}
-        <PageSidebar page={page} />
+        <ContinueResearchSidebar page={page} currentPath={currentPath} />
+        <PageDevQualityPanel page={page} />
       </aside>
     </div>
   );
@@ -53,67 +39,70 @@ function BaseTemplate({ page, eyebrow }: TemplateProps & { eyebrow?: string }) {
 
 export function IndustryHubTemplate({ page }: TemplateProps) {
   const topics = getIndustryTopics(page.slug);
-  const showClusterNav = isRestaurantClusterPage(page);
   const currentPath = getSitePageUrl(page);
 
-  if (page.cluster) {
-    return (
-      <div className="grid gap-16 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <PageHero page={page} eyebrow="Industry Research" />
-          <TopicClusterBody cluster={page.cluster} sections={page.sections} />
-          {topics.length > 0 && (
-            <section className="mt-12">
-              <h2 className="mb-6 font-serif text-2xl font-medium tracking-tight text-foreground">
-                Restaurant research topics
-              </h2>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {topics.map((topic) => (
-                  <ContentCard key={topic.slug} page={topic} />
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-        <aside className="space-y-6">
-          {showClusterNav && <RestaurantClusterNav currentPath={currentPath} />}
-          <PageSidebar page={page} />
-        </aside>
+  return (
+    <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
+      <div className="min-w-0 lg:col-span-2">
+        <PageHero page={page} eyebrow="Industry Hub" />
+        {page.decisionGuide && (
+          <DecisionGuideBody
+            guide={page.decisionGuide}
+            sections={page.sections}
+            presentationMode={page.presentationMode}
+          />
+        )}
+        {topics.length > 0 && (
+          <section className="mt-14 scroll-mt-24">
+            <h2 className="mb-6 font-serif text-2xl font-medium tracking-tight text-foreground">
+              Research topics
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {topics.map((topic) => (
+                <ContentCard key={topic.slug} page={topic} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
-    );
-  }
-
-  return <ClusterTemplate page={page} eyebrow="Industry Research" />;
+      <aside className="space-y-6">
+        <ContinueResearchSidebar page={page} currentPath={currentPath} />
+        <PageDevQualityPanel page={page} />
+      </aside>
+    </div>
+  );
 }
 
 export function IndustryTopicTemplate({ page }: TemplateProps) {
-  return <ClusterTemplate page={page} eyebrow="Restaurant Research" />;
+  const eyebrow =
+    page.presentationMode === "cornerstone" ? "Cornerstone Guide" : "Decision Guide";
+  return <DecisionGuideTemplate page={page} eyebrow={eyebrow} />;
 }
 
 export function TechnologyPageTemplate({ page }: TemplateProps) {
-  return <ClusterTemplate page={page} eyebrow="Technology" />;
+  return <DecisionGuideTemplate page={page} eyebrow="Decision Guide" />;
 }
 
 export function ProblemPageTemplate({ page }: TemplateProps) {
-  return <ClusterTemplate page={page} eyebrow="Problem" />;
+  return <DecisionGuideTemplate page={page} eyebrow="Business Problem" />;
 }
 
 export function ToolPageTemplate({ page }: TemplateProps) {
-  return <ClusterTemplate page={page} eyebrow="Tool" />;
+  return <DecisionGuideTemplate page={page} eyebrow="Tool" />;
 }
 
 export function BuyingGuideTemplate({ page }: TemplateProps) {
-  return <BaseTemplate page={page} eyebrow="Buying Guide" />;
+  return <DecisionGuideTemplate page={page} eyebrow="Buying Guide" />;
 }
 
 export function ComparisonPageTemplate({ page }: TemplateProps) {
-  return <BaseTemplate page={page} eyebrow="Comparison" />;
+  return <DecisionGuideTemplate page={page} eyebrow="Comparison" />;
 }
 
 export function ChecklistPageTemplate({ page }: TemplateProps) {
-  return <BaseTemplate page={page} eyebrow="Checklist" />;
+  return <DecisionGuideTemplate page={page} eyebrow="Checklist" />;
 }
 
 export function ResearchReportTemplate({ page }: TemplateProps) {
-  return <BaseTemplate page={page} eyebrow="Research Report" />;
+  return <DecisionGuideTemplate page={page} eyebrow="Research Report" />;
 }

@@ -19,6 +19,9 @@ export function ContentCard({ page }: ContentCardProps) {
         {page.title}
       </h3>
       <p className="flex-1 text-sm leading-relaxed text-muted">{page.description}</p>
+      {page.readingTime && (
+        <p className="mt-3 text-[11px] text-muted-light">{page.readingTime} min read</p>
+      )}
     </Link>
   );
 }

@@ -1,0 +1,113 @@
+# =============================================================================
+# Crimson Signal — Business Problem
+# =============================================================================
+#
+# TARGET FILE:  content/site/problems.yaml
+# URL PATTERN:  /problems/{slug}
+# CONTENT TYPE: problem
+#
+# Use when the reader starts from operational pain, not a technology name.
+# Examples: Internet Outages, POS Downtime, Vendor Sprawl, Store Openings.
+#
+# WORKFLOW:
+#   npm run new:page -- problem --slug my-problem --title "My Problem"
+#
+# =============================================================================
+
+- slug: {{slug}}
+  title: {{title}}
+  description: {{description}}
+
+  contentType: problem
+  businessProblem: {{slug}}
+  # Problem entity slug. Usually matches the page slug.
+
+  industry: {{industry}}
+  # Optional. Set when the problem is especially common in one industry.
+  # Example: restaurants. Remove for cross-industry problems.
+
+  persona:
+    - operations
+    - it-director
+  primaryKeyword: {{primaryKeyword}}
+  secondaryKeywords:
+    - related phrase one
+    - related phrase two
+
+  searchIntent: decision-support
+  buyerStage: awareness
+  publish: false
+  order: 99
+
+  relatedEntities:
+    - /industries/restaurants
+    - /industries/restaurants/networking
+    - /technologies/lte-5g-backup
+    - /technologies/sd-wan
+    - /tools/downtime-cost-calculator
+    - /research/restaurant-downtime-economics
+
+  cta:
+    label: Calculate outage cost
+    href: /tools/downtime-cost-calculator
+
+  decisionGuide:
+    quickAnswer: |
+      40 to 80 words. What is this problem, why it matters financially, and the first step to address it.
+
+    whyYoureHere: |
+      The moment the problem became visible: outage, guest complaint, opening delay, board question.
+
+    shouldConsider:
+      evaluateIf:
+        - Signal the problem is recurring or costly
+        - Signal leadership needs a structured response
+      probablyNotIf:
+        - Signal the issue is isolated or already solved
+        - Signal a different root cause is more likely
+
+    whatProblemSolves: |
+      Frame as business impact: revenue, operations, guest experience, risk.
+      This section explains what understanding the problem enables.
+
+    realityCheck: |
+      Honest caveat. Example: ISP credits rarely cover real business impact.
+
+    alternatives:
+      - title: Fastest mitigation
+        description: What to do this quarter.
+      - title: Structural fix
+        description: What to evaluate for next budget cycle.
+
+    questionsToAsk:
+      - How often does this happen?
+      - What does it cost per incident?
+      - Who detects it first today?
+
+    decisionMatrix:
+      - situation: Isolated incident
+        recommendation: Fix the location first
+      - situation: Repeat pattern
+        recommendation: Standardize response
+      - situation: Portfolio-wide exposure
+        recommendation: Fund a program
+
+    worthKnowing: |
+      One insight about timing, peak hours, or hidden cost.
+
+    askBeforeYouBuy:
+      - Question before funding a technology fix
+      - Question about measurement and accountability
+
+    bottomLine: |
+      What to fix first and what evidence you need before spending.
+
+    faqs:
+      - question: What causes this problem?
+        answer: Plain-language answer with common triggers.
+      - question: What should we fix first?
+        answer: Prioritized first step.
+      - question: How does this connect to POS or network decisions?
+        answer: Bridge to related technologies.
+      - question: When is a bigger technology project justified?
+        answer: Thresholds for scale or cost.

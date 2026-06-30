@@ -1,69 +1,134 @@
 pages:
   - slug: internet-outages
     title: Internet Outages
-    description: How restaurant and multi-location operators should assess internet outage risk, failover design, and the business cost of store-level downtime.
+    description: What restaurant and multi-location operators should do about store internet outages, from immediate failover options to long-term resilience planning.
     contentType: problem
-    problem: internet-outages
+    businessProblem: internet-outages
     industry: restaurants
-    persona: [operations, it-director, store-operations]
+    persona: [operations, it-director, store-operations, cfo]
     primaryKeyword: restaurant internet outage
     secondaryKeywords:
       - store internet outage
       - internet failover restaurants
       - store connectivity downtime
+      - multi-location internet outage
+    searchIntent: decision-support
     buyerStage: awareness
-    relatedPages:
+    relatedEntities:
       - /industries/restaurants
       - /industries/restaurants/networking
       - /industries/restaurants/best-internet
+      - /industries/restaurants/sd-wan
       - /industries/restaurants/downtime-cost-calculator
+      - /industries/restaurants/bandwidth-calculator
       - /technologies/lte-5g-backup
       - /technologies/sd-wan
+      - /technologies/managed-network
+      - /problems/pos-downtime
+      - /problems/network-visibility
       - /tools/downtime-cost-calculator
-    recommendedTool: /tools/downtime-cost-calculator
-    ctaLabel: Calculate outage cost
-    ctaHref: /tools/downtime-cost-calculator
+      - /tools/bandwidth-calculator
+      - /research/restaurant-downtime-economics
+    cta:
+      label: Calculate outage cost
+      href: /tools/downtime-cost-calculator
     order: 1
-    cluster:
-      problemFraming: |
-        A store internet outage is not an IT inconvenience — it is a revenue event. POS stops processing cards, kitchen displays lose orders, online platforms stop routing, and guests wait. Restaurants feel this within minutes. Yet many locations still run on a single circuit with no tested failover.
-      whoItIsFor: |
-        - Store operations leaders tracking repeat outage patterns
-        - IT directors designing resilience across a location portfolio
-        - Finance teams needing outage cost data to approve backup spend
-      buyingTriggers: |
-        - Outage during peak service with documented revenue loss
-        - Guest complaints and negative reviews citing payment failures
-        - New store opening without backup circuit in place
-        - ISP SLA credits that do not cover actual business impact
-      relatedTechnologies:
-        - href: /technologies/lte-5g-backup
-          title: LTE & 5G Backup
-          description: Fastest path to automated failover at the store edge.
-        - href: /technologies/sd-wan
-          title: SD-WAN
-          description: Policy-based multi-circuit management at scale.
-        - href: /technologies/managed-network
-          title: Managed Network
-          description: Outsourced monitoring and response when internal teams cannot watch every site.
-      relatedProblems:
-        - href: /problems/pos-downtime
-          title: POS Downtime
-          description: Downstream impact when connectivity fails at the register.
-        - href: /problems/network-visibility
-          title: Network Visibility
-          description: Learning about outages from staff instead of monitoring systems.
-      recommendedTools:
-        - href: /tools/downtime-cost-calculator
-          title: Downtime Cost Calculator
-          description: Quantify impact to prioritize failover investments.
-        - href: /tools/bandwidth-calculator
-          title: Bandwidth Calculator
-          description: Confirm primary and backup circuits are appropriately sized.
-    sections:
-      - heading: Resolution paths
-        body: |
-          Cellular backup, dual-ISP with automated failover, SD-WAN, and managed monitoring address different severity levels. Most operators start with cellular failover at high-volume locations, then standardize as opening volume grows.
+    decisionGuide:
+      quickAnswer: |
+        A store internet outage stops card payments, kitchen ticket routing, and online orders within minutes. Most restaurant locations still run on a single circuit with no tested backup. The fastest risk reduction is LTE failover at high-volume stores. Longer term, standardize backup design across every opening.
+      whyYoureHere: |
+        The registers went down again. Guests could not pay by card. Online orders stopped routing to the kitchen. Someone asked why this keeps happening and what it costs. Internet outages feel like IT problems until leadership sees the revenue line move. This page helps you decide what to fix first and what to spend.
+      shouldConsider:
+        evaluateIf:
+          - Outages occur during lunch or dinner service
+          - Locations run on a single ISP with no automated failover
+          - Store managers detect outages before IT monitoring does
+          - You are opening new stores without backup internet in the standard
+          - Finance needs outage cost data to approve resilience spending
+        probablyNotIf:
+          - Outages are rare and always happen when the store is closed
+          - You already have diverse carriers and quarterly failover testing
+          - The issue is in-store Wi-Fi only, with healthy WAN uptime
+          - You are planning a technology purchase without documenting outage history
+      whatProblemSolves: |
+        Treating internet outages as a business problem changes the priority order.
+
+        **Revenue stops when connectivity fails.** Card authorization, cloud POS, kitchen displays, and delivery platforms depend on live internet during service hours.
+
+        **Guest experience deteriorates fast.** Lines form, orders get comped, and reviews mention payment failures. Recovery takes longer than the outage itself.
+
+        **Operations loses visibility.** Without monitoring, each store handles failures differently and leadership sees patterns only after repeated incidents.
+
+        **Resilience spending gets justified.** When outage cost is documented, backup internet moves from optional to budgeted.
+      realityCheck: |
+        ISP outage credits do not cover real business loss. A small billing credit for a four-hour Friday dinner outage does not offset lost sales, idle labor, or delivery penalties.
+      alternatives:
+        - title: LTE or 5G backup with automated failover
+          description: Fastest path to keeping POS alive. Deploy first at highest-revenue locations.
+        - title: Second ISP with diverse path
+          description: Strong option in urban markets where two carriers enter the building on separate infrastructure.
+        - title: SD-WAN for large portfolios
+          description: When you manage many locations with mixed carriers and need centralized failover policy.
+        - title: Managed monitoring and escalation
+          description: Detect outages faster and coordinate ISP tickets when internal staff cannot watch every site.
+      questionsToAsk:
+        - How many outage hours did we log last year by location?
+        - Which stores have no backup circuit today?
+        - How long does POS stay down when the primary ISP fails?
+        - Who is notified when a store loses connectivity?
+        - What is peak-hour revenue at risk per location?
+        - When did we last test failover during actual rush volume?
+      decisionMatrix:
+        - situation: Single outage at one store
+          recommendation: Fix that site with LTE backup and monitoring
+        - situation: Repeat outages across a region
+          recommendation: Review carrier choice and add diverse backup
+        - situation: Portfolio-wide single-circuit stores
+          recommendation: Tiered rollout starting with top revenue locations
+        - situation: 25 or more locations
+          recommendation: Standardize design and evaluate SD-WAN or managed NOC
+        - situation: Opening new stores
+          recommendation: Require backup internet in opening standard before first guest
+      worthKnowing: |
+        Outages during the first 30 minutes of lunch service cost more per minute than outages in the mid-afternoon lull. Prioritize resilience at high-volume stores during peak dayparts.
+      askBeforeYouBuy:
+        - What is documented hourly downtime cost at affected locations?
+        - Does backup internet carry POS traffic automatically or require manual steps?
+        - Are primary and backup on diverse infrastructure?
+        - Who tests failover and how often?
+        - What monitoring alerts fire when a circuit drops?
+        - What is the payback if we prevent one peak outage per year?
+      buyingTriggerTimeline:
+        - Card payments fail during peak service
+        - Guest complaints and negative reviews mention payment issues
+        - Manager calls IT before monitoring shows an alert
+        - Downtime cost estimate shared with leadership
+        - LTE backup or second circuit approved and ordered
+        - Failover tested during peak hour before next budget cycle
+      technologyStack:
+        - Primary ISP circuit
+        - Backup LTE or second ISP
+        - Failover router
+        - POS and payment processing
+        - Kitchen display system
+        - Online ordering and delivery platforms
+        - Network monitoring
+      evidence:
+        - title: Detection delay
+          finding: Store staff often identify connectivity failures before centralized IT teams, extending outage duration by 15 to 45 minutes in many restaurant environments.
+          whyItMatters: Monitoring and automated failover recover revenue faster than manager phone calls alone.
+          source: Multi-location restaurant operations reviews
+      faqs:
+        - question: What causes restaurant internet outages?
+          answer: ISP failures, construction damage, weather, misconfigured routers, and overloaded circuits during peak hours. Many are external to the restaurant but impact is immediate.
+        - question: What should we fix first?
+          answer: Add backup internet and monitoring at your highest-revenue locations. Document outage history while rolling out a standard for new openings.
+        - question: Is LTE backup enough?
+          answer: For many locations, yes. Size it to carry POS and kitchen traffic. Test during peak hours before assuming it works.
+        - question: How do internet outages relate to POS downtime?
+          answer: Cloud POS and card processing depend on connectivity. Local hardware may stay on while registers cannot process payments.
+        - question: When is SD-WAN the right response to outages?
+          answer: When you operate many locations with mixed WAN setups and need centralized failover policy. Smaller groups usually start with simpler backup designs.
 
   - slug: pos-downtime
     title: POS Downtime
