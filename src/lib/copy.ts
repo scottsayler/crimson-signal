@@ -1,7 +1,38 @@
-export const HOME_HEADLINE = "Business decisions create technology consequences.";
+export const HOME_HEADLINE = "What are you trying to figure out today?";
 
 export const HOME_SUBHEAD =
-  "Understand the technology implications of organizational change before evaluating products or vendors.";
+  "Independent research and decision support for multi-location technology buyers. Start with your question, not a vendor pitch.";
+
+export const HOME_RESEARCH_PATHS = [
+  {
+    title: "Research an industry",
+    description:
+      "Understand technology priorities, common problems, and buying patterns in your sector.",
+    href: "/industries",
+    icon: "🏢",
+  },
+  {
+    title: "Evaluate a technology",
+    description:
+      "Decide whether SD-WAN, managed network, POTS replacement, or other technologies are worth your time.",
+    href: "/technologies",
+    icon: "🔧",
+  },
+  {
+    title: "Solve a business problem",
+    description:
+      "Start from operational pain like outages, store openings, or vendor sprawl.",
+    href: "/problems",
+    icon: "⚠️",
+  },
+  {
+    title: "Use a tool or calculator",
+    description:
+      "Quantify downtime cost, bandwidth needs, POTS savings, and other decision inputs.",
+    href: "/tools",
+    icon: "📊",
+  },
+] as const;
 
 export const HOME_HERO_PRIMARY_CTA = "Start Your Technology Impact Review";
 

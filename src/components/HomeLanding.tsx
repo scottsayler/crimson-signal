@@ -9,6 +9,7 @@ import { getHomepageEventTitle } from "@/lib/homepage";
 import {
   HOME_HEADLINE,
   HOME_SUBHEAD,
+  HOME_RESEARCH_PATHS,
   HOME_HERO_PRIMARY_CTA,
   HOME_HERO_SECONDARY_CTA,
   HOME_BUSINESS_EVENTS_EYEBROW,
@@ -60,7 +61,7 @@ export function HomeLanding({ events, featuredReviews }: HomeLandingProps) {
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24 lg:py-28">
           <div className="mx-auto max-w-3xl text-center">
             <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-crimson">
-              Technology Impact Review
+              Independent Technology Research
             </p>
             <h1 className="font-serif text-4xl font-medium tracking-tight text-foreground md:text-5xl lg:text-[3.25rem] lg:leading-[1.15]">
               {HOME_HEADLINE}
@@ -68,15 +69,36 @@ export function HomeLanding({ events, featuredReviews }: HomeLandingProps) {
             <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
               {HOME_SUBHEAD}
             </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <CTAButton onClick={startAssessment}>{HOME_HERO_PRIMARY_CTA}</CTAButton>
-              <CTAButton
-                variant="secondary"
-                onClick={() => scrollToSection("sample-reviews")}
+          </div>
+
+          <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
+            {HOME_RESEARCH_PATHS.map((path) => (
+              <Link
+                key={path.href}
+                href={path.href}
+                className="group flex min-h-[160px] flex-col rounded-2xl border border-border bg-surface p-6 text-left transition-all duration-200 hover:border-crimson/30 hover:shadow-[0_8px_32px_rgba(155,27,48,0.08)]"
               >
-                {HOME_HERO_SECONDARY_CTA}
-              </CTAButton>
-            </div>
+                <span className="mb-3 text-2xl" aria-hidden="true">
+                  {path.icon}
+                </span>
+                <span className="text-[17px] font-semibold tracking-tight text-foreground group-hover:text-crimson">
+                  {path.title}
+                </span>
+                <span className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+                  {path.description}
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <CTAButton onClick={startAssessment}>{HOME_HERO_PRIMARY_CTA}</CTAButton>
+            <CTAButton
+              variant="secondary"
+              onClick={() => scrollToSection("sample-reviews")}
+            >
+              {HOME_HERO_SECONDARY_CTA}
+            </CTAButton>
           </div>
         </div>
       </section>
