@@ -174,148 +174,252 @@ pages:
 
   - slug: sd-wan
     title: Restaurant SD-WAN
-    description: Should your restaurant group evaluate SD-WAN? Independent guidance on fit, costs, alternatives, and what to ask before you buy.
+    description: Independent guidance for restaurant operators evaluating SD-WAN, including fit, alternatives, tradeoffs, and questions to ask before choosing a provider.
     contentType: industry-topic
     industry: restaurants
     technology: sd-wan
-    persona: [it-director, operations, franchise-leader, cio]
-    primaryKeyword: restaurant sd-wan
+    businessProblem: network-complexity
+    persona:
+      - it-director
+      - cio
+      - operations
+      - cfo
+      - security
+      - franchise-leader
+    primaryKeyword: restaurant SD-WAN
     secondaryKeywords:
-      - sd-wan for restaurants
-      - qsr sd-wan
-      - restaurant wan architecture
-      - franchise sd-wan
+      - SD-WAN for restaurants
+      - restaurant SD-WAN providers
+      - best SD-WAN for restaurants
+      - restaurant WAN management
+      - SD-WAN for restaurant chains
+      - restaurant network failover
+      - restaurant network standardization
+      - restaurant managed SD-WAN
     searchIntent: decision-support
     buyerStage: consideration
+    publish: false
+    order: 30
     relatedEntities:
       - /industries/restaurants
       - /industries/restaurants/networking
+      - /industries/restaurants/managed-network
       - /industries/restaurants/best-internet
+      - /industries/restaurants/downtime-cost-calculator
+      - /industries/restaurants/bandwidth-calculator
+      - /problems/internet-outages
+      - /problems/network-visibility
+      - /problems/vendor-sprawl
+      - /problems/store-openings
       - /technologies/sd-wan
       - /technologies/managed-network
       - /technologies/lte-5g-backup
-      - /problems/internet-outages
-      - /problems/pos-downtime
-      - /problems/network-visibility
-      - /comparisons/sd-wan-vs-mpls
-      - /tools/downtime-cost-calculator
+      - /technologies/sase
       - /tools/network-assessment
+      - /tools/downtime-cost-calculator
+      - /tools/bandwidth-calculator
+      - /comparisons/sd-wan-vs-mpls
+      - /comparisons/managed-network-vs-internal-it
       - /research/restaurant-downtime-economics
+    relatedGuides:
+      - /industries/restaurants/networking
+      - /industries/restaurants/managed-network
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/downtime-cost-calculator
+    relatedProblems:
+      - /problems/internet-outages
+      - /problems/network-visibility
+      - /problems/vendor-sprawl
+      - /problems/store-openings
+    relatedTechnologies:
+      - /technologies/sd-wan
+      - /technologies/managed-network
+      - /technologies/lte-5g-backup
+      - /technologies/sase
+    relatedTools:
+      - /tools/network-assessment
+      - /tools/downtime-cost-calculator
+      - /tools/bandwidth-calculator
+      - /tools/vendor-consolidation-calculator
+    relatedComparisons:
+      - /comparisons/sd-wan-vs-mpls
+      - /comparisons/managed-network-vs-internal-it
+      - /comparisons/broadband-vs-dedicated-internet
+    relatedResearch:
+      - /research/restaurant-downtime-economics
+      - /research/restaurant-technology-trends
+      - /research/restaurant-network-case-studies
     cta:
-      label: Calculate downtime cost
-      href: /tools/downtime-cost-calculator
-    order: 2
+      label: Start a network assessment
+      href: /tools/network-assessment
     decisionGuide:
-      quickAnswer: |
-        SD-WAN helps restaurant groups manage internet across many locations with centralized policy and automated failover. It is worth evaluating when you operate 20 or more sites, outages interrupt POS regularly, or WAN management has outgrown your IT team. Smaller groups often solve the same problems with LTE backup and standardized router configs.
-      whyYoureHere: |
-        You are likely here because a recent outage stopped card payments during lunch, a new store opening exposed inconsistent network setups, or someone on your leadership team asked whether SD-WAN is worth the investment. Restaurant operators rarely research WAN technology for its own sake. The trigger is almost always operational pain.
+      quickAnswer: |-
+        Restaurant SD-WAN helps multi-location operators manage store connectivity with centralized policy, traffic routing, and automated failover. It delivers the most value when growth, cloud applications, and inconsistent WAN environments make store-by-store management difficult. It is usually not the first investment if stores lack documented standards, backup connectivity, or basic visibility.
+      whyYoureHere: |-
+        Restaurant operators rarely start researching SD-WAN because they want a different networking acronym.
+
+        They usually arrive here after growth exposes weaknesses in the operating model. A cloud POS rollout reveals inconsistent store configurations. New locations require different ISP designs every time. Online ordering, kiosks, voice, and guest Wi-Fi compete for network resources during peak hours. Store managers become the first people to report outages because IT lacks centralized visibility.
+
+        At that point, the conversation is no longer about internet speed.
+
+        It is about operating dozens or hundreds of locations with a WAN architecture that was never designed to scale.
       shouldConsider:
         evaluateIf:
-          - You operate 20 or more restaurant locations
-          - POS or online ordering fails when the primary internet circuit drops
-          - New store openings each use different ISPs and router configs
-          - You are consolidating networks after an acquisition
-          - MPLS contracts are up for renewal with rising costs
+          - You operate roughly 20 or more restaurants with inconsistent WAN designs.
+          - Stores use different ISPs, routers, circuits, or support processes.
+          - Cloud POS, online ordering, kiosks, voice, and guest Wi-Fi compete for network resources.
+          - Your IT team spends too much time troubleshooting individual locations.
+          - Outages or degraded circuits affect revenue during lunch or dinner service.
+          - You need centralized visibility, traffic policy, and failover control across many stores.
         probablyNotIf:
-          - You have fewer than 10 locations with stable connectivity
-          - Guest Wi-Fi complaints are your main issue, not WAN outages
-          - You have not tested whether LTE backup solves the problem
-          - One or two problem stores need attention, not a portfolio-wide change
-      whatProblemSolves: |
-        Restaurant SD-WAN targets problems that show up at the register, not in a network diagram.
+          - You operate only a handful of locations with simple network needs.
+          - Most stores still rely on one internet connection with no backup path.
+          - Store network standards have not been documented or enforced.
+          - Your main issue is unreliable local internet service rather than WAN complexity.
+          - Better monitoring, hardware standardization, or LTE backup would solve the immediate problem first.
+      whatProblemSolves: |-
+        SD-WAN addresses operational consistency more than raw connectivity.
 
-        **POS stays up when circuits fail.** Policy-based routing can keep payment traffic on a backup path within seconds instead of waiting for manual intervention.
+        **Centralized control.** It lets IT define routing, failover, and application policies across many locations instead of configuring each store independently.
 
-        **New stores follow a standard playbook.** Corporate IT defines WAN policy once. Each opening deploys the same architecture instead of reinventing connectivity.
+        **Better failover behavior.** SD-WAN can steer traffic between available links so payment, ordering, voice, and management traffic are less exposed to a single circuit issue.
 
-        **Peak-hour traffic gets priority.** Lunch and dinner rushes are when outages hurt most. SD-WAN can prioritize operational traffic over guest Wi-Fi and back-office apps.
-      realityCheck: |
-        Faster internet will not fix poor Wi-Fi design. Many restaurant groups researching SD-WAN actually need better in-store wireless, VLAN segmentation, or basic cellular failover first.
+        **Improved visibility.** A well-managed deployment gives IT a clearer view into store performance, path quality, and application behavior.
+
+        **Application prioritization.** POS, payment, ordering, and voice traffic can be treated differently than guest Wi-Fi or lower-priority traffic.
+
+        **Growth support.** Standardized WAN policy makes expansion, franchise governance, and acquisition integration easier to manage.
+
+        SD-WAN does not make bad internet good. It helps restaurant operators make better use of multiple connections through policy, visibility, and failover logic.
       alternatives:
-        - title: LTE or 5G backup at each store
-          description: The most common first step. Keeps POS alive when the primary ISP fails. Lower cost and complexity than SD-WAN.
-        - title: Dual ISP with automated failover
-          description: Two broadband circuits with a failover router. Works well for operators scaling past 5 but not yet ready for SD-WAN.
-        - title: Managed network services
-          description: Outsource monitoring, provisioning, and support without adopting full SD-WAN policy control.
-        - title: Network monitoring upgrade
-          description: If you only learn about outages from store managers, better alerting may deliver faster ROI than architecture change.
+        - title: Standardize the store network first
+          description: Create approved hardware, VLAN, firewall, circuit, and backup designs before adding orchestration. This is often the highest-value first step when stores are inconsistent.
+        - title: Add LTE or 5G backup
+          description: If outages are the primary issue, backup connectivity at high-volume stores may deliver faster resilience than a full SD-WAN project.
+        - title: Improve monitoring
+          description: If IT learns about outages from store managers, visibility may be the bigger gap. Monitoring can be a lower-cost first move before traffic orchestration.
+        - title: Use managed network services
+          description: If the internal team lacks capacity to operate distributed infrastructure, a managed network model may reduce more risk than buying a new WAN overlay alone.
+        - title: Consolidate providers
+          description: If the real problem is vendor sprawl, simplifying circuits, support contracts, and escalation paths may improve accountability before SD-WAN is needed.
       questionsToAsk:
-        - How fast does failover happen during a Friday dinner rush?
-        - What traffic gets priority when bandwidth is constrained?
-        - Who monitors circuits and responds to alerts?
-        - How do franchisee-owned ISPs fit into corporate policy?
-        - What does a three-year total cost include beyond licensing?
-        - Can we run a pilot at our highest-volume location first?
-      decisionMatrix:
-        - situation: 1 to 5 locations
-          recommendation: LTE backup and monitoring first
-        - situation: 5 to 20 locations
-          recommendation: Evaluate if outages are frequent and costly
-        - situation: 20 or more locations
-          recommendation: Formal SD-WAN evaluation warranted
-        - situation: Franchise system
-          recommendation: Strong candidate if corporate sets standards
-        - situation: Rural or hard-to-serve sites
-          recommendation: Consider Starlink or LTE before SD-WAN overlay
-      worthKnowing: |
-        Restaurants often discover network problems during lunch rush because guest Wi-Fi and POS traffic compete for the same bandwidth. SD-WAN can separate and prioritize traffic, but undersized circuits will still struggle at peak volume.
-      askBeforeYouBuy:
-        - Who owns monitoring after go-live?
-        - Who patches firmware and security updates?
-        - What is the documented failover time for POS traffic?
-        - How are store staff notified during an outage?
-        - What happens if the SD-WAN controller is unreachable?
-        - How are new locations onboarded to the WAN policy?
+        - 'Which applications must stay alive during a circuit failure: POS, payments, online ordering, kiosks, voice, or guest Wi-Fi?'
+        - How many stores have two active connections today, and how often has failover been tested?
+        - Do all locations follow one network standard, or would SD-WAN be layered on top of inconsistent store designs?
+        - Can IT see application and circuit performance at every location in real time?
+        - Are we optimizing for uptime, lower circuit cost, simpler support, or better application performance?
+        - Would standardization, monitoring, or backup internet solve the current problem before SD-WAN?
+        - Who will own policy changes, firmware updates, monitoring, and escalation after deployment?
+        - How will success be measured after implementation?
       buyingTriggerTimeline:
-        - Card payments fail during peak lunch service
-        - Same ISP outage pattern repeats across multiple stores
-        - CFO asks for the business case after a costly outage weekend
-        - Development team misses opening dates due to circuit delays
-        - Downtime cost calculator or network assessment completed
-        - Vendor demos and pilot at a high-volume location
-      technologyStack:
-        - Store ISP circuit
-        - Backup LTE or second ISP
-        - SD-WAN edge appliance
-        - Firewall and security policy
-        - POS and payment systems
-        - Kitchen display and back-office apps
-        - Guest Wi-Fi
+        - Growth increases the number of restaurants, providers, circuits, and support variations.
+        - Cloud POS, online ordering, kiosks, VoIP, and guest Wi-Fi make store connectivity more important.
+        - Outages, packet loss, or slow performance begin affecting orders, payments, or customer experience.
+        - IT discovers that manual troubleshooting and store-by-store configuration no longer scale.
+        - Leadership asks whether the organization needs SD-WAN, managed networking, backup internet, or stronger standards.
+        - The team evaluates architecture, support ownership, costs, failover design, and business outcomes before choosing a path.
       industrySnapshot:
         topChallenges:
-          - POS downtime during peak meal periods
-          - Inconsistent network setups across locations
-          - Franchisee-procured circuits outside corporate standards
-          - Limited IT staff relative to store count
-        typicalEnvironment:
-          Each restaurant location runs POS, payment processing, kitchen displays, online ordering, cameras, and guest Wi-Fi over one or two ISP circuits. Most stores have fewer than five IT staff across the entire organization.
+          - Many restaurants depend on cloud applications, online ordering, payment systems, voice, and guest Wi-Fi at the same time.
+          - Stores often use different local carriers, router models, backup designs, and support processes.
+          - Limited IT teams must support many distributed locations with little or no local technical help.
+          - Outages during peak service quickly become revenue, guest experience, and operations issues.
+          - Franchise and acquisition growth can create network environments that are hard to govern centrally.
+        typicalEnvironment: A multi-location restaurant WAN often combines broadband, fiber, LTE backup, firewalls, Wi-Fi, cloud POS, voice, online ordering, delivery integrations, and back-office applications. The technical challenge is not only bandwidth. It is making every store behave predictably while supporting different providers, traffic types, and operational priorities.
         commonPriorities:
-          - Keep registers running during outages
-          - Standardize new store network deployments
-          - Reduce time to diagnose store connectivity issues
-          - Control telecom spend across a growing footprint
+          - Keep POS, payment, ordering, and voice traffic running during circuit problems.
+          - Standardize stores without slowing openings or remodels.
+          - Give IT visibility before issues reach restaurant staff or guests.
+          - Reduce truck rolls and manual troubleshooting.
+          - Support growth without rebuilding WAN policy location by location.
         buyingTriggers:
-          - Outage during peak service with measurable revenue loss
-          - MPLS or WAN contract renewal
-          - Acquisition adding stores with unknown network configs
-          - Opening pipeline exceeding IT provisioning capacity
-      evidence:
-        - title: Outage cost sensitivity
-          finding: High-volume QSR locations can lose thousands of dollars per hour when POS and online ordering are unavailable during peak periods.
-          whyItMatters: The business case for SD-WAN or simpler failover depends on quantifying this number for your specific ticket average and transaction volume.
-          source: Restaurant Downtime Economics research
-      faqs:
-        - question: Is SD-WAN worth it for a 15-location restaurant group?
-          answer: It depends on outage frequency and cost. Groups this size often benefit from LTE backup and standardized configs first. SD-WAN becomes more compelling above 20 locations or after repeated multi-site outages.
-        - question: How does SD-WAN relate to guest Wi-Fi?
-          answer: SD-WAN manages how traffic leaves the store to the internet. Guest Wi-Fi quality also depends on access points, VLAN design, and bandwidth inside the store.
-        - question: Can franchisees keep their own ISP contracts?
-          answer: Some SD-WAN deployments allow franchisee-owned circuits under corporate policy. Governance and contract structure should be decided before vendor selection.
-        - question: What should we do before evaluating SD-WAN vendors?
-          answer: Run a downtime cost estimate, inventory circuits by location, document outage history for 12 months, and test existing failover during peak hours.
+          - Rapid growth exposes inconsistent network designs.
+          - Cloud POS or ERP rollouts create new performance expectations.
+          - Online ordering, kiosks, and voice make outages more visible.
+          - MPLS renewals or circuit cost pressure force a WAN review.
+          - Acquisitions or franchise growth create mixed provider environments.
+      technologyStack:
+        - Primary internet circuit
+        - Backup broadband or LTE/5G path
+        - Store router and firewall
+        - SD-WAN policy and orchestration
+        - POS, payments, ordering, voice, and kitchen systems
+        - Guest Wi-Fi and lower-priority traffic
+        - Central monitoring and reporting
+      realityCheck: |-
+        Many restaurant operators researching SD-WAN do not actually have an SD-WAN problem.
 
+        They have a network standardization problem.
+
+        If every location has different hardware, different providers, and different support processes, centralized routing alone will not create operational consistency. Successful SD-WAN deployments usually follow documented standards rather than replace them.
+      worthKnowing: |-
+        SD-WAN is most useful after the organization knows what it wants each store network to look like.
+
+        Without a standard, SD-WAN can centralize inconsistency. With a standard, it can help enforce policy, improve visibility, and make failover more predictable across the restaurant footprint.
+      decisionMatrix:
+        - situation: Fewer than 10 locations
+          recommendation: Focus on network standards, monitoring, and backup connectivity before evaluating SD-WAN.
+        - situation: 10 to 20 locations with moderate complexity
+          recommendation: Evaluate whether process gaps or WAN architecture create the bigger constraint.
+        - situation: 20 or more locations with inconsistent WAN environments
+          recommendation: SD-WAN deserves serious evaluation for centralized policy, visibility, and failover control.
+        - situation: Franchise system with varied local providers
+          recommendation: Strong candidate if corporate needs visibility and minimum standards while supporting local circuit variation.
+        - situation: Acquisition-heavy environment
+          recommendation: Inventory and standardize inherited networks before deploying SD-WAN broadly.
+        - situation: Stores with one circuit and no backup
+          recommendation: Add backup connectivity first. SD-WAN cannot fail over to a path that does not exist.
+      askBeforeYouBuy:
+        - Which applications receive priority during failover?
+        - Can SD-WAN preserve active sessions when a circuit drops?
+        - How are guest Wi-Fi, POS, payments, voice, and back-office traffic separated?
+        - Who owns policy changes after deployment?
+        - How will acquired or franchisee-owned locations be handled?
+        - What monitoring and reporting are included?
+        - What happens if both circuits are degraded?
+        - What costs are outside the monthly SD-WAN fee?
+        - How will the provider test failover before each store goes live?
+        - What measurable operational outcome should improve within 90 days?
+      bottomLine: |-
+        Evaluate SD-WAN when network complexity becomes an operational constraint rather than simply a technology issue.
+
+        The strongest restaurant SD-WAN business cases appear when operators manage many locations, depend on cloud applications, and need centralized policy across inconsistent WAN environments.
+
+        If your immediate challenges come from poor standards, limited visibility, or lack of backup connectivity, address those first. SD-WAN can amplify a strong network operating model, but it should not be used as a substitute for one.
+      faqs:
+        - question: What is SD-WAN for restaurants?
+          answer: SD-WAN is a way to manage traffic, failover, and routing policy across multiple restaurant locations. It helps operators use different internet connections more intelligently and manage stores with centralized policy.
+        - question: When should a restaurant group consider SD-WAN?
+          answer: SD-WAN is worth evaluating when location count, cloud applications, outages, or mixed ISP environments make store-by-store network management difficult. It is usually a stronger fit for larger or growing operators than for small restaurant groups with simple networks.
+        - question: Does SD-WAN fix bad internet?
+          answer: No. SD-WAN can route around a poor path when another path exists, but it does not improve the underlying quality of a bad circuit. Restaurants still need reliable access, backup connectivity, and good store design.
+        - question: Is SD-WAN the same as managed networking?
+          answer: No. SD-WAN is a technology layer for routing, failover, and policy. Managed networking is an operating model that may include SD-WAN plus monitoring, support, lifecycle management, and provider coordination.
+        - question: Do restaurants need SD-WAN before adding LTE backup?
+          answer: Usually not. If stores have only one internet path, backup connectivity is often the better first step. SD-WAN becomes more valuable when there are multiple paths to manage intelligently.
+        - question: How does SD-WAN help with online ordering and POS?
+          answer: SD-WAN can prioritize critical applications such as POS, payments, online ordering, and voice over lower-priority traffic. It can also steer traffic to a healthier connection when one path is degraded.
+        - question: What should restaurants fix before buying SD-WAN?
+          answer: Inventory current circuits, standardize hardware, separate guest and business traffic, add backup connectivity where downtime is costly, and define who owns monitoring and support. SD-WAN works better when these basics are already understood.
+        - question: How should success be measured after SD-WAN?
+          answer: Track outage impact, failover performance, ticket volume, mean time to repair, application performance, truck rolls, and whether new locations can be deployed using a repeatable network standard.
+      evidence:
+        - title: Growth usually comes before SD-WAN adoption
+          finding: Public restaurant examples repeatedly show SD-WAN evaluations following expansion, acquisition, or multi-site complexity.
+          whyItMatters: The business case is usually about operating many locations consistently rather than buying a networking feature.
+          source: Restaurant SD-WAN research packet
+        - title: Standardization matters before orchestration
+          finding: Case studies emphasize centralized management, consistent policy, and visibility, but those benefits depend on a defined store network model.
+          whyItMatters: SD-WAN can reinforce standards, but it should not be expected to create them from scratch.
+          source: Restaurant SD-WAN research packet
+        - title: Backup connectivity is often the foundation
+          finding: Restaurant deployments commonly pair SD-WAN with broadband, MPLS, LTE, or other backup paths to improve continuity.
+          whyItMatters: SD-WAN can only fail over effectively when there is another viable path available.
+          source: Restaurant SD-WAN research packet
+        - title: Business outcomes matter more than topology
+          finding: Public examples connect SD-WAN to fewer failed orders, improved voice quality, no lost transactions, lower support burden, and better visibility.
+          whyItMatters: Restaurant operators should evaluate SD-WAN by operational impact rather than network terminology.
+          source: Restaurant SD-WAN research packet
   - slug: downtime-cost-calculator
     title: Restaurant Downtime Cost Calculator
     description: How to estimate what POS and connectivity outages actually cost your restaurant group, and when backup internet or network investments pay for themselves.
