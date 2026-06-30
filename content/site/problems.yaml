@@ -307,35 +307,125 @@ pages:
       - heading: What to evaluate
         body: Offline payment modes, cellular failover for POS traffic, vendor SLA terms, and store-level monitoring should be part of any POS resilience plan.
   - slug: vendor-sprawl
-    title: Vendor Sprawl
-    description: How accumulated telecom and IT vendors create cost, complexity, and support gaps across multi-location footprints.
+    publish: true
+    title: Restaurant Vendor Sprawl
+    description: Independent guidance for multi-location restaurant operators on reducing vendor complexity, improving accountability, and simplifying store technology operations.
     contentType: problem
-    problem: vendor-sprawl
+    industry: restaurants
+    businessProblem: vendor-sprawl
     persona:
-      - cfo
+      - cio
       - it-director
-      - procurement
-    primaryKeyword: telecom vendor consolidation
+      - cfo
+      - operations
+      - security
+      - franchise-leader
+    primaryKeyword: restaurant vendor sprawl
     secondaryKeywords:
-      - it vendor sprawl
+      - restaurant vendor management
+      - restaurant technology vendors
       - multi-location vendor management
-      - telecom cost reduction
-    buyerStage: consideration
-    relatedPages:
-      - /industries/franchise
-      - /technologies/managed-network
-      - /tools/vendor-consolidation-calculator
-    recommendedTool: /tools/vendor-consolidation-calculator
-    ctaLabel: Model consolidation savings
-    ctaHref: /tools/vendor-consolidation-calculator
-    order: 3
+      - telecom vendor consolidation
+      - restaurant supplier standardization
+    searchIntent: decision-support
+    buyerStage: awareness
+    readingTime: 6
+    order: 4
+    relatedGuides:
+      - /industries/restaurants/networking
+      - /industries/restaurants/managed-network
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/pots-replacement
+    relatedProblems:
+      - /problems/internet-outages
+      - /problems/network-visibility
+      - /problems/store-openings
+    relatedTools:
+      - /tools/network-assessment
+      - /tools/downtime-cost-calculator
+    decisionGuide:
+      quickAnswer: |
+        Vendor sprawl is not simply having too many technology providers. It is having too many disconnected contracts, support paths, and ownership models across locations. The result is slower outage resolution, inconsistent standards, duplicate costs, and more difficult store operations.
+      shouldConsider:
+        evaluateIf:
+          - Different locations use different ISPs, POS providers, or support partners.
+          - Outages require multiple vendors before a root cause is identified.
+          - Contract renewals surprise the organization.
+          - Acquisitions or franchise growth have increased technology complexity.
+          - IT lacks a complete inventory of providers and services.
+        probablyNotIf:
+          - Vendor ownership, standards, and renewals are centrally managed.
+          - Every location follows the same approved technology standards.
+      whyYoureHere: |
+        Vendor sprawl rarely starts as a strategy. It develops one exception at a time.
+
+        One store keeps its local ISP. Another uses a different alarm vendor. An acquisition inherits another POS platform. A franchisee selects different Wi-Fi equipment.
+
+        Eventually every outage becomes a conference call because everyone owns a piece of the problem, but nobody owns the outcome.
+      whatProblemSolves: |
+        Reducing vendor sprawl improves operational consistency, shortens outage resolution, simplifies procurement, strengthens security governance, and makes future growth easier.
+      alternatives: []
+      questionsToAsk:
+        - Who owns every technology service at each location?
+        - How many vendors participate in a typical outage?
+        - Which contracts renew in the next 12 months?
+        - Where do franchise exceptions exist?
+        - Which services are duplicated?
+      industrySnapshot:
+        topChallenges:
+          - Multiple provider relationships
+          - Different standards by location
+          - Duplicate invoices
+          - Finger-pointing during outages
+        commonPriorities:
+          - Standardization
+          - Better accountability
+          - Faster support
+          - Easier expansion
+        typicalEnvironment: ""
+        buyingTriggers: []
+      realityCheck: |
+        Vendor sprawl is not measured by how many contracts you have. It is measured by how many people have to join the outage bridge before someone fixes the problem.
+      worthKnowing: |
+        The fastest-growing restaurant groups often create vendor sprawl unintentionally. Every exception solves today's problem while making tomorrow's operating model harder to manage.
+      bottomLine: |
+        Vendor sprawl becomes a business problem when it slows operations. The objective is not the fewest possible vendors. The objective is fewer handoffs, clearer ownership, and consistent standards across every location.
+      faqs:
+        - question: What is vendor sprawl?
+          answer: Vendor sprawl is the accumulation of disconnected providers, contracts, and support models that make multi-location operations harder to manage.
+        - question: Is one vendor always better?
+          answer: No. Success depends on clear ownership, standards, and accountability, not simply reducing vendor count.
+        - question: Why does vendor sprawl matter?
+          answer: It increases operational complexity, slows outage resolution, complicates store openings, and reduces visibility into cost and performance.
+      evidence:
+        - title: Standardization reduces complexity
+          finding: Public restaurant and telecom case studies consistently show that consolidating vendor management improves operational efficiency and visibility.
+          whyItMatters: Simpler ownership models reduce handoffs during outages and growth initiatives.
+          source: Restaurant Vendor Sprawl Research Packet
     sections:
-      - heading: How sprawl develops
-        body: Store openings, acquisitions, and franchisee autonomy each introduce new carriers, MSPs, and equipment vendors. Over time, no one has a complete inventory.
-      - heading: Hidden costs
-        body: Duplicate circuits, inconsistent SLAs, fragmented billing, and unclear escalation paths inflate total cost of ownership beyond line-item telecom spend.
-      - heading: Consolidation approach
-        body: Start with a complete vendor and circuit inventory, identify overlap, and define a target operating model before selecting consolidation partners.
+      - heading: The Ownership Gap
+        body: |
+          Vendor sprawl is really an ownership problem.
+
+          Guest reports issue
+          ↓
+          Store Manager
+          ↓
+          POS Vendor
+          ↓
+          ISP
+          ↓
+          Managed Service Provider
+          ↓
+          Payment Processor
+
+          Every additional handoff increases recovery time and reduces accountability.
+      - heading: Common Causes
+        body: |
+          Vendor sprawl usually develops through rapid expansion, acquisitions, franchise autonomy, emergency fixes, unmanaged renewals, and inconsistent standards. Individual decisions make sense locally but create enterprise complexity over time.
+      - heading: Operational Benefits
+        body: |
+          Organizations that standardize vendors often reduce support effort, improve purchasing leverage, simplify store openings, strengthen security, and make outages easier to diagnose.
   - slug: pci-compliance
     title: PCI Compliance
     description: Network and technology decisions that affect PCI compliance for organizations processing card payments across locations.
