@@ -1,57 +1,110 @@
 pages:
   - slug: downtime-cost-calculator
-    title: Downtime Cost Calculator
-    description: Estimate the revenue impact of POS and connectivity downtime for restaurant locations — a research tool for building resilience business cases.
+    title: Restaurant Downtime Cost Calculator
+    description: Estimate revenue at risk, labor waste, and recovery cost when POS or connectivity fails at restaurant locations. Compare outage impact against backup internet and network investments.
     contentType: tool
     industry: restaurants
-    persona: [cfo, operations, it-director]
-    primaryKeyword: downtime cost calculator
+    persona: [cfo, operations, it-director, franchise-leader]
+    primaryKeyword: restaurant downtime cost calculator
     secondaryKeywords:
-      - restaurant downtime calculator
-      - pos downtime cost
       - restaurant outage cost
+      - pos downtime revenue impact
+      - qsr downtime economics
+      - restaurant internet outage cost
+    searchIntent: decision-support
     buyerStage: awareness
-    relatedPages:
-      - /industries/restaurants/downtime-cost-calculator
+    publish: true
+    order: 1
+    relatedEntities:
       - /industries/restaurants
       - /industries/restaurants/networking
-      - /problems/pos-downtime
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/sd-wan
+      - /industries/restaurants/managed-network
+      - /industries/restaurants/downtime-cost-calculator
       - /problems/internet-outages
+      - /problems/pos-downtime
       - /technologies/lte-5g-backup
-    order: 1
-    cluster:
-      problemFraming: |
-        Technology resilience investments struggle without a shared understanding of what downtime costs. This calculator helps restaurant operators model revenue impact from average ticket, transaction volume, and outage duration — so failover and redundancy decisions are grounded in business economics, not fear.
-      whoItIsFor: |
-        - CFOs approving backup internet or SD-WAN spend
-        - Operations leaders documenting outage impact after incidents
-        - IT directors prioritizing investments across locations
-      buyingTriggers: |
-        - Post-outage review requiring documented revenue impact
-        - Budget cycle comparing downtime cost vs. cellular backup pricing
-        - Franchise board evaluating corporate network standards
-      relatedTechnologies:
-        - href: /technologies/lte-5g-backup
-          title: LTE & 5G Backup
-          description: Most common investment after downtime cost is quantified.
-        - href: /technologies/sd-wan
-          title: SD-WAN
-          description: Broader architecture when outage patterns justify WAN change.
-      relatedProblems:
-        - href: /problems/internet-outages
-          title: Internet Outages
-          description: The upstream event this calculator helps you price.
-        - href: /problems/pos-downtime
-          title: POS Downtime
-          description: Register-level impact when connectivity fails.
-      recommendedTools:
-        - href: /industries/restaurants/downtime-cost-calculator
-          title: Restaurant Downtime Calculator Guide
-          description: Restaurant-specific context for interpreting calculator results.
+      - /technologies/sd-wan
+      - /tools/bandwidth-calculator
+      - /tools/network-assessment
+      - /research/restaurant-downtime-economics
+    cta:
+      label: Run the calculator
+      href: /tools/downtime-cost-calculator
+    decisionGuide:
+      quickAnswer: |
+        This calculator estimates revenue at risk, labor waste, and recovery cost when POS, card processing, or online ordering fails during service. Enter daily sales, outage duration, and how much revenue depends on connected systems. Compare the total against backup internet, SD-WAN, or managed network investments.
+      whyYoureHere: |
+        Leadership asked what the last outage actually cost. Finance wants a number before approving backup internet. Operations remembers guest complaints and refunded orders. IT needs a business case that goes beyond fear of downtime.
+
+        This calculator turns those questions into a shared estimate your executive team can accept. It is not accounting advice. Actual impact depends on sales mix, offline payment capability, POS behavior, delivery platforms, and store procedures. The purpose is to help restaurant operators compare outage risk against redundancy, backup internet, SD-WAN, or managed network investments.
+      shouldConsider:
+        evaluateIf:
+          - You had outages during peak meal periods in the past year
+          - Finance requires ROI before approving LTE backup or redundant circuits
+          - You operate high-volume locations where card and online orders dominate revenue
+          - You are comparing SD-WAN, managed services, or backup internet options
+        probablyNotIf:
+          - Outages are rare and always occur during closed hours
+          - You have not documented when outages happened or how long POS was down
+          - You are using downtime math to justify a purchase you already decided on
+      whatProblemSolves: |
+        A credible downtime estimate turns network spending from a technology debate into a business decision shared by finance, operations, and IT.
+      realityCheck: |
+        A short outage during peak service can cost more than a full month of backup connectivity, but only if the outage affects revenue-generating systems. ISP service credits rarely cover actual business impact during peak service.
+      alternatives:
+        - title: Average daily sales divided by operating hours
+          description: Quick estimate when transaction-level data is unavailable.
+        - title: Peak-hour model only
+          description: More accurate for restaurants with sharp lunch and dinner curves.
+      questionsToAsk:
+        - What is average hourly revenue at our busiest location during rush?
+        - What percentage of sales requires live connectivity?
+        - How many outage hours did we log last year?
+      decisionMatrix:
+        - situation: Outage cost under $500 per hour
+          recommendation: Monitoring and basic failover may be enough
+        - situation: Outage cost $500 to $2,000 per hour
+          recommendation: LTE backup at high-volume stores is usually justified
+        - situation: Outage cost over $2,000 per hour
+          recommendation: Redundant circuits and formal resilience planning warranted
+      worthKnowing: |
+        The most expensive outages are rarely the longest ones. They are the outages that happen during lunch, dinner, drive-thru, or delivery peaks.
+      askBeforeYouBuy:
+        - What hourly revenue figure did we use, and does leadership accept it?
+        - Are labor, waste, and delivery penalties included?
+        - How does annual backup internet cost compare to one peak-hour outage?
+      bottomLine: |
+        Quantify peak-hour downtime cost first. Compare that number to backup internet or network project cost before evaluating vendors. Use the restaurant downtime guide for methodology and assumptions if leadership wants more context.
+      faqs:
+        - question: What inputs do I need for a downtime estimate?
+          answer: Start with average daily sales per location, operating hours, outage duration, and the share of sales that require connectivity. Add labor cost and affected headcount for a fuller picture.
+        - question: Should I use gross sales or card volume only?
+          answer: Use gross sales for the revenue you cannot capture when registers and online ordering are down. Card volume alone misses delivery orders and workflows that also stop.
+        - question: How accurate is this calculator?
+          answer: It produces a directional estimate, not a financial statement. Actual impact depends on sales mix, offline payment modes, POS behavior, and store procedures.
+        - question: When does LTE backup pay for itself?
+          answer: Compare annual LTE cost at a location against peak-hour downtime cost times the number of outage hours you expect. At many QSR sites, preventing one lunch outage covers a year of backup service.
     sections:
-      - heading: Calculator
+      - heading: How to Use It
         body: |
-          **[Interactive calculator — coming soon]** Enter average hourly revenue, expected outages per year, and average duration to estimate annual downtime cost. Compare the result against cellular backup or redundant circuit pricing to test ROI.
+          Start with one location or a group affected by the same outage. Use daily gross sales, not card volume alone. Set the peak multiplier above 1.0 if the outage happened during lunch, dinner, drive-thru, or delivery rush.
+
+          Enter how much revenue depends on POS, card processing, and online ordering. Add labor cost and headcount if staff could not serve guests during the outage. Optional fields capture online-only and delivery platform revenue that may stop entirely when connectivity fails.
+
+          Results update as you change inputs. Compare the total impact to the annual cost of backup internet, SD-WAN, or managed network services.
+      - heading: What the Results Mean
+        body: |
+          **Estimated revenue at risk** shows gross sales exposed during the outage window before applying system dependency.
+
+          **Estimated lost revenue** applies the percentage of sales that require connected systems. Optional online and delivery fields add channel-specific loss on top.
+
+          **Labor impact** covers idle crew time during the outage. **Recovery and admin cost** covers reconciliation, refunds, and reporting after service resumes.
+
+          **Total estimated downtime impact** combines revenue and labor lines. **Impact per location** divides the total across affected stores. Annualized figures show what repeated monthly or quarterly outages could cost over a year.
+      - heading: Calculator
+        body: ""
 
   - slug: bandwidth-calculator
     title: Bandwidth Calculator

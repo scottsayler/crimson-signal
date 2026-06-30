@@ -93,6 +93,25 @@ export function faqSchema(faqs: DecisionGuide["faqs"]): Record<string, unknown> 
   };
 }
 
+export function softwareApplicationSchema(
+  page: SitePage & { section: SiteSection }
+): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: page.title,
+    description: page.description,
+    url: getCanonicalUrl(page),
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
+}
+
 export function buildPageSchemas(
   page: SitePage & { section: SiteSection },
   breadcrumbs: BreadcrumbItem[],
@@ -110,6 +129,10 @@ export function buildPageSchemas(
     breadcrumbSchema(breadcrumbs, pageUrl),
     articleSchema(page),
   ];
+
+  if (page.contentType === "tool") {
+    schemas.push(softwareApplicationSchema(page));
+  }
 
   const faq = faqSchema(decisionGuide?.faqs);
   if (faq) schemas.push(faq);
