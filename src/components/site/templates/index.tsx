@@ -1,4 +1,5 @@
 import type { CachedPage } from "@/lib/site/pipeline";
+import { getAssessmentByToolSlug } from "@/lib/assessments/load";
 import { getSitePageUrl } from "@/lib/site/types";
 import { getIndustryTopics } from "@/lib/site/content";
 import { PageHero } from "../PageHero";
@@ -90,12 +91,14 @@ export function ProblemPageTemplate({ page }: TemplateProps) {
 
 function ToolGuideBody({ page }: TemplateProps) {
   if (!page.decisionGuide) return null;
+  const assessment = getAssessmentByToolSlug(page.slug) ?? undefined;
 
   return (
     <ToolDecisionGuideBody
       guide={page.decisionGuide}
       sections={page.sections}
       toolSlug={page.slug}
+      assessment={assessment}
     />
   );
 }

@@ -152,26 +152,117 @@ pages:
         body: "[Interactive calculator — coming soon] Enter line count, average monthly cost per line, and replacement technology to model annual savings."
 
   - slug: network-assessment
-    title: Network Assessment
-    description: Structured self-assessment for evaluating store and branch network readiness across your organization.
+    title: Network Readiness Assessment
+    description: Interactive self-assessment for multi-location restaurant operators to score network maturity across redundancy, monitoring, security, standardization, vendor management, and legacy voice services.
     contentType: tool
-    persona: [it-director, cio]
-    primaryKeyword: network assessment tool
+    industry: restaurants
+    persona: [it-director, cio, operations, franchise-leader]
+    primaryKeyword: restaurant network readiness assessment
     secondaryKeywords:
       - store network assessment
-      - wan readiness evaluation
-      - network maturity assessment
+      - restaurant network maturity
+      - multi-location wan readiness
+      - franchise network evaluation
+    searchIntent: decision-support
     buyerStage: evaluation
-    relatedPages:
-      - /technologies/sd-wan
-      - /problems/network-visibility
-      - /tools/technology-maturity-assessment
+    publish: true
     order: 4
+    relatedEntities:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/managed-network
+      - /industries/restaurants/sd-wan
+      - /industries/restaurants/pots-replacement
+      - /technologies/sd-wan
+      - /technologies/managed-network
+      - /technologies/pots-replacement
+      - /problems/internet-outages
+      - /problems/network-visibility
+      - /problems/legacy-phone-lines
+      - /tools/downtime-cost-calculator
+      - /tools/bandwidth-calculator
+      - /tools/technology-maturity-assessment
+      - /research/restaurant-downtime-economics
+    cta:
+      label: Start the assessment
+      href: /tools/network-assessment
+    decisionGuide:
+      quickAnswer: |
+        This assessment scores how mature your restaurant network operations are across connectivity, monitoring, security, standardization, vendor management, and legacy voice lines. Answer 30 questions, receive a weighted score out of 100, and see category gaps with linked next steps for networking, internet, SD-WAN, managed services, POTS replacement, and downtime economics.
+      whyYoureHere: |
+        Leadership wants to know whether the portfolio is ready for growth, acquisitions, or a WAN project. IT is tired of answering the same outage questions without a baseline. Operations sees inconsistent store behavior but cannot point to which gaps matter most.
+
+        This assessment turns those conversations into a shared maturity picture. It is not an audit. It reflects what you know today about how stores are connected, monitored, secured, and governed. Use the output to prioritize standards, backup internet, monitoring, or vendor consolidation before buying new technology.
+      shouldConsider:
+        evaluateIf:
+          - You operate multiple restaurant locations with different network setups
+          - Outages during peak service exposed inconsistent failover or monitoring
+          - New openings reinvent connectivity decisions each time
+          - Leadership asked for a network readiness baseline before SD-WAN or managed services
+          - Franchisees procure circuits or equipment outside corporate standards
+        probablyNotIf:
+          - You have one or two stores with documented standards and tested failover
+          - You already completed a formal third-party network audit this quarter
+          - You are looking for a vendor quote rather than an internal maturity baseline
+      whatProblemSolves: |
+        A structured maturity score helps restaurant groups agree on which network gaps create the most operational risk before committing budget or architecture changes.
+      realityCheck: |
+        Self-assessment scores reflect what your team believes is true today. Validate low-scoring areas with store inventory, circuit records, and failover tests before treating results as fact.
+      alternatives:
+        - title: Third-party network audit
+          description: Deeper field validation when scores are low or leadership needs external evidence.
+        - title: Store-by-store inventory spreadsheet
+          description: Manual baseline when you need circuit and hardware facts before scoring maturity.
+      questionsToAsk:
+        - Which categories scored below 60?
+        - Do our highest-risk answers match recent outage root causes?
+        - Which locations should we validate first with a site visit?
+      decisionMatrix:
+        - situation: Overall score under 40
+          recommendation: Inventory stores, test failover, and publish a network standard before major projects
+        - situation: Score 40 to 65 with low connectivity or monitoring
+          recommendation: Prioritize backup internet and remote visibility at high-volume stores
+        - situation: Score above 65 with low standardization
+          recommendation: Evaluate SD-WAN or managed network services for portfolio consistency
+        - situation: Low legacy voice score
+          recommendation: Audit POTS lines and plan copper retirement with alarm and fax paths defined
+      worthKnowing: |
+        The most expensive gaps are usually untested failover and no remote visibility, not missing bandwidth on the primary circuit.
+      askBeforeYouBuy:
+        - Did we validate the lowest-scoring categories against real store data?
+        - Which recommended guide addresses our top risk, not just our top initiative?
+        - What would move our score most in the next 90 days?
+      bottomLine: |
+        Run the assessment with IT and operations input. Focus on the lowest category scores and linked guides before evaluating SD-WAN, managed services, or vendor consolidation. Pair results with the downtime calculator when leadership needs outage economics.
+      faqs:
+        - question: How long does the assessment take?
+          answer: Most operators complete 30 questions in 10 to 15 minutes. Answers save in your browser session so you can pause and return.
+        - question: How is the score calculated?
+          answer: Each answer maps to a 1 to 5 maturity level. Category and overall scores are weighted percentages out of 100 based on your selections.
+        - question: What maturity levels does the tool use?
+          answer: Scores map to Foundational, Developing, Managed, Optimized, and Advanced levels. The labels describe portfolio consistency, not vendor certification.
+        - question: What should we do after reviewing results?
+          answer: Start with the recommended priorities linked from your lowest categories. Validate assumptions with store inventory and failover testing before approving spend.
     sections:
-      - heading: About this tool
-        body: Walk through key dimensions of network architecture — redundancy, monitoring, security, vendor management, and standardization — to identify priority gaps.
+      - heading: How to Use It
+        body: |
+          Answer each question based on your current restaurant portfolio, not your target state. If practices vary by location, choose the answer that best describes the majority of stores or the highest-risk exceptions.
+
+          Progress saves automatically during your session. When all 30 questions are complete, review your overall score, category breakdown, strengths, risks, and linked research priorities.
+      - heading: What the Results Mean
+        body: |
+          **Overall score** is a weighted maturity percentage from 0 to 100 across all questions.
+
+          **Maturity level** summarizes portfolio readiness from Foundational through Advanced.
+
+          **Category scores** show performance across connectivity, monitoring, security, standardization, vendor management, and legacy voice lines.
+
+          **Biggest strengths** and **highest risks** highlight specific questions where you scored highest and lowest.
+
+          **Recommended priorities** link to Crimson Signal guides and tools based on your weakest categories.
       - heading: Assessment
-        body: "[Interactive assessment — coming soon] Answer structured questions about your current network state to receive a maturity summary and recommended next steps."
+        body: ""
 
   - slug: vendor-consolidation-calculator
     title: Vendor Consolidation Calculator

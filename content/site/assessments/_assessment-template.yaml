@@ -1,0 +1,71 @@
+# =============================================================================
+# Crimson Signal — Assessment Definition
+# =============================================================================
+#
+# TARGET DIR:   content/site/assessments/
+# LINK TOOL:    Set toolSlug to the matching entry in content/site/tools.yaml
+#
+# Add a new assessment by creating a YAML file here. No application code changes
+# are required when categories, questions, scoring profiles, or recommendations
+# change.
+#
+# =============================================================================
+
+id: {{id}}
+toolSlug: {{toolSlug}}
+title: {{title}}
+scoreLabel: Overall readiness score
+resultsDisclaimer: Scores are directional and based on your selections in this session.
+
+choiceSets:
+  maturity:
+    - label: Not in place or unknown
+      score: 1
+    - label: Ad hoc with wide variation
+      score: 2
+    - label: Partially implemented
+      score: 3
+    - label: Documented with periodic testing
+      score: 4
+    - label: Portfolio-wide standard
+      score: 5
+
+categories:
+  - id: example-category
+    label: Example Category
+    description: What this category measures.
+    weight: 1
+
+relatedContent:
+  exampleGuide:
+    title: Example Guide
+    href: /industries/restaurants/networking
+    description: Why this guide is relevant when the category scores low.
+
+questions:
+  - id: example-1
+    category: example-category
+    prompt: Example assessment question?
+    choiceSet: maturity
+    weight: 1
+
+resultProfiles:
+  - minScore: 81
+    level: Advanced
+    summary: Summary for advanced maturity.
+  - minScore: 0
+    level: Foundational
+    summary: Summary for foundational maturity.
+
+recommendations:
+  maxResults: 4
+  requireCategoryComplete: true
+  reasonTemplate: "Your {category} score is {score}/100. {description}"
+  fallback: exampleGuide
+  byCategory:
+    example-category:
+      - exampleGuide
+
+insights:
+  strengthsCount: 3
+  risksCount: 3

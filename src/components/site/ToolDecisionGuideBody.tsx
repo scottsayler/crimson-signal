@@ -1,4 +1,5 @@
 import type { DecisionGuide, SitePage } from "@/lib/site/types";
+import type { AssessmentDefinition } from "@/lib/assessments";
 import { isPlaceholderText } from "@/lib/site/decision-guide";
 import { MarkdownContent } from "@/components/MarkdownContent";
 import {
@@ -9,6 +10,7 @@ import {
   BottomLine,
   SectionPlaceholder,
 } from "./decision";
+import { AssessmentRenderer } from "./assessments/AssessmentRenderer";
 import { ToolCalculator, hasToolCalculator } from "./tools/ToolCalculator";
 
 const SECTION_HEADING =
@@ -19,15 +21,22 @@ interface ToolDecisionGuideBodyProps {
   guide: DecisionGuide;
   sections?: SitePage["sections"];
   toolSlug: string;
+  assessment?: AssessmentDefinition;
 }
 
 export function ToolDecisionGuideBody({
   guide,
   sections = [],
   toolSlug,
+  assessment,
 }: ToolDecisionGuideBodyProps) {
-  const calculatorSection = sections.find((section) => section.heading === "Calculator");
-  const contentSections = sections.filter((section) => section.heading !== "Calculator");
+  const interactiveSection = sections.find(
+    (section) => section.heading === "Calculator" || section.heading === "Assessment"
+  );
+  const interactiveHeading = interactiveSection?.heading ?? "Calculator";
+  const contentSections = sections.filter(
+    (section) => section.heading !== "Calculator" && section.heading !== "Assessment"
+  );
 
   return (
     <div className="space-y-14">
@@ -51,15 +60,19 @@ export function ToolDecisionGuideBody({
         </section>
       ))}
 
-      {(calculatorSection || hasToolCalculator(toolSlug)) && (
+      {(interactiveSection || assessment || hasToolCalculator(toolSlug)) && (
         <section className="scroll-mt-24">
-          <h2 className={SECTION_HEADING}>Calculator</h2>
-          {calculatorSection?.body && !isPlaceholderText(calculatorSection.body) && (
+          <h2 className={SECTION_HEADING}>{interactiveHeading}</h2>
+          {interactiveSection?.body && !isPlaceholderText(interactiveSection.body) && (
             <div className={`${PROSE_BODY} mb-6`}>
-              <MarkdownContent content={calculatorSection.body} />
+              <MarkdownContent content={interactiveSection.body} />
             </div>
           )}
-          <ToolCalculator slug={toolSlug} />
+          {assessment ? (
+            <AssessmentRenderer definition={assessment} />
+          ) : (
+            <ToolCalculator slug={toolSlug} />
+          )}
         </section>
       )}
 
