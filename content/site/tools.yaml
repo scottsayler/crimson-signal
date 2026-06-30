@@ -275,7 +275,7 @@ pages:
       - it vendor reduction roi
     buyerStage: evaluation
     relatedPages:
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /industries/franchise
       - /technologies/managed-network
     order: 5

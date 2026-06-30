@@ -165,7 +165,7 @@ pages:
         - href: /problems/legacy-phone-lines
           title: Legacy Phone Lines
           description: Portfolio-wide copper sunset planning.
-        - href: /problems/vendor-sprawl
+        - href: /problems/restaurant-vendor-sprawl
           title: Vendor Sprawl
           description: Multiple telecom vendors complicating line inventory.
       recommendedTools:
@@ -195,7 +195,7 @@ pages:
       - /industries/restaurants/managed-it
       - /industries/restaurants/networking
       - /industries/restaurants
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /technologies/sd-wan
       - /tools/vendor-consolidation-calculator
     recommendedTool: /tools/vendor-consolidation-calculator
@@ -222,7 +222,7 @@ pages:
           title: LTE & 5G Backup
           description: Backup circuit management often included in managed scope.
       relatedProblems:
-        - href: /problems/vendor-sprawl
+        - href: /problems/restaurant-vendor-sprawl
           title: Vendor Sprawl
           description: Consolidation is a common managed services outcome.
         - href: /problems/network-visibility

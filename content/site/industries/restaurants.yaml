@@ -209,7 +209,7 @@ pages:
       - /industries/restaurants/bandwidth-calculator
       - /problems/internet-outages
       - /problems/network-visibility
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
       - /technologies/sd-wan
       - /technologies/managed-network
@@ -229,7 +229,7 @@ pages:
     relatedProblems:
       - /problems/internet-outages
       - /problems/network-visibility
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
     relatedTechnologies:
       - /technologies/sd-wan
@@ -911,7 +911,7 @@ pages:
       - /industries/restaurants/sd-wan
       - /problems/legacy-phone-lines
       - /problems/internet-outages
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /technologies/pots-replacement
       - /technologies/lte-5g-backup
       - /tools/pots-savings-calculator
@@ -923,7 +923,7 @@ pages:
       - /industries/restaurants/sd-wan
     relatedProblems:
       - /problems/legacy-phone-lines
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/internet-outages
       - /problems/network-visibility
     relatedTechnologies:
@@ -1199,7 +1199,7 @@ pages:
       - /technologies/managed-network
       - /technologies/sd-wan
       - /technologies/lte-5g-backup
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/network-visibility
       - /problems/internet-outages
       - /tools/vendor-consolidation-calculator
@@ -1360,7 +1360,7 @@ pages:
       - /industries/restaurants/bandwidth-calculator
       - /problems/internet-outages
       - /problems/network-visibility
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
       - /technologies/managed-network
       - /technologies/sd-wan
@@ -1381,7 +1381,7 @@ pages:
     relatedProblems:
       - /problems/internet-outages
       - /problems/network-visibility
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
 
     relatedTechnologies:

@@ -310,7 +310,7 @@ Business Problems
 
 /problems/internet-outages/
 
-/problems/vendor-sprawl/
+/problems/restaurant-vendor-sprawl/
 
 /problems/legacy-phone-lines/
 

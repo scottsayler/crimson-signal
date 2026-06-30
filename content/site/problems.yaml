@@ -35,7 +35,7 @@ pages:
       - /industries/restaurants/managed-network
       - /industries/restaurants/pots-replacement
       - /problems/network-visibility
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
       - /technologies/lte-5g-backup
       - /technologies/sd-wan
@@ -52,7 +52,7 @@ pages:
       - /industries/restaurants/pots-replacement
     relatedProblems:
       - /problems/network-visibility
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
     relatedTechnologies:
       - /technologies/lte-5g-backup
@@ -425,7 +425,7 @@ pages:
       - /industries/restaurants/sd-wan
       - /industries/restaurants/managed-network
       - /problems/internet-outages
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
       - /technologies/sd-wan
       - /technologies/managed-network
@@ -440,7 +440,7 @@ pages:
       - /industries/restaurants/managed-network
     relatedProblems:
       - /problems/internet-outages
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
     relatedTechnologies:
       - /technologies/sd-wan

@@ -73,7 +73,7 @@ pages:
       - wan vendor selection criteria
     buyerStage: evaluation
     relatedPages:
-      - /problems/vendor-sprawl
+      - /problems/restaurant-vendor-sprawl
       - /tools/vendor-consolidation-calculator
       - /technologies/managed-network
     order: 3
