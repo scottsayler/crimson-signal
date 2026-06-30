@@ -1,193 +1,693 @@
 pages:
   - slug: networking
     title: Restaurant Networking
-    description: Independent research on store network architecture, failover, and standardization for multi-location restaurant operators.
+    description: How multi-location restaurant operators should think about store network architecture, failover, and standardization before buying more bandwidth or new technology.
     contentType: industry-topic
     industry: restaurants
-    persona: [it-director, operations, franchise-leader]
+    persona: [it-director, operations, franchise-leader, cio]
     primaryKeyword: restaurant networking
     secondaryKeywords:
       - restaurant store network
       - qsr network infrastructure
       - restaurant wan architecture
       - franchise network standards
+    searchIntent: decision-support
     buyerStage: awareness
-    relatedPages:
+    relatedEntities:
       - /industries/restaurants
+      - /industries/restaurants/sd-wan
       - /industries/restaurants/best-internet
       - /industries/restaurants/managed-it
+      - /industries/restaurants/bandwidth-calculator
+      - /industries/restaurants/downtime-cost-calculator
       - /technologies/sd-wan
       - /technologies/managed-network
+      - /technologies/lte-5g-backup
       - /problems/internet-outages
+      - /problems/network-visibility
+      - /problems/store-openings
+      - /tools/network-assessment
       - /tools/downtime-cost-calculator
-    recommendedTool: /tools/network-assessment
-    ctaLabel: Start a network assessment
-    ctaHref: /tools/network-assessment
+      - /tools/bandwidth-calculator
+      - /research/restaurant-downtime-economics
+    cta:
+      label: Start a network assessment
+      href: /tools/network-assessment
     order: 1
-    cluster:
-      problemFraming: |
-        Every restaurant location runs a small data center at the counter — POS, payment processing, kitchen displays, guest Wi-Fi, cameras, and back-office apps all share store network infrastructure. When that network is undersized, misconfigured, or lacks failover, outages surface immediately in lost transactions and guest complaints.
-      whoItIsFor: |
-        - IT leaders building or standardizing network architecture across locations
-        - Operations executives tired of learning about outages from store managers
-        - Franchise brands setting minimum connectivity requirements for franchisees
-      buyingTriggers: |
-        - Peak-hour outages that halt card payments or online orders
-        - Inconsistent network setups across new and legacy locations
-        - Opening new stores without a repeatable network playbook
-        - Evaluating SD-WAN or managed network after carrier or MSP issues
-      relatedTechnologies:
-        - href: /technologies/sd-wan
-          title: SD-WAN
-          description: Policy-based routing and centralized WAN management for multi-site operators.
-        - href: /technologies/managed-network
-          title: Managed Network
-          description: Outsourced provisioning, monitoring, and support when internal IT capacity is limited.
-        - href: /technologies/lte-5g-backup
-          title: LTE & 5G Backup
-          description: Cellular failover to keep POS alive when the primary circuit fails.
-      relatedProblems:
-        - href: /problems/internet-outages
-          title: Internet Outages
-          description: Understanding outage frequency, impact, and failover options at the store level.
-        - href: /problems/network-visibility
-          title: Network Visibility
-          description: Why many operators only learn about failures after guests are affected.
-        - href: /problems/store-openings
-          title: Store Openings
-          description: Network provisioning on the critical path to opening day.
-      recommendedTools:
-        - href: /tools/downtime-cost-calculator
-          title: Downtime Cost Calculator
-          description: Quantify outage impact to justify redundancy investments.
-        - href: /tools/bandwidth-calculator
-          title: Bandwidth Calculator
-          description: Right-size circuits for POS, Wi-Fi, and back-office traffic.
-    sections:
-      - heading: What good restaurant networking looks like
-        body: |
-          A resilient store network separates POS from guest Wi-Fi, includes automated failover, supports remote monitoring, and follows a documented standard every new location can replicate. The goal is not the most advanced architecture — it is predictable uptime during peak service.
+    decisionGuide:
+      quickAnswer: |
+        Restaurant networking is the infrastructure that keeps POS, kitchen systems, online ordering, and guest Wi-Fi running at each location. Most outage problems trace back to three gaps: no backup circuit, no traffic separation, and no standard design across stores. Fix those before evaluating SD-WAN or managed services.
+      whyYoureHere: |
+        You are probably not researching networking because you enjoy router configuration. Something broke at the store level. Card readers stopped during dinner. A new opening used a different ISP than every other location. Your IT team spent the weekend driving to stores instead of fixing root causes. Restaurant networking decisions start with operations pain, not architecture diagrams.
+      shouldConsider:
+        evaluateIf:
+          - You operate more than five locations with different network setups
+          - Store managers call IT before monitoring alerts fire
+          - New openings reinvent connectivity decisions each time
+          - Peak-hour outages affect POS, online orders, or kitchen displays
+          - Franchisees procure their own ISPs and equipment without standards
+        probablyNotIf:
+          - You have one or two locations with stable connectivity and tested failover
+          - Guest Wi-Fi is the only complaint and WAN circuits show healthy uptime
+          - You have not documented what each store actually runs today
+          - You are looking for a vendor before defining a network standard
+      whatProblemSolves: |
+        A disciplined restaurant network design solves operational problems that show up on the P&L.
 
-  - slug: downtime-cost-calculator
-    title: Restaurant Downtime Calculator
-    description: How to estimate the revenue impact of POS and connectivity downtime at restaurant locations — and when resilience investments pay off.
+        **Registers stay online during ISP failures.** Segmented POS traffic on a backup path keeps card payments moving when the primary circuit drops.
+
+        **New stores open on time.** A documented network stack with approved vendors removes circuit ordering guesswork from the opening checklist.
+
+        **IT stops firefighting blindly.** Remote monitoring and consistent configurations mean fewer truck rolls and faster diagnosis when something fails.
+
+        **Franchise standards become enforceable.** Corporate can define minimum connectivity requirements instead of discovering non-compliant setups after an outage.
+      realityCheck: |
+        A faster primary circuit does not fix a flat network where guest Wi-Fi shares the same subnet as POS. Many restaurant groups need VLAN segmentation and backup internet before they need any WAN architecture change.
+      alternatives:
+        - title: Standardize on one store network template
+          description: Document router model, VLAN layout, ISP requirements, and backup design. Often the highest-ROI step before any technology purchase.
+        - title: LTE backup at high-volume locations
+          description: Target the 20% of stores that drive most outage cost. Cheaper than portfolio-wide architecture change.
+        - title: Managed network services
+          description: Outsource monitoring and provisioning when internal IT cannot support location growth.
+        - title: SD-WAN at scale
+          description: Worth evaluating above 20 locations with inconsistent WAN setups and repeated multi-site outages.
+      questionsToAsk:
+        - What applications must stay online during an outage?
+        - Is POS traffic separated from guest Wi-Fi at every location?
+        - Do we have backup internet, and has failover been tested during peak hours?
+        - Can we remotely see circuit status at every store?
+        - What does each new opening order, and who approves deviations?
+        - How many different router and firewall models are in the field?
+      decisionMatrix:
+        - situation: 1 to 5 locations
+          recommendation: Document standard, add LTE backup at busiest store
+        - situation: 5 to 20 locations
+          recommendation: Standardize template, monitoring, and failover testing
+        - situation: 20 or more locations
+          recommendation: Evaluate SD-WAN or managed network services
+        - situation: Franchise system
+          recommendation: Publish corporate network standards with audit process
+        - situation: Heavy acquisition activity
+          recommendation: Inventory acquired stores before any architecture rollout
+      worthKnowing: |
+        The busiest hour at a QSR location generates more network traffic than the slowest full day. Network design and failover testing should use lunch or dinner rush conditions, not an empty dining room at 3 p.m.
+      askBeforeYouBuy:
+        - What is our documented network standard for new locations?
+        - Which stores have no backup circuit today?
+        - Who gets alerted when a store circuit drops?
+        - When did we last test failover during peak volume?
+        - How many unique ISP contracts exist across the portfolio?
+        - What is our average time to restore POS after an outage?
+      buyingTriggerTimeline:
+        - Card payments fail during a peak meal period
+        - New store opening delayed by circuit or CPE issues
+        - IT ticket volume exceeds team capacity
+        - Acquisition adds stores with unknown network configs
+        - Leadership asks for a resilience plan after a public outage
+        - Formal evaluation of SD-WAN, managed services, or monitoring tools
+      technologyStack:
+        - Primary ISP circuit
+        - Backup LTE or second ISP
+        - Firewall and router
+        - POS and payment VLAN
+        - Kitchen display systems
+        - Online ordering platform
+        - Guest Wi-Fi
+        - Security cameras
+      industrySnapshot:
+        topChallenges:
+          - Single-circuit locations with no tested failover
+          - POS and guest traffic on shared network segments
+          - Franchisee-procured equipment outside corporate standards
+          - No centralized visibility into store circuit health
+        typicalEnvironment:
+          Each location runs a mix of cloud POS, payment processing, kitchen displays, delivery platform integrations, cameras, and guest Wi-Fi over one or two broadband circuits. Corporate IT teams often number fewer than five people supporting dozens or hundreds of stores.
+        commonPriorities:
+          - Keep registers and online orders running during outages
+          - Reduce opening-day technology failures
+          - Cut time to diagnose store connectivity problems
+          - Control telecom spend as location count grows
+        buyingTriggers:
+          - Outage during peak service with revenue impact
+          - Opening pipeline faster than IT can provision sites
+          - Post-acquisition network integration
+          - Franchise compliance audit findings
+      evidence:
+        - title: Single-circuit exposure
+          finding: Store locations running one ISP connection with no automated failover remain the most common configuration in multi-unit restaurant footprints.
+          whyItMatters: The first resilience investment is usually backup connectivity at high-volume stores, not a portfolio-wide WAN project.
+          source: Restaurant networking field assessments
+      faqs:
+        - question: What is the minimum viable restaurant network?
+          answer: A primary ISP circuit, backup internet with automated failover, POS on a separate VLAN from guest Wi-Fi, remote monitoring, and a written standard that every new location follows.
+        - question: When should a restaurant group consider SD-WAN?
+          answer: When you operate roughly 20 or more locations, WAN setups vary by store, and outage patterns justify centralized policy management. Smaller groups usually benefit from simpler redundancy first.
+        - question: How does networking relate to PCI compliance?
+          answer: Flat networks where guest Wi-Fi reaches POS segments expand PCI scope and audit risk. Segmentation is a networking decision with compliance consequences.
+        - question: Should franchisees choose their own ISP?
+          answer: Some franchise systems allow it with corporate-approved equipment and minimum standards. Others require corporate-procured circuits. Decide governance before scaling openings.
+        - question: What should we fix first?
+          answer: Inventory every store, identify locations without backup internet, test failover at your highest-volume site, and publish a network standard. Technology purchases come after that baseline.
+
+  - slug: sd-wan
+    title: Restaurant SD-WAN
+    description: Should your restaurant group evaluate SD-WAN? Independent guidance on fit, costs, alternatives, and what to ask before you buy.
     contentType: industry-topic
     industry: restaurants
-    persona: [cfo, operations, it-director]
+    technology: sd-wan
+    persona: [it-director, operations, franchise-leader, cio]
+    primaryKeyword: restaurant sd-wan
+    secondaryKeywords:
+      - sd-wan for restaurants
+      - qsr sd-wan
+      - restaurant wan architecture
+      - franchise sd-wan
+    searchIntent: decision-support
+    buyerStage: consideration
+    relatedEntities:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /industries/restaurants/best-internet
+      - /technologies/sd-wan
+      - /technologies/managed-network
+      - /technologies/lte-5g-backup
+      - /problems/internet-outages
+      - /problems/pos-downtime
+      - /problems/network-visibility
+      - /comparisons/sd-wan-vs-mpls
+      - /tools/downtime-cost-calculator
+      - /tools/network-assessment
+      - /research/restaurant-downtime-economics
+    cta:
+      label: Calculate downtime cost
+      href: /tools/downtime-cost-calculator
+    order: 2
+    decisionGuide:
+      quickAnswer: |
+        SD-WAN helps restaurant groups manage internet across many locations with centralized policy and automated failover. It is worth evaluating when you operate 20 or more sites, outages interrupt POS regularly, or WAN management has outgrown your IT team. Smaller groups often solve the same problems with LTE backup and standardized router configs.
+      whyYoureHere: |
+        You are likely here because a recent outage stopped card payments during lunch, a new store opening exposed inconsistent network setups, or someone on your leadership team asked whether SD-WAN is worth the investment. Restaurant operators rarely research WAN technology for its own sake. The trigger is almost always operational pain.
+      shouldConsider:
+        evaluateIf:
+          - You operate 20 or more restaurant locations
+          - POS or online ordering fails when the primary internet circuit drops
+          - New store openings each use different ISPs and router configs
+          - You are consolidating networks after an acquisition
+          - MPLS contracts are up for renewal with rising costs
+        probablyNotIf:
+          - You have fewer than 10 locations with stable connectivity
+          - Guest Wi-Fi complaints are your main issue, not WAN outages
+          - You have not tested whether LTE backup solves the problem
+          - One or two problem stores need attention, not a portfolio-wide change
+      whatProblemSolves: |
+        Restaurant SD-WAN targets problems that show up at the register, not in a network diagram.
+
+        **POS stays up when circuits fail.** Policy-based routing can keep payment traffic on a backup path within seconds instead of waiting for manual intervention.
+
+        **New stores follow a standard playbook.** Corporate IT defines WAN policy once. Each opening deploys the same architecture instead of reinventing connectivity.
+
+        **Peak-hour traffic gets priority.** Lunch and dinner rushes are when outages hurt most. SD-WAN can prioritize operational traffic over guest Wi-Fi and back-office apps.
+      realityCheck: |
+        Faster internet will not fix poor Wi-Fi design. Many restaurant groups researching SD-WAN actually need better in-store wireless, VLAN segmentation, or basic cellular failover first.
+      alternatives:
+        - title: LTE or 5G backup at each store
+          description: The most common first step. Keeps POS alive when the primary ISP fails. Lower cost and complexity than SD-WAN.
+        - title: Dual ISP with automated failover
+          description: Two broadband circuits with a failover router. Works well for operators scaling past 5 but not yet ready for SD-WAN.
+        - title: Managed network services
+          description: Outsource monitoring, provisioning, and support without adopting full SD-WAN policy control.
+        - title: Network monitoring upgrade
+          description: If you only learn about outages from store managers, better alerting may deliver faster ROI than architecture change.
+      questionsToAsk:
+        - How fast does failover happen during a Friday dinner rush?
+        - What traffic gets priority when bandwidth is constrained?
+        - Who monitors circuits and responds to alerts?
+        - How do franchisee-owned ISPs fit into corporate policy?
+        - What does a three-year total cost include beyond licensing?
+        - Can we run a pilot at our highest-volume location first?
+      decisionMatrix:
+        - situation: 1 to 5 locations
+          recommendation: LTE backup and monitoring first
+        - situation: 5 to 20 locations
+          recommendation: Evaluate if outages are frequent and costly
+        - situation: 20 or more locations
+          recommendation: Formal SD-WAN evaluation warranted
+        - situation: Franchise system
+          recommendation: Strong candidate if corporate sets standards
+        - situation: Rural or hard-to-serve sites
+          recommendation: Consider Starlink or LTE before SD-WAN overlay
+      worthKnowing: |
+        Restaurants often discover network problems during lunch rush because guest Wi-Fi and POS traffic compete for the same bandwidth. SD-WAN can separate and prioritize traffic, but undersized circuits will still struggle at peak volume.
+      askBeforeYouBuy:
+        - Who owns monitoring after go-live?
+        - Who patches firmware and security updates?
+        - What is the documented failover time for POS traffic?
+        - How are store staff notified during an outage?
+        - What happens if the SD-WAN controller is unreachable?
+        - How are new locations onboarded to the WAN policy?
+      buyingTriggerTimeline:
+        - Card payments fail during peak lunch service
+        - Same ISP outage pattern repeats across multiple stores
+        - CFO asks for the business case after a costly outage weekend
+        - Development team misses opening dates due to circuit delays
+        - Downtime cost calculator or network assessment completed
+        - Vendor demos and pilot at a high-volume location
+      technologyStack:
+        - Store ISP circuit
+        - Backup LTE or second ISP
+        - SD-WAN edge appliance
+        - Firewall and security policy
+        - POS and payment systems
+        - Kitchen display and back-office apps
+        - Guest Wi-Fi
+      industrySnapshot:
+        topChallenges:
+          - POS downtime during peak meal periods
+          - Inconsistent network setups across locations
+          - Franchisee-procured circuits outside corporate standards
+          - Limited IT staff relative to store count
+        typicalEnvironment:
+          Each restaurant location runs POS, payment processing, kitchen displays, online ordering, cameras, and guest Wi-Fi over one or two ISP circuits. Most stores have fewer than five IT staff across the entire organization.
+        commonPriorities:
+          - Keep registers running during outages
+          - Standardize new store network deployments
+          - Reduce time to diagnose store connectivity issues
+          - Control telecom spend across a growing footprint
+        buyingTriggers:
+          - Outage during peak service with measurable revenue loss
+          - MPLS or WAN contract renewal
+          - Acquisition adding stores with unknown network configs
+          - Opening pipeline exceeding IT provisioning capacity
+      evidence:
+        - title: Outage cost sensitivity
+          finding: High-volume QSR locations can lose thousands of dollars per hour when POS and online ordering are unavailable during peak periods.
+          whyItMatters: The business case for SD-WAN or simpler failover depends on quantifying this number for your specific ticket average and transaction volume.
+          source: Restaurant Downtime Economics research
+      faqs:
+        - question: Is SD-WAN worth it for a 15-location restaurant group?
+          answer: It depends on outage frequency and cost. Groups this size often benefit from LTE backup and standardized configs first. SD-WAN becomes more compelling above 20 locations or after repeated multi-site outages.
+        - question: How does SD-WAN relate to guest Wi-Fi?
+          answer: SD-WAN manages how traffic leaves the store to the internet. Guest Wi-Fi quality also depends on access points, VLAN design, and bandwidth inside the store.
+        - question: Can franchisees keep their own ISP contracts?
+          answer: Some SD-WAN deployments allow franchisee-owned circuits under corporate policy. Governance and contract structure should be decided before vendor selection.
+        - question: What should we do before evaluating SD-WAN vendors?
+          answer: Run a downtime cost estimate, inventory circuits by location, document outage history for 12 months, and test existing failover during peak hours.
+
+  - slug: downtime-cost-calculator
+    title: Restaurant Downtime Cost Calculator
+    description: How to estimate what POS and connectivity outages actually cost your restaurant group, and when backup internet or network investments pay for themselves.
+    contentType: industry-topic
+    industry: restaurants
+    persona: [cfo, operations, it-director, franchise-leader]
     primaryKeyword: restaurant downtime cost calculator
     secondaryKeywords:
       - restaurant outage cost
       - pos downtime revenue impact
       - qsr downtime economics
+      - restaurant internet outage cost
+    searchIntent: decision-support
     buyerStage: awareness
-    relatedPages:
+    relatedEntities:
       - /industries/restaurants
       - /industries/restaurants/networking
+      - /industries/restaurants/sd-wan
+      - /industries/restaurants/best-internet
       - /problems/internet-outages
       - /problems/pos-downtime
+      - /technologies/lte-5g-backup
+      - /technologies/sd-wan
       - /tools/downtime-cost-calculator
-    recommendedTool: /tools/downtime-cost-calculator
-    ctaLabel: Open the calculator
-    ctaHref: /tools/downtime-cost-calculator
-    order: 2
-    cluster:
-      problemFraming: |
-        Most restaurant operators know outages are bad but underestimate their cost. Finance teams see circuit bills; operations teams see angry guests. Without a shared number for hourly downtime cost, it is hard to justify cellular backup, redundant circuits, or managed monitoring.
-      whoItIsFor: |
-        - CFOs and operators building a business case for network resilience
-        - IT leaders prioritizing investments across a multi-location footprint
-        - Franchise executives comparing corporate standards vs. franchisee spend
-      buyingTriggers: |
-        - Recent outage during lunch or dinner rush with measurable revenue loss
-        - Board or ownership asking for ROI on backup internet
-        - Comparing cost of downtime against cost of LTE failover or SD-WAN
-      relatedTechnologies:
-        - href: /technologies/lte-5g-backup
-          title: LTE & 5G Backup
-          description: The most common first step after quantifying outage cost.
-        - href: /technologies/sd-wan
-          title: SD-WAN
-          description: Broader WAN investment when outage cost justifies architectural change.
-      relatedProblems:
-        - href: /problems/pos-downtime
-          title: POS Downtime
-          description: How register failures cascade into kitchen and online order disruption.
-        - href: /problems/internet-outages
-          title: Internet Outages
-          description: The upstream cause of many restaurant technology failures.
-      recommendedTools:
-        - href: /tools/downtime-cost-calculator
-          title: Downtime Cost Calculator
-          description: Model annual outage cost from ticket average, transaction volume, and outage duration.
-    sections:
-      - heading: What to include in your estimate
-        body: |
-          Start with average hourly sales, not just card volume. Factor in labor idle time, wasted prep, delivery platform penalties, and guest recovery cost. Even a 30-minute outage at a high-volume QSR location can exceed the annual cost of cellular backup.
+      - /research/restaurant-downtime-economics
+      - /comparisons/sd-wan-vs-mpls
+    cta:
+      label: Open the downtime calculator
+      href: /tools/downtime-cost-calculator
+    order: 3
+    decisionGuide:
+      quickAnswer: |
+        Restaurant downtime cost is the revenue and labor you lose when POS, online ordering, or connectivity fails during operating hours. A typical high-volume QSR location can lose $1,500 to $4,000 per hour during lunch or dinner rush. Compare that number to the annual cost of cellular backup before approving any network project.
+      whyYoureHere: |
+        Someone in leadership asked a direct question after the last outage: what did that actually cost us? Finance wants a number before approving backup internet. Operations remembers the guest complaints and refunded orders. IT needs a business case that goes beyond "we should have redundancy." This page helps you build that number with assumptions your executive team will accept.
+      shouldConsider:
+        evaluateIf:
+          - You have had one or more outages during peak meal periods in the past year
+          - Finance requires ROI before approving LTE backup or redundant circuits
+          - You operate high-volume locations where card and online orders dominate revenue
+          - Franchise leadership is debating corporate network standards vs. franchisee spend
+          - You are comparing SD-WAN, managed services, or backup internet options
+        probablyNotIf:
+          - Your locations run mostly cash or have offline payment modes that cover most volume
+          - Outages are rare and always occur during closed hours
+          - You have not documented when outages happened or how long POS was down
+          - You are using downtime math to justify a purchase you already decided on
+      whatProblemSolves: |
+        A credible downtime estimate turns network spending from a technology debate into a business decision.
 
-  - slug: best-internet
-    title: Best Internet for Restaurants
-    description: Independent guidance on selecting store internet — bandwidth, redundancy, carriers, and architecture for restaurant locations.
+        **Finance and operations share one number.** Instead of arguing from anecdote, leadership can compare hourly outage cost against the price of backup internet.
+
+        **IT can prioritize locations.** The stores with the highest revenue per hour and weakest redundancy deserve investment first.
+
+        **Vendor proposals get scrutiny.** When a carrier pitches redundant circuits, you can test whether the annual cost is less than one bad Saturday lunch outage.
+
+        **Franchise boards get clarity.** Corporate standards for backup connectivity are easier to approve when franchisees see the math for their own ticket averages.
+      realityCheck: |
+        ISP service credits rarely cover actual business impact. A $50 credit for a four-hour outage during dinner rush does not offset lost sales, labor standing idle, wasted food, or delivery platform penalties.
+      alternatives:
+        - title: Use average daily sales divided by operating hours
+          description: Quick estimate when transaction-level data is unavailable. Directionally useful but understates peak-hour impact.
+        - title: Model peak hour only
+          description: Calculate cost using lunch or dinner rush revenue, not the daily average. More accurate for restaurants with sharp volume curves.
+        - title: Include labor and waste
+          description: Add idle crew cost, scrapped prep, and comped meals. The total often exceeds lost card volume alone.
+        - title: Use delivery platform data
+          description: Third-party ordering downtime has direct penalty and cancellation costs separate from in-store POS.
+      questionsToAsk:
+        - What is average hourly revenue at our busiest location during lunch and dinner?
+        - What percentage of revenue requires live connectivity to process?
+        - How many outage hours did we log last year, and when did they occur?
+        - Do we lose online and delivery orders when POS is down?
+        - What does labor cost per hour when staff cannot serve guests?
+        - How does annual backup internet cost compare to one peak-hour outage?
+      decisionMatrix:
+        - situation: Outage cost under $500 per hour
+          recommendation: Monitoring and basic failover may be enough
+        - situation: Outage cost $500 to $2,000 per hour
+          recommendation: LTE backup at high-volume stores is usually justified
+        - situation: Outage cost over $2,000 per hour
+          recommendation: Redundant circuits and formal resilience planning warranted
+        - situation: Frequent short outages
+          recommendation: Count total annual hours down, not just peak-hour rate
+        - situation: Franchise with varied volumes
+          recommendation: Calculate per location, then set tiered corporate standards
+      worthKnowing: |
+        A 45-minute outage at a busy Friday dinner service can cost more than a full year of cellular backup at the same location. Operators who model only annual averages often underfund resilience.
+      askBeforeYouBuy:
+        - What hourly revenue figure did we use, and does leadership accept it?
+        - Did we model peak hours or just daily averages?
+        - Are labor, waste, and delivery penalties included?
+        - How many outage hours are we assuming per year?
+        - What is the fully loaded annual cost of the proposed fix?
+        - What is payback period if we prevent one major outage?
+      buyingTriggerTimeline:
+        - Outage during peak service with visible revenue loss
+        - CFO asks for documented impact before next budget cycle
+        - IT proposes LTE backup and needs executive approval
+        - Board or ownership reviews technology risk after guest complaints
+        - Downtime estimate completed and shared with leadership
+        - Investment approved for backup internet or network upgrade
+      evidence:
+        - title: Peak-hour sensitivity
+          finding: Restaurant locations with sharp lunch and dinner volume curves lose disproportionate revenue during brief outages in those windows compared to all-day averages suggest.
+          whyItMatters: Using average hourly sales instead of peak-hour revenue understates the business case for backup connectivity.
+          source: Restaurant Downtime Economics research
+      faqs:
+        - question: What inputs do I need for a downtime estimate?
+          answer: Start with average hourly sales at your busiest location, the share of sales that require connectivity, expected outage hours per year, and average outage duration. Add labor cost and waste if you want a fuller picture.
+        - question: Should I use gross sales or card volume only?
+          answer: Use gross sales for the revenue you cannot capture when registers and online ordering are down. Card volume alone misses cash-adjacent workflows and delivery orders that also stop.
+        - question: How many outages per year should I assume?
+          answer: Pull 12 months of store reports, ISP tickets, and manager escalations. Most operators undercount because minor outages never reach IT.
+        - question: When does LTE backup pay for itself?
+          answer: Compare annual LTE cost at a location against peak-hour downtime cost times the number of outage hours you expect. At many QSR sites, preventing one lunch outage covers a year of backup service.
+        - question: Does this apply to franchisees or just corporate stores?
+          answer: Both. Franchise boards often approve corporate standards faster when each party can run the math on their own average ticket and volume.
+
+  - slug: bandwidth-calculator
+    title: Restaurant Bandwidth Calculator
+    description: How to size internet circuits for restaurant locations based on POS, kitchen systems, guest Wi-Fi, cameras, and delivery platform traffic.
     contentType: industry-topic
     industry: restaurants
     persona: [it-director, operations, franchise-leader]
+    primaryKeyword: restaurant bandwidth calculator
+    secondaryKeywords:
+      - restaurant internet speed requirements
+      - qsr bandwidth planning
+      - store internet sizing
+      - restaurant wan bandwidth
+    searchIntent: decision-support
+    buyerStage: consideration
+    relatedEntities:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/sd-wan
+      - /industries/restaurants/downtime-cost-calculator
+      - /technologies/lte-5g-backup
+      - /technologies/sd-wan
+      - /technologies/starlink
+      - /problems/internet-outages
+      - /tools/bandwidth-calculator
+      - /tools/downtime-cost-calculator
+      - /research/restaurant-downtime-economics
+    cta:
+      label: Open the bandwidth calculator
+      href: /tools/bandwidth-calculator
+    order: 4
+    decisionGuide:
+      quickAnswer: |
+        Most full-service and QSR locations need 100 to 200 Mbps on the primary circuit for cloud POS, kitchen displays, online ordering, cameras, and guest Wi-Fi combined. High-volume sites with heavy delivery integration or large dining rooms may need 300 Mbps or more. Size for peak concurrent load, then add backup capacity that can carry POS traffic alone.
+      whyYoureHere: |
+        An ISP sales rep quoted gigabit service for a standard inline location. Your franchisee wants the cheapest plan available. Operations complains about slow kitchen displays while finance questions why internet bills vary by store. Bandwidth planning for restaurants is not about maximum speed. It is about carrying operational traffic during the busiest hour without starving POS when guests flood the Wi-Fi.
+      shouldConsider:
+        evaluateIf:
+          - You are ordering circuits for new store openings
+          - Kitchen displays, online orders, or POS lag during peak service
+          - Guest Wi-Fi complaints coincide with operational slowdowns
+          - You are comparing primary and backup circuit sizes
+          - Cloud POS adoption increased traffic since the last circuit order
+        probablyNotIf:
+          - Connectivity is stable and applications perform well during peak hours
+          - The real problem is outage frequency, not circuit speed
+          - You have not separated guest Wi-Fi from POS traffic
+          - You are upsizing bandwidth to avoid fixing a misconfigured network
+      whatProblemSolves: |
+        Right-sized bandwidth prevents operational slowdowns and overspending on circuits you do not need.
+
+        **POS and kitchen systems stay responsive at peak.** Payment authorization, ticket routing, and kitchen display updates depend on consistent low-latency connectivity.
+
+        **Guest Wi-Fi does not starve operations.** Segmented traffic with adequate headroom keeps marketing's free Wi-Fi from competing with register traffic.
+
+        **Backup circuits get realistic targets.** Backup internet only needs to carry critical apps. Sizing primary and backup separately avoids overpaying for redundant gigabit.
+
+        **New store orders stop being guesswork.** A standard bandwidth tier by store format removes per-location negotiation with ISPs.
+      realityCheck: |
+        Doubling circuit speed rarely fixes problems caused by flat network design, outdated access points, or a single circuit with no failover. Measure application performance and segment traffic before upgrading bandwidth.
+      alternatives:
+        - title: Traffic segmentation before bandwidth upgrade
+          description: Put POS on a dedicated VLAN with priority queuing. Often resolves peak-hour slowdowns without a larger circuit.
+        - title: Tiered bandwidth by store format
+          description: Define small, standard, and high-volume templates instead of custom sizing per location.
+        - title: Upgrade access points and switching
+          description: When Wi-Fi is the bottleneck, faster WAN bandwidth does not help devices inside the store.
+        - title: Asymmetric backup sizing
+          description: Primary circuit sized for full operations. Backup sized for POS and kitchen only.
+      questionsToAsk:
+        - What applications run during peak hour and how much bandwidth does each need?
+        - How many concurrent guest Wi-Fi users do we expect at maximum occupancy?
+        - Is POS on a separate VLAN from guest traffic?
+        - What is the minimum bandwidth backup internet must provide for card payments?
+        - Do delivery platform integrations add sustained upload demand?
+        - When did we last measure utilization during lunch or dinner rush?
+      decisionMatrix:
+        - situation: Small QSR or inline format
+          recommendation: 100 Mbps primary, 50 Mbps LTE backup for POS
+        - situation: Standard freestanding QSR
+          recommendation: 200 Mbps primary, LTE backup tested for POS load
+        - situation: High-volume or dual-lane drive-thru
+          recommendation: 300 Mbps or higher primary, diverse backup
+        - situation: Full-service with large dining room
+          recommendation: 200 to 500 Mbps based on Wi-Fi density and cameras
+        - situation: Rural or limited ISP options
+          recommendation: Size primary for need, add Starlink or LTE as backup
+      worthKnowing: |
+        Upload speed matters more than many operators expect. Cloud POS, camera uploads, and back-office sync compete for upstream bandwidth. A circuit with high download and low upload can still struggle during peak operations.
+      askBeforeYouBuy:
+        - What traffic types are on the circuit today?
+        - Did we measure peak-hour utilization or rely on ISP estimates?
+        - What is the minimum bandwidth POS needs to function?
+        - Is backup sized for full operations or critical apps only?
+        - Are access points and switching adequate for the bandwidth ordered?
+        - What happens to kitchen displays when guest Wi-Fi usage spikes?
+      buyingTriggerTimeline:
+        - Kitchen display or POS lag reported during rush
+        - ISP renewal with option to change speed tier
+        - New store circuit order due in development timeline
+        - Cloud POS migration increasing bandwidth demand
+        - Bandwidth assessment completed by store format
+        - Standard bandwidth tiers published for openings
+      technologyStack:
+        - Primary ISP circuit
+        - Backup LTE or second ISP
+        - Firewall with traffic shaping
+        - POS and payment systems
+        - Kitchen display system
+        - Online ordering and delivery integrations
+        - Guest Wi-Fi access points
+        - Security cameras
+      evidence:
+        - title: Peak concurrent load
+          finding: Restaurant network traffic spikes in predictable windows aligned with meal periods, with guest Wi-Fi and operational apps overlapping during those peaks.
+          whyItMatters: Bandwidth planning based on off-peak averages leaves stores undersized for the hours that matter most.
+          source: Store network utilization reviews
+      faqs:
+        - question: How much internet does a typical QSR need?
+          answer: Most standard QSR locations perform well on 100 to 200 Mbps primary service when traffic is segmented. High-volume sites with heavy delivery integration may need more.
+        - question: Does guest Wi-Fi require a separate circuit?
+          answer: Not always. Many operators run guest Wi-Fi on the same circuit with VLAN separation and bandwidth limits. Separate circuits are an option when marketing wants guaranteed guest capacity.
+        - question: How big should backup internet be?
+          answer: Size backup to carry POS, payment processing, and kitchen displays. It does not need to match full primary capacity unless you want automatic failover for all apps.
+        - question: When is gigabit necessary?
+          answer: Few single restaurant locations need gigabit for operations alone. Gigabit is more common in multi-tenant buildings or when video-heavy applications dominate.
+        - question: What data should I collect before sizing?
+          answer: Store format, POS type, camera count, expected guest count, delivery platform usage, and measured peak-hour utilization if available.
+
+  - slug: best-internet
+    title: Best Internet for Restaurants
+    description: How to choose store internet for restaurant locations. Independent guidance on bandwidth, carrier diversity, backup design, and what "best" actually means for POS uptime.
+    contentType: industry-topic
+    industry: restaurants
+    persona: [it-director, operations, franchise-leader, cio]
     primaryKeyword: best internet for restaurants
     secondaryKeywords:
       - restaurant internet service
       - store internet redundancy
       - qsr broadband requirements
       - restaurant isp selection
+    searchIntent: commercial-investigation
     buyerStage: consideration
-    relatedPages:
+    relatedEntities:
       - /industries/restaurants
       - /industries/restaurants/networking
+      - /industries/restaurants/bandwidth-calculator
+      - /industries/restaurants/sd-wan
+      - /industries/restaurants/downtime-cost-calculator
       - /technologies/lte-5g-backup
       - /technologies/sd-wan
+      - /technologies/starlink
       - /problems/internet-outages
+      - /problems/pos-downtime
       - /tools/bandwidth-calculator
-    recommendedTool: /tools/bandwidth-calculator
-    ctaLabel: Estimate bandwidth needs
-    ctaHref: /tools/bandwidth-calculator
-    order: 3
-    cluster:
-      problemFraming: |
-        "Best internet" for a restaurant is not the fastest advertised speed — it is reliable connectivity that keeps POS, kitchen systems, and online orders running through peak volume, with a credible backup when the primary circuit fails. Single-circuit locations with no failover remain the most common point of failure.
-      whoItIsFor: |
-        - Operators selecting ISP and backup architecture for new or existing locations
-        - Franchise brands defining approved connectivity standards
-        - IT teams comparing dual-ISP, cellular backup, and SD-WAN approaches
-      buyingTriggers: |
-        - New store build requiring circuit orders and install timelines
-        - Repeated ISP outages without automatic failover
-        - Guest Wi-Fi complaints masking undersized bandwidth
-        - Cloud POS adoption increasing uptime requirements
-      relatedTechnologies:
-        - href: /technologies/lte-5g-backup
-          title: LTE & 5G Backup
-          description: Cellular failover when terrestrial redundancy is unavailable or too slow to provision.
-        - href: /technologies/sd-wan
-          title: SD-WAN
-          description: Policy-based routing when multiple circuits need intelligent management.
-        - href: /technologies/starlink
-          title: Starlink
-          description: Satellite option for rural or hard-to-serve locations.
-      relatedProblems:
-        - href: /problems/internet-outages
-          title: Internet Outages
-          description: Outage patterns and failover design for store locations.
-        - href: /problems/pos-downtime
-          title: POS Downtime
-          description: When connectivity failures become register failures.
-      recommendedTools:
-        - href: /tools/bandwidth-calculator
-          title: Bandwidth Calculator
-          description: Size primary and backup circuits for your application mix.
-        - href: /tools/downtime-cost-calculator
-          title: Downtime Cost Calculator
-          description: Compare circuit and backup cost against outage impact.
-    sections:
-      - heading: Evaluation framework
-        body: |
-          Assess bandwidth needs by application (POS, KDS, Wi-Fi, cameras), require diverse carriers where possible, automate failover testing quarterly, and document a standard stack new locations can order without reinventing the decision.
+      - /tools/downtime-cost-calculator
+      - /comparisons/sd-wan-vs-mpls
+    cta:
+      label: Estimate bandwidth needs
+      href: /tools/bandwidth-calculator
+    order: 5
+    decisionGuide:
+      quickAnswer: |
+        The best internet for a restaurant location is reliable connectivity with a tested backup path that keeps POS and kitchen systems running during peak service. Speed matters less than uptime, carrier diversity, and automated failover. For most locations, a 100 to 200 Mbps primary circuit plus LTE backup outperforms an expensive single gigabit line with no redundancy.
+      whyYoureHere: |
+        Search results for "best internet for restaurants" mostly list ISPs and speed tiers. That is not the decision you actually face. You need to know what to order for a new opening, whether your current provider is the problem, and how to stop losing lunch revenue when a circuit drops. The question is not who has the fastest plan. It is what architecture keeps registers running when something fails.
+      shouldConsider:
+        evaluateIf:
+          - You are selecting ISP and backup for new restaurant openings
+          - Repeated outages come from a single carrier with no failover
+          - POS or online ordering fails when the primary circuit drops
+          - Franchisees choose their own providers without corporate standards
+          - You are renewing ISP contracts across a multi-location portfolio
+        probablyNotIf:
+          - You already have diverse carriers and tested failover at every store
+          - Application performance issues happen only on guest Wi-Fi
+          - You are switching ISPs to avoid fixing internal network design
+          - One rural location is the problem and urban stores are stable
+      whatProblemSolves: |
+        The right internet architecture solves revenue problems, not speed-test bragging rights.
+
+        **Card payments survive ISP failures.** Automated failover to a second carrier or LTE keeps authorization traffic moving.
+
+        **Online and delivery orders stay live.** Third-party platforms and direct online ordering depend on the same connectivity as in-store POS.
+
+        **Openings hit revenue dates.** Ordering circuits early with a standard spec reduces the chance that ISP delays push back opening day.
+
+        **Telecom spend aligns with risk.** High-volume stores get redundancy. Lower-volume sites get a lighter standard without overbuilding every location.
+      realityCheck: |
+        The ISP with the best advertised speed in your market is not automatically the best choice for a restaurant. Install timelines, outage history in your trade area, and support responsiveness during peak hours matter more than the speed test on a sales brochure.
+      alternatives:
+        - title: Primary broadband plus LTE backup
+          description: The most common pattern for QSR and fast casual. Cost-effective and fast to deploy.
+        - title: Dual ISP with automated failover
+          description: Two terrestrial carriers with diverse paths. Strong option when both are available at the site.
+        - title: Starlink for rural backup
+          description: Useful where terrestrial backup is slow to provision or unavailable. Test latency for POS before relying on it as primary.
+        - title: SD-WAN across many locations
+          description: When you manage dozens of sites with mixed carriers and need centralized policy, not just circuit ordering.
+      questionsToAsk:
+        - What is the documented install timeline for this address?
+        - What is this carrier's outage history in our trade area?
+        - Do we have diverse entry paths if we order two terrestrial circuits?
+        - What happens to POS when the primary circuit fails today?
+        - Is backup internet tested quarterly during peak hours?
+        - What speed tier matches our POS and Wi-Fi load at rush?
+      decisionMatrix:
+        - situation: New urban QSR opening
+          recommendation: 200 Mbps primary, LTE backup, diverse carriers where possible
+        - situation: Existing store with repeat outages
+          recommendation: Add backup first, then evaluate carrier change
+        - situation: Rural location
+          recommendation: Best available primary plus LTE or Starlink backup
+        - situation: Franchisee-procured internet
+          recommendation: Publish minimum standard and approved equipment list
+        - situation: 30 or more locations
+          recommendation: Standardize tiers and evaluate SD-WAN for management
+      worthKnowing: |
+        Circuit install delays are the hidden reason opening dates slip. Order primary and backup internet the day the lease is signed, not when the buildout is nearly complete.
+      askBeforeYouBuy:
+        - What is the hard install date for primary and backup?
+        - Which applications must survive a circuit failure?
+        - Are we using diverse carriers or two lines on the same infrastructure?
+        - What router and failover equipment is approved?
+        - Who tests failover before opening day?
+        - What is the three-year total cost including backup data plans?
+      buyingTriggerTimeline:
+        - Lease signed and circuit order becomes critical path
+        - Outage during peak service traced to single ISP
+        - Franchise audit finds non-standard internet setups
+        - ISP contract renewal with rate increase
+        - Bandwidth calculator or downtime cost review completed
+        - Corporate internet standard published for new openings
+      technologyStack:
+        - Primary ISP broadband or fiber
+        - Backup LTE, second ISP, or satellite
+        - Failover router or SD-WAN edge
+        - Firewall with POS segmentation
+        - POS and payment processing
+        - Online ordering platforms
+        - Guest Wi-Fi
+      industrySnapshot:
+        topChallenges:
+          - Single ISP dependency at many locations
+          - Late circuit delivery delaying openings
+          - Franchisee ISP choices outside corporate control
+          - Backup internet ordered but never failover-tested
+        typicalEnvironment:
+          Most restaurant stores order cable or fiber broadband from local carriers. Backup is often LTE, though dual-ISP is common in urban markets. Corporate IT teams set standards while franchisees may procure independently.
+        commonPriorities:
+          - POS uptime above all other applications
+          - Predictable opening-day connectivity
+          - Controlling monthly circuit and backup costs
+          - Reducing time on phone with ISP support during outages
+        buyingTriggers:
+          - Failed opening or delayed go-live due to circuit issues
+          - Revenue loss during ISP outage
+          - Contract renewal with pricing pressure
+          - Corporate mandate for network standardization
+      evidence:
+        - title: Redundancy over raw speed
+          finding: Store locations with backup connectivity and modest primary speeds typically experience fewer revenue-impacting outages than locations on single high-speed circuits without failover.
+          whyItMatters: Budget conversations should compare backup cost against outage cost, not chase maximum Mbps on one line.
+          source: Multi-location restaurant network reviews
+      faqs:
+        - question: What internet speed do restaurants actually need?
+          answer: Most QSR and fast casual locations operate well on 100 to 200 Mbps when traffic is segmented. Size for peak concurrent load, not idle periods.
+        - question: Is fiber better than cable for restaurants?
+          answer: Fiber often offers symmetric speeds and strong uptime, but availability and install time vary by address. The best option is what can be installed reliably with a credible backup.
+        - question: Should backup internet match primary speed?
+          answer: No. Backup should carry POS, payments, and kitchen systems. Full-speed redundancy for guest Wi-Fi and cameras is optional.
+        - question: How do I evaluate ISP claims?
+          answer: Talk to neighboring operators, ask your ISP for outage history, and test failover yourself. Speed tests do not predict opening-day install performance.
+        - question: What belongs in a corporate internet standard?
+          answer: Minimum speed tier by store format, approved failover method, VLAN requirements, install lead times, and testing checklist before go-live.
 
   - slug: pots-replacement
     title: POTS Replacement for Restaurants
@@ -210,7 +710,7 @@ pages:
     recommendedTool: /tools/pots-savings-calculator
     ctaLabel: Calculate POTS savings
     ctaHref: /tools/pots-savings-calculator
-    order: 4
+    order: 6
     cluster:
       problemFraming: |
         Many restaurant locations still pay for analog POTS lines used for fire alarms, fax, elevator phones, or legacy credit card dial backup. Carriers are retiring copper and raising prices on remaining lines. Most operators do not have a complete location-by-location inventory of what each line actually supports.
@@ -268,7 +768,7 @@ pages:
     recommendedTool: /tools/network-assessment
     ctaLabel: Run network assessment
     ctaHref: /tools/network-assessment
-    order: 5
+    order: 7
     cluster:
       problemFraming: |
         New restaurant openings fail technology go-live more often than operators admit. Circuits arrive late, POS segmentation is wrong, backup internet was never tested, and franchisees use unapproved vendors. Opening day is unforgiving — guests do not care that the ISP missed their date.
@@ -313,61 +813,431 @@ pages:
           - Escalation runbook posted with vendor contacts
 
   - slug: managed-it
-    title: Restaurant Managed IT
-    description: Independent research on managed IT and network services for restaurant operators — when outsourcing makes sense and what to require.
+    title: Restaurant Managed Network
+    description: When should restaurant operators outsource network monitoring, provisioning, and support? Independent guidance on scope, SLAs, and what to require from a managed services partner.
     contentType: industry-topic
     industry: restaurants
-    persona: [it-director, cfo, franchise-leader]
-    primaryKeyword: restaurant managed it
+    technology: managed-network
+    persona: [it-director, cfo, franchise-leader, cio]
+    primaryKeyword: restaurant managed network
     secondaryKeywords:
       - managed network restaurants
       - outsourced restaurant it
       - restaurant msp evaluation
+      - restaurant noc services
+    searchIntent: decision-support
     buyerStage: evaluation
-    relatedPages:
+    relatedEntities:
       - /industries/restaurants
       - /industries/restaurants/networking
+      - /industries/restaurants/sd-wan
+      - /industries/restaurants/best-internet
       - /technologies/managed-network
+      - /technologies/sd-wan
+      - /technologies/lte-5g-backup
       - /problems/vendor-sprawl
+      - /problems/network-visibility
+      - /problems/internet-outages
       - /tools/vendor-consolidation-calculator
-    recommendedTool: /tools/vendor-consolidation-calculator
-    ctaLabel: Model vendor consolidation
-    ctaHref: /tools/vendor-consolidation-calculator
-    order: 6
-    cluster:
-      problemFraming: |
-        Restaurant operators with lean IT teams often reach a point where store-level support does not scale. Managed IT and managed network services promise standardized monitoring, faster provisioning, and a single escalation path — but scope, SLAs, and franchise governance vary widely between providers.
-      whoItIsFor: |
-        - IT directors supporting dozens or hundreds of locations with a small team
-        - Franchise systems seeking a corporate-approved managed services model
-        - CFOs comparing fully loaded internal cost against outsourced operations
-      buyingTriggers: |
-        - IT ticket volume growing faster than headcount
-        - Inconsistent store technology after franchisee self-procurement
-        - Acquisition adding locations with unknown MSP relationships
-        - Repeated SLA misses from current telecom or break-fix vendors
-      relatedTechnologies:
-        - href: /technologies/managed-network
-          title: Managed Network
-          description: Core technology category for outsourced WAN and store connectivity.
-        - href: /technologies/sd-wan
-          title: SD-WAN
-          description: Often bundled with managed services for policy and routing.
-      relatedProblems:
-        - href: /problems/vendor-sprawl
-          title: Vendor Sprawl
-          description: The accumulation of carriers and MSPs managed services is meant to solve.
-        - href: /problems/network-visibility
-          title: Network Visibility
-          description: Monitoring gaps that push operators toward managed NOC services.
-      recommendedTools:
-        - href: /tools/vendor-consolidation-calculator
-          title: Vendor Consolidation Calculator
-          description: Estimate savings from reducing vendor count alongside managed services.
-        - href: /tools/network-assessment
-          title: Network Assessment
-          description: Baseline current state before defining managed scope.
-    sections:
-      - heading: What to require in any managed IT engagement
-        body: |
-          Define SLAs with financial teeth, require proactive monitoring not just break-fix, document who owns franchisee relationships, and insist on a complete circuit and asset inventory as a starting deliverable — not a future phase.
+      - /tools/network-assessment
+      - /comparisons/sd-wan-vs-mpls
+    cta:
+      label: Model vendor consolidation
+      href: /tools/vendor-consolidation-calculator
+    order: 8
+    decisionGuide:
+      quickAnswer: |
+        Managed network services make sense for restaurant groups when store count has outgrown IT capacity and outages are caught by managers instead of monitoring systems. A good engagement covers circuit provisioning, 24/7 alerting, vendor escalation, and opening support. It is not a substitute for defining what your network standard should be.
+      whyYoureHere: |
+        Your IT team is small and getting smaller relative to store count. Opening support, outage response, and ISP coordination consume the week. A vendor pitched managed services as the answer. Before you sign, you need to know what scope actually reduces risk, what you still own internally, and how to avoid adding another vendor to an already crowded stack.
+      shouldConsider:
+        evaluateIf:
+          - You support 30 or more locations with a lean internal IT team
+          - Store managers report outages before your team knows about them
+          - New openings regularly miss network go-live dates
+          - Franchisees use non-standard ISPs and equipment
+          - You are consolidating carriers and MSPs after acquisition
+        probablyNotIf:
+          - You have fewer than 10 locations and a responsive internal team
+          - The problem is network design, not operational capacity
+          - You have not documented a network standard for partners to execute
+          - You want managed services to avoid making technology decisions
+      whatProblemSolves: |
+        Managed network services address capacity and consistency problems across a distributed footprint.
+
+        **Someone is watching circuits when your team is not.** A NOC can detect store outages before the dinner rush generates guest complaints.
+
+        **Openings follow a repeatable playbook.** Partners with restaurant experience know ISP lead times, CPE standards, and go-live testing sequences.
+
+        **ISP trouble tickets get chased by someone else.** Your IT director stops spending afternoons on hold with carriers.
+
+        **Franchisee variance gets contained.** Corporate-approved partners can provision to a standard instead of accepting whatever the franchisee ordered.
+      realityCheck: |
+        Managed services do not fix a bad network architecture. If stores run flat networks with no backup internet, outsourcing monitoring only helps you learn about outages faster. Design standards still belong to you.
+      alternatives:
+        - title: Hire one or two network-focused IT staff
+          description: Internal ownership with clear runbooks. Works when location count is moderate and standards are documented.
+        - title: Monitoring tools without full managed services
+          description: Add alerting and dashboards first. Cheaper way to close the visibility gap.
+        - title: SD-WAN with co-managed support
+          description: Centralized WAN management with vendor or partner operations. Different scope than full store IT outsourcing.
+        - title: Regional break-fix MSP for openings only
+          description: Narrow engagement for provisioning new stores while corporate handles ongoing operations.
+      questionsToAsk:
+        - What is included in monitoring vs. break-fix vs. opening support?
+        - What are SLA response times by severity during peak restaurant hours?
+        - Who owns the relationship with franchisee-procured ISPs?
+        - How do you document circuit and asset inventory at onboarding?
+        - What happens when an outage is the ISP's fault vs. local CPE?
+        - Can we keep our POS and application vendors separate from network scope?
+      decisionMatrix:
+        - situation: Under 15 locations, stable network
+          recommendation: Internal IT with monitoring tools
+        - situation: 15 to 40 locations, growing openings
+          recommendation: Evaluate managed opening support and NOC
+        - situation: 40 or more locations, lean IT
+          recommendation: Strong candidate for managed network services
+        - situation: Franchise system with procurement variance
+          recommendation: Managed partner plus published corporate standard
+        - situation: Post-acquisition integration
+          recommendation: Inventory first, then scoped managed engagement
+      worthKnowing: |
+        The most expensive managed services contracts are the ones with vague scope. Define exactly which tasks move to the partner and which stay internal before comparing proposals.
+      askBeforeYouBuy:
+        - What is the complete inventory deliverable at contract start?
+        - What SLA credits apply when response times are missed?
+        - Who answers the phone at 6 p.m. on a Friday when POS is down?
+        - How are new store openings priced and scheduled?
+        - Can we terminate without losing configuration documentation?
+        - What tools do we retain access to if we change partners?
+      buyingTriggerTimeline:
+        - IT director spends majority of time on store connectivity tickets
+        - Opening pipeline exceeds internal provisioning capacity
+        - Acquisition adds stores with unknown MSP relationships
+        - Repeated SLA misses from current break-fix vendor
+        - Network assessment identifies visibility and staffing gaps
+        - RFP issued with defined scope and SLA requirements
+      technologyStack:
+        - Managed NOC and ticketing platform
+        - Store routers and firewalls under management
+        - ISP and cellular circuit inventory
+        - SD-WAN controller (if applicable)
+        - Remote monitoring agents
+        - Opening provisioning runbooks
+      industrySnapshot:
+        topChallenges:
+          - Lean IT teams relative to store count
+          - Franchisee technology procurement outside corporate control
+          - No single view of circuit status across locations
+          - Opening support competing with outage response for staff time
+        typicalEnvironment:
+          Restaurant corporate IT often includes two to eight people supporting tens or hundreds of locations. Store managers call the help desk when registers stop working. Multiple carriers, MSPs, and equipment vendors operate without a unified escalation model.
+        commonPriorities:
+          - Detect outages before guests are affected
+          - Standardize new store network deployments
+          - Reduce internal time spent on ISP coordination
+          - Consolidate vendors without losing accountability
+        buyingTriggers:
+          - Outage escalation during peak service
+          - Opening delays from network provisioning
+          - Acquisition integration
+          - CFO review of telecom and MSP spend
+      evidence:
+        - title: Visibility gap
+          finding: Multi-location restaurant IT teams frequently learn about circuit failures from store staff rather than monitoring systems, extending outage duration.
+          whyItMatters: Managed services ROI depends on how much earlier you detect and resolve failures, not just who takes the support call.
+          source: Restaurant IT operations interviews
+      faqs:
+        - question: What is the difference between managed network and managed IT?
+          answer: Managed network focuses on connectivity, routers, firewalls, circuits, and monitoring. Managed IT may include endpoints, POS support, and help desk. Define scope carefully because bundled contracts often blur lines.
+        - question: Should franchisees be required to use the corporate managed partner?
+          answer: Many franchise systems require corporate-approved network partners for connectivity while franchisees retain local ISP relationships. Governance models vary. Decide before rollout.
+        - question: Can managed services replace an internal IT director?
+          answer: No. You still need internal ownership of standards, vendor relationships, security policy, and opening strategy. Managed partners execute and monitor.
+        - question: How do I compare managed services proposals?
+          answer: Use identical scope documents, SLA definitions, opening volume assumptions, and inventory deliverables. Compare three-year total cost, not just monthly NOC fees.
+        - question: What should be in the contract on day one?
+          answer: Complete circuit inventory, asset documentation, escalation contacts, SLA remedies, opening playbook, and transition plan if you leave.
+
+  - slug: managed-network
+    title: Restaurant Managed Network
+    description: Learn when a managed network makes sense for restaurant operators, what problems it solves, what alternatives exist, and which questions to ask before choosing a provider.
+    contentType: industry-topic
+    industry: restaurants
+    technology: managed-network
+    businessProblem: network-standardization
+    persona:
+      - it-director
+      - cio
+      - operations
+      - cfo
+      - franchise-leader
+      - security
+    primaryKeyword: restaurant managed network
+    secondaryKeywords:
+      - managed network services for restaurants
+      - restaurant network management
+      - managed networks for restaurant chains
+      - restaurant managed IT services
+      - restaurant network monitoring
+      - restaurant network standardization
+      - franchise restaurant network management
+    searchIntent: decision-support
+    buyerStage: consideration
+    publish: false
+    order: 20
+
+    relatedEntities:
+      - /industries/restaurants
+      - /industries/restaurants/networking
+      - /industries/restaurants/sd-wan
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/downtime-cost-calculator
+      - /industries/restaurants/bandwidth-calculator
+      - /problems/internet-outages
+      - /problems/network-visibility
+      - /problems/vendor-sprawl
+      - /problems/store-openings
+      - /technologies/managed-network
+      - /technologies/sd-wan
+      - /technologies/lte-5g-backup
+      - /technologies/sase
+      - /tools/network-assessment
+      - /tools/downtime-cost-calculator
+      - /tools/vendor-consolidation-calculator
+      - /comparisons/managed-network-vs-internal-it
+      - /comparisons/sd-wan-vs-mpls
+      - /research/restaurant-downtime-economics
+
+    relatedGuides:
+      - /industries/restaurants/networking
+      - /industries/restaurants/sd-wan
+      - /industries/restaurants/best-internet
+
+    relatedProblems:
+      - /problems/internet-outages
+      - /problems/network-visibility
+      - /problems/vendor-sprawl
+      - /problems/store-openings
+
+    relatedTechnologies:
+      - /technologies/managed-network
+      - /technologies/sd-wan
+      - /technologies/lte-5g-backup
+      - /technologies/sase
+      - /technologies/managed-wifi
+
+    relatedTools:
+      - /tools/network-assessment
+      - /tools/downtime-cost-calculator
+      - /tools/vendor-consolidation-calculator
+      - /tools/bandwidth-calculator
+
+    relatedComparisons:
+      - /comparisons/managed-network-vs-internal-it
+      - /comparisons/sd-wan-vs-mpls
+      - /comparisons/broadband-vs-dedicated-internet
+
+    relatedResearch:
+      - /research/restaurant-downtime-economics
+      - /research/restaurant-technology-trends
+      - /research/restaurant-network-case-studies
+
+    cta:
+      label: Start a network assessment
+      href: /tools/network-assessment
+
+    decisionGuide:
+      quickAnswer: |
+        A managed network helps restaurant operators standardize, monitor, and support connectivity across multiple locations. It becomes most valuable when store growth, recurring outages, or limited IT resources make it difficult to maintain consistent network performance. Smaller operators with stable environments may get more value from improving standards, backup connectivity, and monitoring before outsourcing network management.
+
+      whyYoureHere: |
+        Most restaurant operators do not start researching managed networks because they want someone else to manage routers.
+
+        They start looking after operational complexity catches up with them. One store loses internet during lunch. Another opens with a different network setup. A franchisee cannot connect to corporate systems. Store managers become the first people to report outages because corporate IT has limited visibility.
+
+        At that point, networking is no longer a store-level issue. It becomes an operating model problem.
+
+        The real question is whether your restaurant group has outgrown its ability to manage every location consistently.
+
+      shouldConsider:
+        evaluateIf:
+          - You operate more than 20 locations and network support is becoming harder to manage consistently.
+          - Stores use different internet providers, routers, firewalls, Wi-Fi designs, or support processes.
+          - Network outages affect POS, payments, online ordering, kitchen systems, or guest experience.
+          - Your IT team spends more time reacting to store issues than improving the environment.
+          - New store openings require too much custom work instead of following a repeatable playbook.
+          - Franchise growth or acquisitions have created inconsistent standards across locations.
+        probablyNotIf:
+          - You operate only a few locations with stable internet and low network complexity.
+          - Your current network standards are documented, enforced, and consistently monitored.
+          - Internal IT has enough capacity to support every location without delaying other priorities.
+          - Your main issue is a weak ISP connection, not network management or support complexity.
+          - A lighter fix such as LTE backup, better monitoring, or hardware standardization would solve the current problem.
+
+      whatProblemSolves: |
+        Managed networking is rarely about replacing technology. It is about making technology predictable.
+
+        **Operational consistency.** A managed network helps every location follow the same standards for connectivity, routing, Wi-Fi, security, failover, and monitoring.
+
+        **Faster issue detection.** Centralized monitoring can help IT identify outages or degraded performance before a store manager has to call the help desk.
+
+        **Simpler support.** Fewer providers, clearer ownership, and defined escalation paths reduce the confusion that happens when a store outage involves an ISP, MSP, POS vendor, firewall vendor, and internal IT.
+
+        **Store opening repeatability.** A standard network design makes new locations easier to provision, test, and support before opening day.
+
+        **Reduced operational risk.** When POS, payments, online ordering, and kitchen systems depend on connectivity, network failures quickly become revenue and guest-experience problems.
+
+        **Better governance.** Franchise and multi-brand operators can use managed networking to enforce minimum standards without manually redesigning each location.
+
+      realityCheck: |
+        Many restaurant groups researching managed networks are actually trying to solve a standardization problem. If every location uses different hardware, different providers, and different support processes, outsourcing management alone will not fix the inconsistency. The best managed network programs define the standard first, then manage against it.
+
+      alternatives:
+        - title: Standardize your existing network
+          description: If you have capable internal IT, start by defining approved routers, firewalls, Wi-Fi designs, backup links, monitoring rules, and store opening requirements. This may solve many problems before a managed provider is needed.
+        - title: Add LTE or 5G backup
+          description: If outages are the main pain point, backup connectivity may be the fastest improvement. It helps most when failover is tested and tied to POS, payment, and ordering priorities.
+        - title: Implement SD-WAN
+          description: SD-WAN can help route traffic across multiple links and improve visibility. It is not the same as managed networking unless monitoring, policy management, support, and lifecycle ownership are included.
+        - title: Improve monitoring
+          description: If your biggest problem is learning about outages too late, better monitoring may be the right first step. Monitoring without clear ownership can still leave teams unsure who fixes the issue.
+        - title: Consolidate providers
+          description: If vendor sprawl is the problem, reducing the number of internet, voice, security, and support providers may improve accountability even before outsourcing network operations.
+
+      questionsToAsk:
+        - What percentage of store network issues are caused by outages, misconfiguration, hardware failure, provider delays, or unclear ownership?
+        - "Which systems must stay online first during an outage: POS, payments, kitchen display, online ordering, phones, security, or guest Wi-Fi?"
+        - How many different network designs exist across current locations?
+        - Does internal IT have enough capacity to support growth, openings, remodels, and daily incidents?
+        - Are franchisees required to follow a standard, or can they choose local providers and equipment?
+        - How much of the managed service is proactive monitoring versus reactive ticket handling?
+        - What does the provider actually own during an outage?
+        - How will success be measured after implementation?
+
+      decisionMatrix:
+        - situation: 1 to 10 locations with stable operations
+          recommendation: Improve existing standards, monitoring, and backup connectivity before outsourcing network management.
+        - situation: 10 to 30 locations with limited IT capacity
+          recommendation: Evaluate managed networking if support tickets, outages, openings, or vendor coordination are consuming too much internal time.
+        - situation: 30 or more locations with inconsistent infrastructure
+          recommendation: A managed network is often worth serious evaluation because centralized visibility and standardized deployment become operational advantages.
+        - situation: Franchise organization with variable local setups
+          recommendation: Strong candidate if the brand needs minimum standards, shared visibility, and a repeatable network model across franchisees.
+        - situation: Acquisition or multi-brand environment
+          recommendation: Evaluate managed networking as part of integration, but first document the current-state network and identify which standards should remain.
+        - situation: Strong internal networking team with mature standards
+          recommendation: Consider co-managed support or selective monitoring instead of fully outsourcing network operations.
+
+      worthKnowing: |
+        Store managers should not become your network monitoring system. If the first sign of a network problem is a call from the restaurant, the issue has already reached operations. A managed network is most valuable when it gives IT earlier visibility and a clearer path to resolution.
+
+      askBeforeYouBuy:
+        - Who monitors the network, and what happens when an alert fires?
+        - Is support 24x7, or only during business hours?
+        - Who owns firmware updates, configuration changes, and security policy changes?
+        - What is the escalation path when an ISP, POS vendor, or security provider is also involved?
+        - How is failover tested before a location goes live?
+        - Can the provider support different ISPs, franchise-owned circuits, and acquired locations?
+        - What reporting will operations, finance, and IT receive each month?
+        - How are guest Wi-Fi, POS, cameras, back-office systems, and voice separated?
+        - What costs are not included in the monthly managed service fee?
+        - How does the provider help standardize new store openings?
+
+      bottomLine: |
+        A managed network is not about handing your network to someone else. It is about giving the business a repeatable operating model for connectivity, visibility, support, and growth.
+
+        If restaurant growth is creating inconsistent store technology, frequent outages, or an IT team that spends more time reacting than improving, a managed network deserves serious evaluation.
+
+        If your environment is already standardized and well supported, focus on improving existing processes before outsourcing network operations.
+
+      faqs:
+        - question: What is a managed network for restaurants?
+          answer: A managed network is a service model where a provider helps operate, monitor, support, and maintain network infrastructure across restaurant locations. It can include routers, firewalls, Wi-Fi, SD-WAN, backup connectivity, monitoring, security policies, and support escalation. The value is usually consistency and visibility, not just equipment management.
+        - question: When should a restaurant operator consider managed networking?
+          answer: Managed networking is worth considering when multiple locations are difficult to support consistently. Common signals include recurring outages, slow store openings, too many providers, limited internal IT capacity, franchise variability, and poor visibility into store network health.
+        - question: Is a managed network the same as SD-WAN?
+          answer: No. SD-WAN is a technology that helps route traffic across multiple connections and manage network policy. A managed network is an operating model that may include SD-WAN, monitoring, provider coordination, support, security policy, lifecycle management, and reporting.
+        - question: Does managed networking replace internal IT?
+          answer: It should not replace internal ownership. Internal IT should still define standards, priorities, security requirements, and business goals. A managed provider can take on day-to-day monitoring, support, maintenance, and execution so internal teams can focus on higher-value work.
+        - question: What restaurant systems depend on the network?
+          answer: POS, payment terminals, kitchen display systems, online ordering, loyalty, guest Wi-Fi, cameras, back-office applications, digital menu boards, phones, and security systems may all depend on store connectivity. That is why network issues quickly become operational issues.
+        - question: Can small restaurant groups benefit from managed networking?
+          answer: Sometimes, but the case is weaker if the environment is simple and stable. Small groups should usually start with documentation, hardware standards, backup connectivity, and basic monitoring before paying for a broader managed network service.
+        - question: What should be included in a managed network proposal?
+          answer: A useful proposal should define scope, supported equipment, monitoring hours, alerting rules, escalation paths, reporting, implementation timeline, security responsibilities, backup connectivity, pricing assumptions, and what is excluded. It should also explain how store openings and outages will be handled.
+        - question: How should restaurants measure success after moving to a managed network?
+          answer: Track outage frequency, mean time to repair, store opening readiness, support ticket volume, truck rolls, provider escalations, PCI or security exceptions, and the amount of internal IT time spent on repeat network issues. The goal is not only lower cost. The goal is a more predictable operating environment.
+
+      buyingTriggerTimeline:
+        - Store issues become visible through outages, slow POS, payment disruptions, poor Wi-Fi, or repeated support tickets.
+        - IT identifies inconsistent equipment, providers, configurations, and support processes across locations.
+        - Leadership connects network instability to revenue, guest experience, store openings, or franchise standards.
+        - The team documents current-state gaps and decides whether standardization, monitoring, backup connectivity, or managed networking is the right path.
+        - Providers are evaluated based on ownership, visibility, support model, security, rollout process, and total cost.
+        - The network standard is deployed, monitored, tested, and measured against operational outcomes.
+
+      industrySnapshot:
+        topChallenges:
+          - POS and payment systems depend on reliable connectivity during peak service.
+          - Store networks often vary by location, franchisee, acquisition, or local provider availability.
+          - Small IT teams must support many distributed sites with limited on-site expertise.
+          - Guest Wi-Fi, cameras, ordering, back-office systems, and phones all compete for reliable network access.
+          - Network failures quickly become operational problems for store managers and guests.
+        typicalEnvironment: |
+          A modern restaurant location behaves like a small branch office with revenue-critical systems at the edge. POS, payments, kitchen displays, guest Wi-Fi, cameras, digital ordering, voice, and back-office applications all rely on the local network. Multi-location operators face the added challenge of making those environments consistent across stores that may have different footprints, providers, equipment, and support maturity.
+        commonPriorities:
+          - Keep payments, ordering, and kitchen operations running during peak periods.
+          - Detect problems before store staff or guests experience them.
+          - Standardize new store openings and remodels.
+          - Reduce support complexity across internet, Wi-Fi, security, and POS vendors.
+          - Strengthen PCI and security governance across locations.
+        buyingTriggers:
+          - Rapid expansion or acquisition exposes inconsistent store setups.
+          - Repeated outages interrupt ordering, payments, or store operations.
+          - POS modernization and cloud applications make connectivity more important.
+          - PCI or security reviews reveal inconsistent controls.
+          - Contract changes, vendor issues, or support gaps force re-evaluation.
+
+      technologyStack:
+        - Internet access
+        - Backup connectivity
+        - Store network
+        - SD-WAN or policy control
+        - Managed operations
+        - Business applications
+
+      evidence:
+        - title: Growth exposes standardization gaps
+          finding: Public restaurant case studies repeatedly show managed network evaluations following expansion, acquisitions, franchise growth, or multi-site complexity.
+          whyItMatters: The business case is often less about a single outage and more about creating a repeatable model that can scale.
+          source: Restaurant Managed Networks research packet
+        - title: Visibility is a recurring outcome
+          finding: Case studies consistently emphasize better monitoring, faster troubleshooting, reduced support burden, and clearer operational ownership.
+          whyItMatters: Restaurants gain value when IT can see problems before they become store-level disruptions.
+          source: Restaurant Managed Networks research packet
+        - title: Standardization can reduce both cost and complexity
+          finding: Public examples include improved uptime, simpler support, better security posture, lower vendor complexity, and reported savings after consolidation or redesign.
+          whyItMatters: Managed networking should be evaluated as an operating model, not simply as an outsourced technical service.
+          source: Restaurant Managed Networks research packet
+
+      originalInsights:
+        - Restaurant operators rarely outgrow their internet. They outgrow their ability to manage it consistently.
+        - Store managers should not become the network monitoring system.
+        - Standardization often matters more than raw bandwidth.
+        - A managed network should be judged by operational outcomes, not the number of devices under management.
+        - The best managed network programs define the store standard before they outsource support.
+
+      evidenceBehindThisGuide: |
+        This guide was developed from public restaurant networking case studies, restaurant technology research, vendor documentation, and implementation examples. The recurring patterns were consistent: growth creates complexity, outages expose weak standards, visibility reduces operational drag, and restaurants usually evaluate managed networking when store-level technology becomes difficult to support consistently.
+
+        The strongest pattern was not that restaurants want to outsource IT. The stronger pattern was that multi-location operators need a more predictable way to manage connectivity, security, support, and openings across many sites.
+
+      relatedExecutiveQuestions:
+        - Should we implement SD-WAN before choosing a managed network provider?
+        - How much is network downtime costing us during peak periods?
+        - Which store systems should stay online first during an outage?
+        - Do we need one provider, fewer providers, or simply better ownership?
+        - How should franchisees be handled when they own local circuits?
+        - When does managed networking become less expensive than doing everything internally?
+        - What should be standardized before we ask anyone to manage the network?
