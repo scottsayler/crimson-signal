@@ -876,62 +876,240 @@ pages:
         - question: How should multi-location groups choose ISPs?
           answer: Publish a standard with minimum tiers, approved failover methods, and install lead times. Let local carrier choice vary only within that standard.
   - slug: pots-replacement
+    publish: true
     title: POTS Replacement for Restaurants
-    description: Research on replacing legacy analog phone lines at restaurant locations — alarms, fax, credit card dial backup, and rising copper costs.
-    contentType: industry-topic
+    description: Independent guidance for restaurant operators replacing copper phone lines used for alarms, fax, emergency phones, POS backup, and other analog systems.
+    contentType: decision-guide
     industry: restaurants
-    persona: [cfo, it-director, operations]
-    primaryKeyword: pots replacement restaurants
+    technology: pots-replacement
+    businessProblem: legacy-phone-lines
+    persona:
+      - it-director
+      - operations
+      - franchise-leader
+      - security
+      - executive-leadership
+    primaryKeyword: restaurant POTS replacement
     secondaryKeywords:
-      - restaurant analog phone lines
-      - copper line replacement restaurants
-      - legacy pots costs
+      - POTS replacement for restaurants
+      - restaurant alarm line replacement
+      - fire alarm phone line replacement
+      - restaurant fax line replacement
+      - copper line replacement restaurant
+      - analog phone line replacement restaurant
+      - restaurant emergency phone replacement
+      - cellular POTS replacement restaurants
+    searchIntent: decision-support
     buyerStage: consideration
-    relatedPages:
+    readingTime: 6
+    order: 7
+    relatedEntities:
       - /industries/restaurants
-      - /technologies/pots-replacement
+      - /industries/restaurants/networking
+      - /industries/restaurants/managed-network
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/sd-wan
       - /problems/legacy-phone-lines
+      - /problems/internet-outages
+      - /problems/vendor-sprawl
+      - /technologies/pots-replacement
+      - /technologies/lte-5g-backup
       - /tools/pots-savings-calculator
-      - /comparisons/pots-replacement-options
-    recommendedTool: /tools/pots-savings-calculator
-    ctaLabel: Calculate POTS savings
-    ctaHref: /tools/pots-savings-calculator
-    order: 6
-    cluster:
-      problemFraming: |
-        Many restaurant locations still pay for analog POTS lines used for fire alarms, fax, elevator phones, or legacy credit card dial backup. Carriers are retiring copper and raising prices on remaining lines. Most operators do not have a complete location-by-location inventory of what each line actually supports.
-      whoItIsFor: |
-        - Finance teams responding to rising telecom bills
-        - IT leaders planning copper retirement across a store footprint
-        - Operations teams coordinating alarm, POS, and vendor compliance requirements
-      buyingTriggers: |
-        - Unexpected POTS price increases on store phone bills
-        - Carrier notice of copper retirement in a market
-        - New location openings where analog lines are no longer available
-        - Acquisition integration surfacing unknown legacy lines
-      relatedTechnologies:
-        - href: /technologies/pots-replacement
-          title: POTS Replacement
-          description: Technology approaches — LTE adapters, gateways, and managed replacement services.
-        - href: /technologies/lte-5g-backup
-          title: LTE & 5G Backup
-          description: Cellular connectivity often underlying POTS replacement devices.
-      relatedProblems:
-        - href: /problems/legacy-phone-lines
-          title: Legacy Phone Lines
-          description: The broader copper sunset problem across distributed footprints.
-        - href: /problems/vendor-sprawl
-          title: Vendor Sprawl
-          description: When each location has a different telecom vendor and line inventory.
-      recommendedTools:
-        - href: /tools/pots-savings-calculator
-          title: POTS Savings Calculator
-          description: Model per-location and portfolio-wide savings from replacement.
-    sections:
-      - heading: Restaurant-specific considerations
-        body: |
-          Alarm and elevator lines often have compliance requirements that dictate replacement approach. Inventory every line before selecting technology — a fax line and a fire alarm line do not belong on the same replacement path.
-
+      - /tools/network-assessment
+    relatedGuides:
+      - /industries/restaurants/networking
+      - /industries/restaurants/managed-network
+      - /industries/restaurants/best-internet
+      - /industries/restaurants/sd-wan
+    relatedProblems:
+      - /problems/legacy-phone-lines
+      - /problems/vendor-sprawl
+      - /problems/internet-outages
+      - /problems/network-visibility
+    relatedTechnologies:
+      - /technologies/pots-replacement
+      - /technologies/lte-5g-backup
+      - /technologies/managed-network
+    relatedTools:
+      - /tools/pots-savings-calculator
+      - /tools/network-assessment
+      - /tools/vendor-consolidation-calculator
+    relatedComparisons:
+      - /comparisons/lte-vs-starlink
+    relatedResearch:
+      - /research/restaurant-downtime-economics
+    cta:
+      label: Start a POTS inventory
+      href: /tools/pots-savings-calculator
+    decisionGuide:
+      quickAnswer: |
+        Restaurant POTS replacement is about identifying and replacing legacy copper phone lines before carrier retirement, rising costs, or failed repairs create operational risk. The issue is rarely the main business phone system. It is usually hidden analog dependencies such as fire alarms, burglar alarms, fax machines, emergency phones, POS backup lines, and building systems that still rely on copper.
+      shouldConsider:
+        evaluateIf:
+          - You still pay for copper, analog, or POTS lines at restaurant locations.
+          - Fire alarms, burglar alarms, fax machines, elevator phones, or POS backup lines may still depend on legacy dial tone.
+          - Carrier notices, rising line costs, or poor repair response are creating risk.
+          - You are opening, remodeling, acquiring, or standardizing multiple restaurant locations.
+          - Store teams cannot clearly explain what each analog line supports.
+          - You need a repeatable migration plan across corporate, franchise, or acquired locations.
+        probablyNotIf:
+          - Every analog line has already been inventoried, tested, and migrated.
+          - Remaining lines support only low-risk functions and have documented alternatives.
+          - A current provider contract includes reliable replacement service, battery backup, monitoring, and support.
+          - You are trying to replace lines before confirming what each line actually supports.
+          - The real issue is broader network modernization rather than analog line retirement.
+      whyYoureHere: |
+        Most restaurant operators do not start researching POTS replacement because they want a telecom project.
+        They start because an old line becomes expensive, unreliable, or suddenly important.
+        A carrier sends a copper retirement notice. A fire alarm inspection raises questions. A fax line still appears on the bill. A remodel exposes wiring nobody owns. A store loses service and no one knows whether the line supports an alarm panel, POS backup, or a forgotten analog device.
+        That is why POTS replacement should begin with inventory rather than technology selection.
+        The practical question is not "Which replacement product should we buy?" It is "What systems still depend on copper, and what happens if those lines stop working?"
+      whatProblemSolves: |
+        POTS replacement reduces the risk of hidden analog dependencies disrupting restaurant operations, inspections, or compliance.
+        **Line visibility.** A structured project identifies which copper lines are still active and what each one supports.
+        **Life-safety protection.** Fire alarm panels, burglar alarms, elevator phones, and emergency devices require more careful planning than ordinary voice lines.
+        **Cost control.** Legacy copper lines can become increasingly expensive as carriers reduce support and push customers toward replacement options.
+        **Operational continuity.** Replacing fragile lines before failure gives restaurants control over timing, testing, and rollout.
+        **Multi-location standardization.** Restaurant groups can create one repeatable process for new stores, remodels, acquisitions, and franchise standards.
+      alternatives:
+        - title: ATA conversion
+          description: An analog telephone adapter may work for simple fax or voice use cases. It is usually not the right default for life-safety systems unless requirements, monitoring, and backup power are verified.
+        - title: Cellular POTS replacement
+          description: A cellular gateway can emulate an analog line using LTE or 5G and is often considered for alarms, emergency phones, fax, and other legacy endpoints. Battery backup and signal quality matter.
+        - title: IP conversion
+          description: Converting the underlying system to an IP-native service can be cleaner long term, especially when replacing old alarm, fax, or building systems during a remodel.
+        - title: Fiber or broadband migration
+          description: A modern access circuit can support voice, data, POS, security, and back-office applications, but critical analog use cases may still need backup connectivity or device-specific replacement.
+        - title: Managed rollout
+          description: Multi-location restaurant groups may benefit from a managed approach that includes inventory, site surveys, installation, testing, documentation, and ongoing support.
+      questionsToAsk:
+        - Which systems at each location still depend on copper lines?
+        - Which lines are tied to fire alarms, burglar alarms, elevator phones, emergency phones, fax, POS backup, or building systems?
+        - Which dependencies are code-related, insurance-sensitive, or inspection-sensitive?
+        - What happens if the carrier stops repairing or accepting changes on a line?
+        - Does the replacement include battery backup, and how long does it last?
+        - Does the replacement work during power loss, internet failure, or cellular signal degradation?
+        - Who tests alarm, fax, emergency phone, or POS backup behavior after cutover?
+        - What documentation is provided for inspections, audits, and maintenance records?
+        - Can the solution support a phased multi-location rollout?
+        - What is excluded from the monthly price?
+      buyingTriggerTimeline:
+        - Copper line charges rise, repair times worsen, or the carrier sends a retirement notice.
+        - Restaurant IT or operations discovers that several analog lines still support critical systems.
+        - Fire, burglar, elevator, fax, or POS dependencies are mapped by location.
+        - The team chooses whether to retire, replace, convert, or modernize each line.
+        - Sites are prioritized based on risk, cost, inspections, remodels, and carrier timelines.
+        - Replacement is installed, tested, documented, and added to the restaurant technology standard.
+      industrySnapshot:
+        topChallenges:
+          - Legacy lines are often hidden in bills, closets, alarm panels, and older building systems.
+          - Restaurant managers may not know what each copper line supports.
+          - Fire alarms, burglar alarms, fax, POS backup, and emergency devices have different requirements.
+          - Multi-location operators may face different carrier timelines and local code expectations by market.
+          - Waiting until carrier notice compresses testing, vendor coordination, and inspection work.
+        typicalEnvironment: |
+          A restaurant may already use cloud communications for normal calling while still depending on copper lines for building systems. Fire alarm panels, burglar alarms, fax machines, emergency phones, POS backup, HVAC monitoring, or older modem applications may remain active long after the main phone system has moved to VoIP.
+        commonPriorities:
+          - Identify every active analog line before the carrier forces a deadline.
+          - Prioritize life-safety and code-related systems first.
+          - Reduce monthly line costs without creating inspection or outage risk.
+          - Standardize replacement decisions across new stores, remodels, franchises, and acquisitions.
+          - Document testing and ownership after cutover.
+        buyingTriggers:
+          - Carrier copper retirement or discontinuation notice.
+          - Rising POTS line charges.
+          - Repeated line failures or weak repair support.
+          - Fire alarm, burglar alarm, or elevator inspection issues.
+          - New store opening, remodel, POS refresh, or acquisition.
+          - Telecom bill audit reveals unknown analog lines.
+      technologyStack:
+        - Copper or analog line inventory
+        - Supported device or building system
+        - Replacement path decision
+        - Cellular gateway, ATA, IP service, or modern access circuit
+        - Battery backup and failover testing
+        - Alarm, fax, emergency phone, or POS validation
+        - Documentation and ongoing monitoring
+      realityCheck: |
+        Most restaurant groups do not have a POTS replacement problem at first. They have an inventory problem. If you do not know what each copper line supports, replacing the line can create more risk than leaving it alone for another month.
+      worthKnowing: |
+        The hardest part of POTS replacement is often not the telecom work. It is coordinating alarm vendors, landlords, inspectors, IT, operations, and store schedules around the same cutover window.
+      decisionMatrix:
+        - situation: One known fax line
+          recommendation: Consider ATA, cloud fax, or retirement after confirming the business process still requires fax.
+        - situation: Fire alarm panel
+          recommendation: Prioritize inventory, code review, vendor coordination, battery backup, and documented testing before migration.
+        - situation: Burglar alarm or security panel
+          recommendation: Confirm signal requirements with the alarm vendor and test the replacement path before disconnecting copper.
+        - situation: Elevator or emergency phone
+          recommendation: Verify local requirements, battery backup expectations, monitoring, and inspection documentation before choosing a replacement.
+        - situation: POS backup line
+          recommendation: Determine whether the backup path is still used or whether modern internet failover is the better continuity strategy.
+        - situation: Multi-location restaurant group
+          recommendation: Use a managed inventory and phased rollout so every site follows the same documentation, testing, and support model.
+        - situation: New store or remodel
+          recommendation: Avoid installing new copper where possible. Build the replacement standard into the opening checklist.
+      askBeforeYouBuy:
+        - Does the provider start with a line inventory or only sell replacement devices?
+        - "Which use cases are supported: fire alarm, burglar alarm, elevator, fax, POS backup, modem, or voice?"
+        - What battery backup is included, and how is it monitored?
+        - What happens during power loss, internet outage, or cellular network degradation?
+        - Does the solution require approval from alarm vendors, landlords, inspectors, or authorities having jurisdiction?
+        - Who performs test calls or signal validation after cutover?
+        - How are failed devices, SIM issues, or weak cellular signal handled?
+        - What reporting is available across all restaurant locations?
+        - Can the provider support franchisee-owned locations or only corporate stores?
+        - What is the plan for moves, adds, changes, and future store openings?
+      crimsonSignalPerspective: |
+        POTS replacement is not really a phone project for restaurants.
+        It is a dependency mapping project.
+        The restaurant groups that handle it best do not start by asking which device replaces copper. They start by asking which business, safety, and building systems still rely on analog service and what failure would cost if those lines disappeared without warning.
+      bottomLine: |
+        Restaurant POTS replacement should start with inventory, not a product decision. Identify every copper line, map the system it supports, and prioritize life-safety, code-related, and revenue-impacting dependencies first.
+        If a line supports only a low-risk fax process, a simple replacement or retirement plan may be enough. If it supports fire alarms, emergency phones, burglar systems, or POS backup, treat the migration as an operational risk project with testing, documentation, and clear ownership.
+      faqs:
+        - question: What is POTS replacement for restaurants?
+          answer: POTS replacement is the process of replacing legacy copper phone lines with modern alternatives such as cellular gateways, IP services, ATAs, or managed migration services. In restaurants, the most important lines often support alarms, fax, emergency phones, POS backup, or building systems rather than normal voice calling.
+        - question: Why are restaurants replacing POTS lines?
+          answer: Carriers are reducing support for aging copper networks, repair response can be weaker, and legacy line costs may rise. Restaurants are replacing POTS lines to avoid carrier-driven deadlines, reduce cost, and protect systems that still depend on analog connectivity.
+        - question: Which restaurant systems still use copper lines?
+          answer: Common examples include fire alarm panels, burglar alarms, elevator or emergency phones, fax machines, POS backup lines, HVAC or building monitoring, modems, and older machine-to-machine applications. The exact list varies by site, which is why inventory comes first.
+        - question: Can cellular replace a restaurant POTS line?
+          answer: Cellular POTS replacement can work for many analog use cases, especially when the device is designed to emulate dial tone and includes battery backup. Life-safety or inspection-sensitive systems should be reviewed with the appropriate vendor or authority before cutover.
+        - question: Does POTS replacement affect fire alarm compliance?
+          answer: It can. Fire alarm systems may have specific signaling, supervision, battery backup, and documentation requirements. Restaurants should coordinate with the alarm vendor and local authority where required before replacing a line used by a fire panel.
+        - question: Can restaurants still use fax after replacing POTS?
+          answer: Often yes, but the best option depends on the use case. Some restaurants can move to cloud fax, some can use an ATA, and others may retire fax entirely after confirming the business process no longer requires it.
+        - question: What is the first step in a POTS replacement project?
+          answer: Start with a line inventory. Match every active copper line to the system it supports, then classify each dependency by risk. Life-safety, code-related, and revenue-impacting lines should be addressed before low-risk voice or fax lines.
+        - question: How should multi-location restaurants manage POTS replacement?
+          answer: Multi-location operators should use a repeatable process for site surveys, dependency mapping, replacement selection, cutover testing, and documentation. That reduces surprises and makes future openings, remodels, and acquisitions easier to standardize.
+      evidenceBehindGuide:
+        researchInputs:
+          - Public reporting on FCC copper retirement and carrier behavior.
+          - POTS replacement product literature and deployment guidance.
+          - Restaurant technology planning materials.
+          - Public commentary on alarm, elevator, fax, and analog line migration.
+        recurringPatterns:
+          - Hidden dependencies are often discovered late.
+          - Life-safety and code-related systems require more planning than ordinary voice lines.
+          - Inventory determines the right replacement path.
+          - Waiting for a carrier notice compresses testing and approval timelines.
+          - Multi-location operators benefit from standard templates and phased rollouts.
+        methodology: ""
+      researchSummary:
+        - title: Copper retirement creates timing risk
+          finding: Public sources describe faster copper retirement, weaker legacy support, and shorter planning windows for organizations still relying on POTS.
+          whyItMatters: Restaurants that wait for carrier notice may have less time to inventory, test, and document replacement paths.
+          source: Restaurant POTS Replacement research packet
+        - title: The most important lines are often hidden
+          finding: Restaurant copper dependencies often sit behind fire alarms, burglar alarms, fax, POS backup, emergency phones, and building systems.
+          whyItMatters: Telecom bills rarely explain operational risk. Site inventory is required before replacement decisions are safe.
+          source: Restaurant POTS Replacement research packet
+        - title: Replacement choice depends on the use case
+          finding: ATA, cellular gateway, IP conversion, fiber migration, and managed rollout each fit different analog dependencies.
+          whyItMatters: A simple fax line and a fire alarm panel should not be treated as the same migration.
+          source: Restaurant POTS Replacement research packet
   - slug: opening-technology-checklist
     title: Restaurant Opening Technology Checklist
     description: A practical technology checklist for opening new restaurant locations — networking, POS, failover, and go-live validation.
