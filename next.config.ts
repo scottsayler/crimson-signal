@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "/problems/restaurant-vendor-sprawl",
         permanent: true,
       },
+      {
+        source: "/restaurants/vendor-sprawl",
+        destination: "/problems/restaurant-vendor-sprawl",
+        permanent: true,
+      },
     ];
   },
 };
