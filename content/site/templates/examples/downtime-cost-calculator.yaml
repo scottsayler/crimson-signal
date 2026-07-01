@@ -31,7 +31,7 @@
   relatedEntities:
     - /industries/restaurants
     - /industries/restaurants/networking
-    - /problems/internet-outages
+    - /problems/restaurant-internet-outages
     - /problems/pos-downtime
     - /technologies/lte-5g-backup
     - /tools/downtime-cost-calculator

@@ -22,7 +22,7 @@ pages:
       - /industries/restaurants/sd-wan
       - /industries/restaurants/managed-network
       - /industries/restaurants/downtime-cost-calculator
-      - /problems/internet-outages
+      - /problems/restaurant-internet-outages
       - /problems/pos-downtime
       - /technologies/lte-5g-backup
       - /technologies/sd-wan
@@ -177,8 +177,8 @@ pages:
       - /technologies/sd-wan
       - /technologies/managed-network
       - /technologies/pots-replacement
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
       - /problems/legacy-phone-lines
       - /tools/downtime-cost-calculator
       - /tools/bandwidth-calculator

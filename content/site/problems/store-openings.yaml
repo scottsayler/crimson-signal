@@ -1,0 +1,32 @@
+slug: store-openings
+title: Store Openings
+description: Technology requirements and common failures when opening new store, restaurant, or branch locations.
+contentType: problem
+problem: store-openings
+industry: restaurants
+persona:
+  - operations
+  - franchise-leader
+  - it-director
+primaryKeyword: new store opening technology
+secondaryKeywords:
+  - restaurant opening it checklist
+  - store opening network setup
+  - franchise new location technology
+buyerStage: consideration
+relatedPages:
+  - /industries/restaurants
+  - /industries/franchise
+  - /resources/restaurant-network-checklist
+  - /tools/network-assessment
+recommendedTool: /tools/network-assessment
+ctaLabel: Start network assessment
+ctaHref: /tools/network-assessment
+order: 6
+sections:
+  - heading: Opening day dependencies
+    body: POS, payment processing, kitchen systems, guest Wi-Fi, security cameras, and voice lines must all be live before the first customer. Network provisioning is on the critical path.
+  - heading: Common failures
+    body: Late circuit delivery, incorrect CPE configuration, missing firewall rules for PCI scope, and franchisee/vendor coordination gaps cause opening delays.
+  - heading: Standardization opportunity
+    body: Repeatable opening playbooks, pre-approved vendor lists, and template network designs reduce variance and accelerate time to revenue.

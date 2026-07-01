@@ -39,7 +39,7 @@
   relatedEntities:
     - /technologies/sd-wan
     - /technologies/managed-network
-    - /problems/internet-outages
+    - /problems/restaurant-internet-outages
     - /tools/network-assessment
     - /research/restaurant-downtime-economics
 

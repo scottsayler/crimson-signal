@@ -18,7 +18,7 @@ Generated drafts are written to `content/site/drafts/`. Merge the page block int
 |----------|-------------|-----|
 | `industry-topic.yaml` | `industries/{industry}.yaml` | `/industries/{industry}/{slug}` |
 | `technology.yaml` | `technologies.yaml` | `/technologies/{slug}` |
-| `problem.yaml` | `problems.yaml` | `/problems/{slug}` |
+| `problem.yaml` | `problems/{slug}.yaml` | `/problems/{slug}` |
 | `tool.yaml` | `tools.yaml` | `/tools/{slug}` |
 | `comparison.yaml` | `comparisons.yaml` | `/comparisons/{slug}` |
 | `research-report.yaml` | `research.yaml` | `/research/{slug}` |

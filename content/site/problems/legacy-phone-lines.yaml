@@ -1,0 +1,29 @@
+slug: legacy-phone-lines
+title: Legacy Phone Lines
+description: The rising cost and reliability risk of maintaining analog POTS lines across store and branch locations.
+contentType: problem
+problem: legacy-phone-lines
+industry: restaurants
+persona:
+  - cfo
+  - it-director
+  - operations
+primaryKeyword: legacy pots line costs
+secondaryKeywords:
+  - analog phone line retirement
+  - pots line replacement
+  - copper line decommission
+buyerStage: awareness
+relatedPages:
+  - /technologies/pots-replacement
+  - /industries/restaurants
+  - /tools/pots-savings-calculator
+recommendedTool: /tools/pots-savings-calculator
+ctaLabel: Calculate POTS savings
+ctaHref: /tools/pots-savings-calculator
+order: 5
+sections:
+  - heading: The copper sunset
+    body: Carriers are actively retiring copper infrastructure. Organizations maintaining analog lines for alarms, fax, credit card dial backup, and elevators face escalating per-line costs.
+  - heading: Inventory first
+    body: Most organizations underestimate how many POTS lines remain across their footprint. A complete location-by-location inventory is the essential first step.

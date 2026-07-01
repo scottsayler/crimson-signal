@@ -1,0 +1,24 @@
+slug: pci-compliance
+title: PCI Compliance
+description: Network and technology decisions that affect PCI compliance for organizations processing card payments across locations.
+contentType: problem
+problem: pci-compliance
+persona:
+  - it-director
+  - cio
+primaryKeyword: pci compliance network
+secondaryKeywords:
+  - pci dss multi-location
+  - retail pci compliance
+  - network segmentation pci
+buyerStage: consideration
+relatedPages:
+  - /industries/retail
+  - /industries/financial-services
+  - /technologies/sase
+order: 4
+sections:
+  - heading: PCI scope and network architecture
+    body: Cardholder data environment boundaries, network segmentation, and store-level security controls all affect PCI assessment scope and remediation cost.
+  - heading: Common gaps
+    body: Flat store networks, unmanaged guest Wi-Fi, outdated firewall policies, and inconsistent patching across locations are recurring findings.

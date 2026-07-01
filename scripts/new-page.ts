@@ -28,7 +28,8 @@ const CONTENT_TYPES = {
   },
   problem: {
     template: "problem.yaml",
-    target: () => "content/site/problems.yaml",
+    target: (opts: { slug?: string }) =>
+      `content/site/problems/${opts.slug ?? "{slug}"}.yaml`,
     url: (opts: { slug?: string }) => `/problems/${opts.slug ?? "{slug}"}`,
   },
   tool: {
@@ -161,7 +162,7 @@ Options:
   };
 
   const pageBlock = fillTemplate(template, values);
-  const targetFile = config.target({ industry: flags.industry });
+  const targetFile = config.target({ industry: flags.industry, slug });
   const url = config.url({ industry: flags.industry, slug });
 
   const draftsDir = path.join(process.cwd(), "content/site/drafts");

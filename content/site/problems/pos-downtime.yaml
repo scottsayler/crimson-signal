@@ -1,0 +1,32 @@
+slug: pos-downtime
+title: POS Downtime
+description: Research on POS downtime risk for restaurants and retail — causes, costs, and technology decisions that reduce transaction failure.
+contentType: problem
+problem: pos-downtime
+industry: restaurants
+persona:
+  - operations
+  - store-operations
+  - it-director
+primaryKeyword: restaurant pos downtime
+secondaryKeywords:
+  - pos system outage cost
+  - retail pos downtime
+  - point of sale connectivity
+buyerStage: awareness
+relatedPages:
+  - /industries/restaurants
+  - /problems/restaurant-internet-outages
+  - /technologies/lte-5g-backup
+  - /tools/downtime-cost-calculator
+recommendedTool: /tools/downtime-cost-calculator
+ctaLabel: Model downtime cost
+ctaHref: /tools/downtime-cost-calculator
+order: 2
+sections:
+  - heading: Why POS downtime is a leadership issue
+    body: POS failures stop revenue at the register. In restaurants, they also disrupt kitchen display systems, online order routing, and loyalty program transactions.
+  - heading: Common failure modes
+    body: Network outages, cloud POS dependency, payment processor connectivity, and local hardware failures each require different mitigation strategies.
+  - heading: What to evaluate
+    body: Offline payment modes, cellular failover for POS traffic, vendor SLA terms, and store-level monitoring should be part of any POS resilience plan.

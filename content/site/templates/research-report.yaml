@@ -38,7 +38,7 @@
 
   relatedEntities:
     - /industries/restaurants
-    - /problems/internet-outages
+    - /problems/restaurant-internet-outages
     - /technologies/sd-wan
     - /tools/downtime-cost-calculator
 

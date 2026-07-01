@@ -12,6 +12,7 @@ pages:
       - franchise technology standards
       - multi-location restaurant it
     buyerStage: awareness
+    publish: true
     relatedPages:
       - /industries/restaurants/networking
       - /industries/restaurants/best-internet
@@ -19,7 +20,7 @@ pages:
       - /industries/restaurants/pots-replacement
       - /industries/restaurants/managed-it
       - /industries/restaurants/opening-technology-checklist
-      - /problems/internet-outages
+      - /problems/restaurant-internet-outages
       - /technologies/sd-wan
       - /tools/downtime-cost-calculator
     recommendedTool: /tools/downtime-cost-calculator
@@ -51,7 +52,7 @@ pages:
           title: Managed Network
           description: Outsourced monitoring, provisioning, and support for store networks.
       relatedProblems:
-        - href: /problems/internet-outages
+        - href: /problems/restaurant-internet-outages
           title: Internet Outages
           description: Store-level outage risk, failover design, and business impact.
         - href: /problems/pos-downtime
@@ -112,7 +113,7 @@ pages:
       - automotive multi-location it
     buyerStage: awareness
     relatedPages:
-      - /problems/internet-outages
+      - /problems/restaurant-internet-outages
       - /technologies/managed-network
       - /technologies/ucaas
     order: 3
@@ -181,7 +182,7 @@ pages:
       - industrial connectivity
     buyerStage: awareness
     relatedPages:
-      - /problems/network-visibility
+      - /problems/restaurant-network-visibility
       - /technologies/sd-wan
       - /technologies/lte-5g-backup
     order: 6

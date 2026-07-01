@@ -7,6 +7,7 @@ import {
   getPagesBySection,
   getSitePage,
 } from "@/lib/site/content";
+import { isPagePublic } from "@/lib/site/publish";
 import type { SiteSection } from "@/lib/site/types";
 import { SitePageRenderer } from "@/components/site/SitePageRenderer";
 
@@ -16,7 +17,7 @@ export function createSectionStaticParams(section: SiteSection) {
 
 export function createIndustryTopicStaticParams() {
   return getAllSitePages()
-    .filter((page) => page.parentIndustry)
+    .filter((page) => page.parentIndustry && isPagePublic(page))
     .map((page) => ({
       slug: page.parentIndustry!,
       topic: page.slug,

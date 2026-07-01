@@ -39,7 +39,7 @@ export const FOOTER_SECTIONS: { title: string; links: NavItem[] }[] = [
     title: "Problems",
     links: [
       { href: "/problems/pos-downtime", label: "POS Downtime" },
-      { href: "/problems/internet-outages", label: "Internet Outages" },
+      { href: "/problems/restaurant-internet-outages", label: "Internet Outages" },
       { href: "/problems/store-openings", label: "Store Openings" },
       { href: "/problems", label: "All Problems" },
     ],

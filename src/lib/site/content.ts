@@ -14,6 +14,7 @@ import {
   sectionFromPath,
 } from "./types";
 import { processSitePage, type CachedPage } from "./pipeline";
+import { isPagePublic } from "./publish";
 import { formatQualityReport, validateAllPages } from "./validate";
 
 const SITE_CONTENT_DIR = path.join(process.cwd(), "content", "site");
@@ -21,7 +22,6 @@ const SITE_CONTENT_DIR = path.join(process.cwd(), "content", "site");
 const SECTION_FILES: SiteSection[] = [
   "industries",
   "technologies",
-  "problems",
   "tools",
   "research",
   "comparisons",
@@ -57,6 +57,69 @@ function readIndustryClusterPages(): (SitePage & { section: SiteSection })[] {
     });
 }
 
+function parseProblemPageFile(
+  data: unknown,
+  filename: string
+): SitePage {
+  if (!data || typeof data !== "object") {
+    throw new Error(`Invalid problem page file: content/site/problems/${filename}`);
+  }
+
+  const record = data as Record<string, unknown>;
+
+  if (Array.isArray(record.pages)) {
+    const pages = record.pages as SitePage[];
+    if (pages.length !== 1) {
+      throw new Error(
+        `Problem file content/site/problems/${filename} must contain exactly one page entry`
+      );
+    }
+    return pages[0];
+  }
+
+  if (typeof record.slug === "string") {
+    return record as unknown as SitePage;
+  }
+
+  throw new Error(`Invalid problem page file: content/site/problems/${filename}`);
+}
+
+function readProblemPages(): (SitePage & { section: SiteSection })[] {
+  const problemsDir = path.join(SITE_CONTENT_DIR, "problems");
+  if (!fs.existsSync(problemsDir)) return [];
+
+  const slugSources = new Map<string, string>();
+  const pages: (SitePage & { section: SiteSection })[] = [];
+
+  for (const filename of fs
+    .readdirSync(problemsDir)
+    .filter((f) => f.endsWith(".yaml"))
+    .sort()) {
+    const filePath = path.join(problemsDir, filename);
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const page = parseProblemPageFile(yaml.parse(raw), filename);
+    const expectedFilename = `${page.slug}.yaml`;
+
+    if (filename !== expectedFilename) {
+      throw new Error(
+        `Problem file content/site/problems/${filename} slug "${page.slug}" does not match filename (expected ${expectedFilename})`
+      );
+    }
+
+    const prior = slugSources.get(page.slug);
+    if (prior) {
+      throw new Error(
+        `Duplicate problem slug "${page.slug}" in content/site/problems/${prior} and content/site/problems/${filename}`
+      );
+    }
+
+    slugSources.set(page.slug, filename);
+    pages.push({ ...page, section: "problems" });
+  }
+
+  return pages;
+}
+
 function readAllRawPages(): (SitePage & { section: SiteSection })[] {
   const pages: (SitePage & { section: SiteSection })[] = [];
 
@@ -64,6 +127,7 @@ function readAllRawPages(): (SitePage & { section: SiteSection })[] {
     pages.push(...readSectionPages(section));
   }
 
+  pages.push(...readProblemPages());
   pages.push(...readIndustryClusterPages());
   return pages;
 }
@@ -80,6 +144,16 @@ let pageCache: Map<string, CachedPage> | null = null;
 function buildPageCache(): Map<string, CachedPage> {
   const rawPages = readAllRawPages();
   const cache = new Map<string, CachedPage>();
+
+  const pageKeys = new Map<string, string>();
+  for (const raw of rawPages) {
+    const key = cacheKey(raw);
+    const prior = pageKeys.get(key);
+    if (prior) {
+      throw new Error(`Duplicate site page slug "${key}"`);
+    }
+    pageKeys.set(key, key);
+  }
 
   const resolvePath = (pathStr: string): CachedPage | null => {
     const parsed = parsePagePath(pathStr);
@@ -154,13 +228,18 @@ function getCache(): Map<string, CachedPage> {
 
 export function getPagesBySection(section: SiteSection): CachedPage[] {
   return Array.from(getCache().values())
-    .filter((page) => page.section === section && !page.parentIndustry)
+    .filter(
+      (page) =>
+        page.section === section && !page.parentIndustry && isPagePublic(page)
+    )
     .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 }
 
 export function getIndustryTopics(industrySlug: string): CachedPage[] {
   return Array.from(getCache().values())
-    .filter((page) => page.parentIndustry === industrySlug)
+    .filter(
+      (page) => page.parentIndustry === industrySlug && isPagePublic(page)
+    )
     .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 }
 
@@ -168,14 +247,16 @@ export function getSitePage(
   section: SiteSection,
   slug: string
 ): CachedPage | null {
-  return getCache().get(`${section}/${slug}`) ?? null;
+  const page = getCache().get(`${section}/${slug}`) ?? null;
+  return page && isPagePublic(page) ? page : null;
 }
 
 export function getIndustryTopic(
   industrySlug: string,
   topicSlug: string
 ): CachedPage | null {
-  return getCache().get(`industries/${industrySlug}/${topicSlug}`) ?? null;
+  const page = getCache().get(`industries/${industrySlug}/${topicSlug}`) ?? null;
+  return page && isPagePublic(page) ? page : null;
 }
 
 export function getAllSitePages(): CachedPage[] {
@@ -183,7 +264,7 @@ export function getAllSitePages(): CachedPage[] {
 }
 
 export function getPublishedSitePages(): CachedPage[] {
-  return getAllSitePages().filter((page) => page.publish);
+  return getAllSitePages().filter((page) => isPagePublic(page));
 }
 
 export function resolveRelatedContent(page: SitePage): ResolvedRelatedContent {
@@ -217,7 +298,7 @@ export function resolveRelatedContent(page: SitePage): ResolvedRelatedContent {
       : `${parsed.section}/${parsed.slug}`;
 
     const related = cache.get(key);
-    if (!related) continue;
+    if (!related || !isPagePublic(related)) continue;
 
     const section = sectionFromPath(pathStr);
     if (!section) continue;
@@ -303,7 +384,7 @@ export const RESTAURANT_CLUSTER_LINKS = [
     title: "Opening Technology Checklist",
   },
   { href: "/industries/restaurants/managed-it", title: "Restaurant Managed Network" },
-  { href: "/problems/internet-outages", title: "Internet Outages" },
+  { href: "/problems/restaurant-internet-outages", title: "Internet Outages" },
   { href: "/technologies/sd-wan", title: "SD-WAN" },
   { href: "/technologies/managed-network", title: "Managed Network" },
   { href: "/technologies/pots-replacement", title: "POTS Replacement" },

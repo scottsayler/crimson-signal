@@ -308,13 +308,13 @@ Technologies
 
 Business Problems
 
-/problems/internet-outages/
+/problems/restaurant-internet-outages/
 
 /problems/restaurant-vendor-sprawl/
 
 /problems/legacy-phone-lines/
 
-/problems/network-visibility/
+/problems/restaurant-network-visibility/
 
 /problems/store-openings/
 

@@ -26,8 +26,8 @@ pages:
       - /technologies/sd-wan
       - /technologies/managed-network
       - /technologies/lte-5g-backup
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
       - /problems/store-openings
       - /tools/network-assessment
       - /tools/downtime-cost-calculator
@@ -207,8 +207,8 @@ pages:
       - /industries/restaurants/best-internet
       - /industries/restaurants/downtime-cost-calculator
       - /industries/restaurants/bandwidth-calculator
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
       - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
       - /technologies/sd-wan
@@ -227,8 +227,8 @@ pages:
       - /industries/restaurants/best-internet
       - /industries/restaurants/downtime-cost-calculator
     relatedProblems:
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
       - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
     relatedTechnologies:
@@ -439,7 +439,7 @@ pages:
       - /industries/restaurants/networking
       - /industries/restaurants/sd-wan
       - /industries/restaurants/best-internet
-      - /problems/internet-outages
+      - /problems/restaurant-internet-outages
       - /problems/pos-downtime
       - /technologies/lte-5g-backup
       - /technologies/sd-wan
@@ -562,7 +562,7 @@ pages:
       - /technologies/lte-5g-backup
       - /technologies/sd-wan
       - /technologies/starlink
-      - /problems/internet-outages
+      - /problems/restaurant-internet-outages
       - /tools/bandwidth-calculator
       - /tools/downtime-cost-calculator
       - /research/restaurant-downtime-economics
@@ -702,8 +702,8 @@ pages:
       - /industries/restaurants/downtime-cost-calculator
       - /industries/restaurants/sd-wan
       - /industries/restaurants/managed-network
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
       - /problems/pos-downtime
       - /problems/store-openings
       - /technologies/lte-5g-backup
@@ -721,8 +721,8 @@ pages:
       - /industries/restaurants/downtime-cost-calculator
       - /industries/restaurants/sd-wan
     relatedProblems:
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
       - /problems/pos-downtime
       - /problems/store-openings
     relatedTechnologies:
@@ -910,7 +910,7 @@ pages:
       - /industries/restaurants/best-internet
       - /industries/restaurants/sd-wan
       - /problems/legacy-phone-lines
-      - /problems/internet-outages
+      - /problems/restaurant-internet-outages
       - /problems/restaurant-vendor-sprawl
       - /technologies/pots-replacement
       - /technologies/lte-5g-backup
@@ -924,8 +924,8 @@ pages:
     relatedProblems:
       - /problems/legacy-phone-lines
       - /problems/restaurant-vendor-sprawl
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
     relatedTechnologies:
       - /technologies/pots-replacement
       - /technologies/lte-5g-backup
@@ -1156,7 +1156,7 @@ pages:
         - href: /problems/store-openings
           title: Store Openings
           description: The broader opening technology problem across industries.
-        - href: /problems/internet-outages
+        - href: /problems/restaurant-internet-outages
           title: Internet Outages
           description: Why failover must be tested before opening day, not after the first outage.
       recommendedTools:
@@ -1200,8 +1200,8 @@ pages:
       - /technologies/sd-wan
       - /technologies/lte-5g-backup
       - /problems/restaurant-vendor-sprawl
-      - /problems/network-visibility
-      - /problems/internet-outages
+      - /problems/restaurant-network-visibility
+      - /problems/restaurant-internet-outages
       - /tools/vendor-consolidation-calculator
       - /tools/network-assessment
       - /comparisons/sd-wan-vs-mpls
@@ -1358,8 +1358,8 @@ pages:
       - /industries/restaurants/best-internet
       - /industries/restaurants/downtime-cost-calculator
       - /industries/restaurants/bandwidth-calculator
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
       - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
       - /technologies/managed-network
@@ -1379,8 +1379,8 @@ pages:
       - /industries/restaurants/best-internet
 
     relatedProblems:
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
       - /problems/restaurant-vendor-sprawl
       - /problems/store-openings
 

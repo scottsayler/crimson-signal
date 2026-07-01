@@ -41,7 +41,7 @@
 
   relatedEntities:
     - /industries/restaurants
-    - /problems/internet-outages
+    - /problems/restaurant-internet-outages
     - /technologies/managed-network
     - /tools/network-assessment
     - /comparisons/sd-wan-vs-mpls

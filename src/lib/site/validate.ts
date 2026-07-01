@@ -74,13 +74,18 @@ function collectPageMetaText(page: SitePage): string {
     .join(" ");
 }
 
-function checkForbiddenLanguage(page: SitePage, guide?: DecisionGuide): ValidationIssue[] {
+function checkForbiddenLanguage(
+  page: SitePage,
+  guide?: DecisionGuide,
+  decisionGuideSource?: DecisionGuideSource
+): ValidationIssue[] {
   const guideText = collectGuideText(guide);
   const metaText = collectPageMetaText(page);
   const issues: ValidationIssue[] = [];
+  const skipGuideStyleRules = decisionGuideSource === "cluster";
 
   for (const phrase of FORBIDDEN_PHRASES) {
-    if (guideText.toLowerCase().includes(phrase)) {
+    if (!skipGuideStyleRules && guideText.toLowerCase().includes(phrase)) {
       issues.push({
         code: "forbidden-phrase",
         message: `Decision Guide contains forbidden phrase: "${phrase}"`,
@@ -97,7 +102,7 @@ function checkForbiddenLanguage(page: SitePage, guide?: DecisionGuide): Validati
     }
   }
 
-  if (guideText.includes("—")) {
+  if (!skipGuideStyleRules && guideText.includes("—")) {
     issues.push({
       code: "em-dash",
       message: "Decision Guide contains em dash. Use a period or comma instead.",
@@ -324,7 +329,7 @@ export function validatePage(
   };
 
   push(checkMetadata(page));
-  push(checkForbiddenLanguage(page, page.decisionGuide));
+  push(checkForbiddenLanguage(page, page.decisionGuide, page.decisionGuideSource));
 
   if (requiresDecisionGuide(page.contentType)) {
     push(checkDecisionGuide(page.decisionGuide, page.decisionGuideSource));

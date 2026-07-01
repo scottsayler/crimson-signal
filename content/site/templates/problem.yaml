@@ -2,7 +2,7 @@
 # Crimson Signal — Business Problem
 # =============================================================================
 #
-# TARGET FILE:  content/site/problems.yaml
+# TARGET FILE:  content/site/problems/{slug}.yaml
 # URL PATTERN:  /problems/{slug}
 # CONTENT TYPE: problem
 #

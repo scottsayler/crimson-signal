@@ -19,8 +19,8 @@ pages:
       - /industries/restaurants/sd-wan
       - /industries/restaurants/networking
       - /industries/restaurants/best-internet
-      - /problems/internet-outages
-      - /problems/network-visibility
+      - /problems/restaurant-internet-outages
+      - /problems/restaurant-network-visibility
       - /technologies/managed-network
       - /technologies/lte-5g-backup
       - /comparisons/sd-wan-vs-mpls
@@ -225,7 +225,7 @@ pages:
         - href: /problems/restaurant-vendor-sprawl
           title: Vendor Sprawl
           description: Consolidation is a common managed services outcome.
-        - href: /problems/network-visibility
+        - href: /problems/restaurant-network-visibility
           title: Network Visibility
           description: Monitoring gaps managed NOC services are hired to close.
       recommendedTools:
@@ -341,7 +341,7 @@ pages:
     buyerStage: awareness
     relatedPages:
       - /technologies/lte-5g-backup
-      - /problems/internet-outages
+      - /problems/restaurant-internet-outages
     order: 8
     sections:
       - heading: Starlink use cases
@@ -363,7 +363,7 @@ pages:
       - store internet redundancy
     buyerStage: consideration
     relatedPages:
-      - /problems/internet-outages
+      - /problems/restaurant-internet-outages
       - /problems/pos-downtime
       - /industries/restaurants
       - /tools/bandwidth-calculator

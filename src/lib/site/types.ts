@@ -124,6 +124,8 @@ export interface PageCta {
   href: string;
 }
 
+export type PageStatus = "draft" | "published";
+
 export interface SitePage {
   slug: string;
   title: string;
@@ -165,6 +167,8 @@ export interface SitePage {
   presentationMode?: PagePresentationMode;
   /** When true, page must pass full quality validation */
   publish?: boolean;
+  /** When draft, page is not publicly routable regardless of publish */
+  status?: PageStatus;
 }
 
 export type SiteSection =

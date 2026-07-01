@@ -1,0 +1,277 @@
+slug: restaurant-internet-outages
+publish: true
+title: Restaurant Internet Outages
+description: Independent guidance for restaurant operators on what breaks during internet outages, how to respond in the first five minutes, and how to prevent repeat downtime.
+contentType: problem
+industry: restaurants
+businessProblem: internet-outages
+persona:
+  - it-director
+  - operations
+  - cio
+  - cfo
+  - security
+  - franchise-leader
+primaryKeyword: restaurant internet outage
+secondaryKeywords:
+  - restaurant internet outages
+  - restaurant POS outage
+  - restaurant payment outage
+  - internet outage restaurant
+  - restaurant backup internet
+  - restaurant network outage
+  - restaurant offline payments
+  - POS internet outage
+searchIntent: decision-support
+buyerStage: awareness
+readingTime: 6
+order: 1
+relatedEntities:
+  - /industries/restaurants
+  - /industries/restaurants/networking
+  - /industries/restaurants/best-internet
+  - /industries/restaurants/sd-wan
+  - /industries/restaurants/managed-network
+  - /industries/restaurants/pots-replacement
+  - /problems/restaurant-network-visibility
+  - /problems/restaurant-vendor-sprawl
+  - /problems/restaurant-pots-replacement
+  - /problems/store-openings
+  - /technologies/lte-5g-backup
+  - /technologies/sd-wan
+  - /technologies/managed-network
+  - /tools/downtime-cost-calculator
+  - /tools/network-assessment
+  - /tools/bandwidth-calculator
+  - /research/restaurant-downtime-economics
+relatedGuides:
+  - /industries/restaurants/networking
+  - /industries/restaurants/best-internet
+  - /industries/restaurants/sd-wan
+  - /industries/restaurants/managed-network
+  - /industries/restaurants/pots-replacement
+relatedProblems:
+  - /problems/restaurant-network-visibility
+  - /problems/restaurant-vendor-sprawl
+  - /problems/restaurant-pots-replacement
+  - /problems/store-openings
+relatedTechnologies:
+  - /technologies/lte-5g-backup
+  - /technologies/sd-wan
+  - /technologies/managed-network
+relatedTools:
+  - /tools/downtime-cost-calculator
+  - /tools/network-assessment
+  - /tools/bandwidth-calculator
+relatedComparisons:
+  - /comparisons/sd-wan-vs-mpls
+  - /comparisons/fiber-vs-cable
+relatedResearch:
+  - /research/restaurant-downtime-economics
+cta:
+  label: Estimate downtime impact
+  href: /tools/downtime-cost-calculator
+decisionGuide:
+  quickAnswer: |
+    A restaurant internet outage is not just an IT interruption. It can stop card payments, online ordering, delivery platform orders, kitchen display systems, loyalty, reporting, guest Wi-Fi, and back-office synchronization at the same time. The best response is not simply buying faster internet. Restaurants need tested failover, clear outage procedures, monitoring, backup power, and a plan for keeping revenue-generating systems operating when one path fails.
+  shouldConsider:
+    evaluateIf:
+      - Store outages have interrupted POS, card payments, online ordering, or kitchen operations.
+      - Managers usually report outages before IT monitoring detects them.
+      - Locations rely on a single internet circuit with no tested backup.
+      - Offline payment procedures are unclear or untested.
+      - Delivery, loyalty, cloud POS, or digital ordering now depend on store connectivity.
+      - Leadership needs a practical resilience plan after repeated outage incidents.
+    probablyNotIf:
+      - Every location has tested backup connectivity and a documented outage playbook.
+      - Recent incidents were caused by a POS platform outage rather than the store internet connection.
+      - The main issue is poor in-store Wi-Fi design rather than WAN availability.
+      - Your team has not yet identified whether outages are ISP, power, equipment, Wi-Fi, or vendor-related.
+      - You are trying to buy a solution before documenting what actually fails during an incident.
+  whyYoureHere: |
+    Most restaurant operators start researching internet outages after something breaks during service.
+
+    Cards stop processing during lunch. Online orders stop flowing into the kitchen. A delivery platform shows the store as unavailable. Staff switch to manual workarounds while the line grows. Guests hear "cash only" at the exact moment they expect fast checkout.
+
+    From the store's point of view, it looks like "the internet is down."
+
+    From an operating perspective, the real issue is broader. A restaurant internet outage can expose weak failover, unclear vendor ownership, missing offline procedures, untested payment workflows, poor monitoring, and a network design that depends too heavily on one path.
+
+    The first question is not only "Who is down?"
+
+    It is "What must keep working while we find out?"
+  whatProblemSolves: |
+    A restaurant outage plan helps operators reduce revenue loss, confusion, and recovery time when connectivity fails.
+
+    Payment continuity. Card payments are often the most urgent failure because guests expect non-cash checkout and offline transactions can still decline later.
+
+    Operational control. Staff need to know whether to keep taking online orders, switch to manual tickets, pause delivery, or move to offline mode.
+
+    Faster diagnosis. Not every outage is the ISP. The problem may be local equipment, Wi-Fi, power, DNS, cloud POS, or a provider platform.
+
+    Clear escalation. Internet, POS, payment, delivery, and managed network vendors may all be involved. A defined escalation path reduces finger-pointing.
+
+    Long-term resilience. Backup internet, LTE or 5G failover, SD-WAN, monitoring, UPS backup, and tested procedures reduce the chance that one failure stops the store.
+  alternatives:
+    - title: Backup internet
+      description: A secondary internet path gives the store a practical way to keep payments and core applications online when the primary circuit fails.
+    - title: LTE or 5G failover
+      description: Cellular backup is often the fastest resilience improvement for restaurants because it can protect short outages without waiting for a second wired circuit.
+    - title: Dual ISP
+      description: Two wired providers can reduce single-carrier risk, especially for high-volume locations, but only if routing and failover are tested.
+    - title: SD-WAN
+      description: SD-WAN can help larger restaurant groups steer traffic and manage failover across multiple connections, but it should sit on top of a sound store network design.
+    - title: Managed network
+      description: Managed network services can help when internal IT lacks the capacity to monitor outages, manage vendors, and enforce standards across locations.
+    - title: Outage playbook
+      description: A written response plan may be the cheapest improvement if staff do not know what to do when POS, payments, or online ordering stop working.
+  questionsToAsk:
+    - Which systems depend on the same internet path?
+    - "What breaks first during an outage: POS, payments, online ordering, kitchen display, loyalty, phones, or guest Wi-Fi?"
+    - Can the store process cards offline, and what transactions remain at risk?
+    - Does backup internet activate automatically?
+    - Has failover been tested during lunch, dinner, drive-thru, or delivery peak?
+    - Do we know whether past outages were ISP, local equipment, power, Wi-Fi, or vendor platform issues?
+    - Who is responsible for vendor escalation during an incident?
+    - What manual procedure should staff follow in the first five minutes?
+    - How are outage losses, comped meals, declined offline payments, and abandoned orders tracked?
+    - Which locations have no backup path or no documented outage playbook?
+  buyingTriggerTimeline:
+    - A peak-hour outage interrupts POS, payments, online ordering, or delivery channels.
+    - Store teams improvise manual processes and leadership sees the operational impact.
+    - IT reviews whether the incident was ISP, Wi-Fi, equipment, power, or vendor-related.
+    - The team identifies missing backup connectivity, monitoring, playbooks, or ownership.
+    - Options are evaluated, such as LTE backup, dual ISP, SD-WAN, managed network, or better monitoring.
+    - Failover and outage procedures are tested and added to the restaurant operating standard.
+  industrySnapshot:
+    topChallenges:
+      - Many revenue-generating systems depend on one local network path.
+      - Offline payment behavior varies by POS and payment provider.
+      - Store staff may not know whether the issue is ISP, POS, Wi-Fi, or power.
+      - Backup internet may exist but remain untested or misconfigured.
+      - Online ordering and delivery platforms amplify outage impact beyond the dining room.
+    typicalEnvironment: |
+      A modern restaurant may depend on cloud POS, payment terminals, kitchen display systems, online ordering, delivery integrations, loyalty, guest Wi-Fi, cameras, voice, and back-office tools. Some systems may keep limited local functionality during an outage, while others stop immediately or create reconciliation risk after service returns.
+    commonPriorities:
+      - Keep payments and order flow moving during short outages.
+      - Detect network failures before store managers or guests report them.
+      - Separate POS and operational traffic from guest Wi-Fi.
+      - Test backup connectivity under realistic conditions.
+      - Reduce confusion between ISP, POS, cloud, Wi-Fi, and power incidents.
+    buyingTriggers:
+      - Peak-hour payment outage.
+      - Repeated ISP failures.
+      - Cloud POS or online ordering disruption.
+      - Delivery platform interruption.
+      - Public guest complaints.
+      - New leadership review of operational risk.
+      - Expansion exposes inconsistent store resilience.
+  technologyStack:
+    - Primary internet circuit
+    - Firewall, router, and switch
+    - POS and payment systems
+    - Kitchen display and order routing
+    - Online ordering and delivery platforms
+    - Loyalty and reporting
+    - Guest Wi-Fi
+    - Backup internet and failover
+    - Monitoring and outage playbook
+  realityCheck: |
+    Most restaurant outages are not caused by slow internet. They are caused by one path, one provider, one power source, one untested backup connection, or one undocumented dependency. Speed does not create resilience. Design does.
+  worthKnowing: |
+    The most expensive restaurant outages are rarely the longest ones. They are the outages that happen during lunch, dinner, drive-thru, or delivery peaks. Testing outage procedures at 3 p.m. does not prove they will work when the store is under pressure.
+  decisionMatrix:
+    - situation: One location with occasional internet issues
+      recommendation: Start by identifying whether the issue is ISP, equipment, Wi-Fi, POS, or power before buying new service.
+    - situation: High-volume store with no backup path
+      recommendation: Add backup connectivity and test failover before considering more complex architecture.
+    - situation: Multi-location operator with repeated outage patterns
+      recommendation: Standardize monitoring, escalation, provider strategy, and failover testing across locations.
+    - situation: Cloud POS and delivery-heavy operation
+      recommendation: Prioritize connectivity resilience, offline payment rules, and online order throttling procedures.
+    - situation: Stores report outages before IT sees them
+      recommendation: Improve monitoring and alerts before relying on managers as the detection system.
+    - situation: Larger chain with multiple ISPs and inconsistent policies
+      recommendation: Evaluate SD-WAN or managed network services once store standards and backup paths are defined.
+  askBeforeYouBuy:
+    - Does the solution protect POS, payments, online ordering, and kitchen operations, or only general internet access?
+    - How does failover behave when the primary circuit drops during active transactions?
+    - What devices remain powered during a local power event?
+    - Can IT see circuit health, latency, packet loss, and failover status across locations?
+    - Who owns escalation when the ISP, POS provider, and payment provider are all involved?
+    - How are offline payments reconciled and how much risk remains with the merchant?
+    - How often will failover be tested after installation?
+    - Does guest Wi-Fi remain separated from POS and business systems during failover?
+    - What reporting shows outage frequency, duration, and business impact by location?
+    - What is excluded from the monthly service or support agreement?
+  crimsonSignalPerspective: |
+    Restaurant internet outages should be treated like operational incidents, not help desk tickets.
+
+    The strongest operators do not only ask whether the ISP is down. They ask which business functions must continue, which systems have backup paths, which staff procedures activate first, and how the incident will be measured after service returns.
+  bottomLine: |
+    A restaurant internet outage becomes expensive when it interrupts revenue-generating systems and staff do not know what to do next.
+
+    The right strategy is not simply faster internet. It is a tested operating model that includes backup connectivity, monitoring, traffic separation, offline procedures, escalation ownership, and realistic failover testing.
+
+    If the first sign of an outage is a store manager calling during lunch, the network is already affecting operations.
+  faqs:
+    - question: What should restaurant staff do first during an internet outage?
+      answer: Staff should confirm which systems are affected, activate approved offline payment or manual ordering procedures, check whether backup connectivity is working, communicate service limits to guests, and assign one person to document the incident and coordinate escalation.
+    - question: Can restaurants still take credit cards without internet?
+      answer: Some POS and payment systems support offline card capture, but behavior varies by provider and configuration. Offline transactions can still decline later, so restaurants should understand the risk before relying on offline mode during service.
+    - question: Does backup internet switch automatically?
+      answer: It should, but only if failover is configured, powered, and tested. A backup circuit that has never been tested under real operating conditions may not protect POS, payments, or online ordering when it is needed.
+    - question: Is a POS outage the same as an internet outage?
+      answer: No. A POS outage may be caused by the vendor platform, cloud service, payment processor, local network, Wi-Fi, power, or internet provider. Monitoring and incident notes help distinguish the root cause.
+    - question: Does faster internet prevent restaurant outages?
+      answer: Faster internet does not prevent outages caused by carrier failures, equipment issues, power loss, vendor cloud problems, or misconfigured failover. Resilience depends on design, backup paths, monitoring, and procedures.
+    - question: How often should restaurants test failover?
+      answer: Restaurants should test failover regularly and after any network change. High-volume locations should test under realistic conditions rather than only during slow periods.
+    - question: Should guest Wi-Fi stay online during an outage?
+      answer: Guest Wi-Fi should usually have lower priority than POS, payments, kitchen systems, and online ordering. During failover, business-critical traffic should be protected first.
+    - question: What is the best long-term fix for repeated outages?
+      answer: The best fix depends on the cause. Common improvements include backup internet, LTE or 5G failover, dual providers, SD-WAN, managed network support, UPS backup, better monitoring, and a documented outage playbook.
+  evidenceBehindGuide:
+    researchInputs:
+      - Restaurant outage and POS offline-mode guidance.
+      - Public examples of restaurant downtime and backup connectivity.
+      - Restaurant technology research on online ordering, payments, and cloud dependency.
+      - Public guidance on failover, offline payments, and incident procedures.
+    recurringPatterns:
+      - Outages affect multiple business systems at once.
+      - Payment continuity is usually the most urgent risk.
+      - Not every outage is caused by the ISP.
+      - Backup paths must be tested to be useful.
+      - Human procedures are as important as hardware.
+    methodology: ""
+  evidence:
+    - title: Outages are multi-system events
+      finding: Public sources consistently show restaurant internet outages affecting payments, POS, online ordering, delivery integrations, loyalty, and reporting.
+      whyItMatters: The business case for resilience should account for more than Wi-Fi downtime.
+      source: Restaurant Internet Outages research packet
+    - title: The ISP is not always the root cause
+      finding: Incidents can stem from local equipment, Wi-Fi, power, DNS, POS cloud services, or payment platforms.
+      whyItMatters: Restaurants need monitoring and incident records before choosing the right fix.
+      source: Restaurant Internet Outages research packet
+    - title: Offline mode is not a full substitute
+      finding: Offline POS or payment modes can preserve some activity but may create authorization, reconciliation, loyalty, refund, or reporting limits.
+      whyItMatters: Store teams should understand offline behavior before an outage occurs.
+      source: Restaurant Internet Outages research packet
+sections:
+  - heading: The First Five Minutes
+    body: |-
+      The first five minutes of a restaurant internet outage should be structured, not improvised.
+
+      1. Confirm whether the issue is internet, Wi-Fi, power, POS, payment provider, or cloud platform.
+      2. Check whether backup connectivity activated and whether critical devices moved to the backup path.
+      3. Protect payment processing by following the approved offline or manual payment procedure.
+      4. Decide whether online ordering, delivery channels, or menu availability should be paused or limited.
+      5. Assign one person to coordinate vendor escalation, store communication, and incident notes.
+
+      The goal is not perfect diagnosis in five minutes. The goal is keeping service organized while the team narrows the failure.
+  - heading: Common Causes
+    body: A restaurant internet outage is not always caused by the internet provider. Common causes include ISP outages, modem or firewall failures, construction damage, power events, Wi-Fi problems, DNS failures, cloud POS outages, carrier maintenance, and misconfigured failover.
+  - heading: Immediate Response
+    body: During an outage, the immediate goal is to protect payments, keep the kitchen aligned, and avoid creating more confusion. Restaurants should activate offline payment procedures if supported, use backup connectivity where available, follow manual ordering procedures, communicate clearly with guests, pause or throttle online ordering when needed, escalate to vendors in parallel, and document timestamps, devices affected, error messages, and offline transaction details.
+  - heading: Long-Term Prevention
+    body: Long-term prevention is less about one technology and more about designing the store to survive failure. The most useful controls are backup internet, dual providers where justified, LTE or 5G failover, SD-WAN for larger multi-site environments, managed network support, proactive monitoring, UPS backup for network gear, Wi-Fi segmentation, provider diversity, and a written outage playbook that is tested during realistic operating conditions.

@@ -42,7 +42,7 @@
 
   relatedEntities:
     - /industries/restaurants
-    - /problems/internet-outages
+    - /problems/restaurant-internet-outages
     - /technologies/lte-5g-backup
     - /research/restaurant-downtime-economics
 

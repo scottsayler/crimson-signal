@@ -5,6 +5,7 @@ import {
   type DecisionGuideSource,
 } from "./decision-guide";
 import { enrichRelatedEntities } from "./knowledge-graph";
+import { resolvePagePublish } from "./publish";
 import { requiresDecisionGuide } from "./standards";
 import type { PageQualityReport } from "./validate";
 import { validatePage } from "./validate";
@@ -165,7 +166,7 @@ export function processSitePage(
     decisionGuideSource: source,
     readingTime: page.readingTime ?? estimateReadingTime(decisionGuide, page.sections),
     cta: normalizeCta(page),
-    publish: page.publish ?? source === "explicit",
+    publish: resolvePagePublish(page, source),
     cluster: page.cluster
       ? {
           ...page.cluster,

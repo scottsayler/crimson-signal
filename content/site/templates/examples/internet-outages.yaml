@@ -2,12 +2,12 @@
 # EXAMPLE — Internet Outages (Business Problem)
 # =============================================================================
 #
-# Reference example for content/site/problems.yaml
-# Live page: /problems/internet-outages
+# Reference example for content/site/problems/{slug}.yaml
+# Live page: /problems/restaurant-internet-outages
 #
 # =============================================================================
 
-- slug: internet-outages
+- slug: restaurant-internet-outages
   title: Internet Outages
   description: What restaurant and multi-location operators should do about store internet outages, from immediate failover options to long-term resilience planning.
 

@@ -23,7 +23,7 @@ npm run validate:content
 |--------------|---------------------|----------------|-------------|
 | Industry Topic | `industry-topic` | `content/site/industries/{industry}.yaml` | `/industries/{industry}/{slug}` |
 | Technology Guide | `technology` | `content/site/technologies.yaml` | `/technologies/{slug}` |
-| Business Problem | `problem` | `content/site/problems.yaml` | `/problems/{slug}` |
+| Business Problem | `problem` | `content/site/problems/{slug}.yaml` | `/problems/{slug}` |
 | Tool | `tool` | `content/site/tools.yaml` | `/tools/{slug}` |
 | Comparison | `comparison` | `content/site/comparisons.yaml` | `/comparisons/{slug}` |
 | Research Report | `research-report` | `content/site/research.yaml` | `/research/{slug}` |
@@ -60,7 +60,7 @@ Reference examples with realistic structure:
 | File | Live page |
 |------|-----------|
 | `examples/restaurant-managed-network.yaml` | `/industries/restaurants/managed-it` |
-| `examples/internet-outages.yaml` | `/problems/internet-outages` |
+| `examples/internet-outages.yaml` | `/problems/restaurant-internet-outages` |
 | `examples/downtime-cost-calculator.yaml` | `/industries/restaurants/downtime-cost-calculator` |
 
 Do not use `content/site/_page-template.yaml`. It is deprecated.

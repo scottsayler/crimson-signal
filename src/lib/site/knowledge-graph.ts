@@ -1,8 +1,17 @@
 import type { ResolvedRelatedContent, SitePage, SiteSection } from "./types";
 import { getSitePageUrl, parsePagePath, sectionFromPath } from "./types";
 import { LINK_QUOTAS, SECTION_TO_GRAPH_CATEGORY } from "./standards";
+import {
+  filterPublicPaths,
+  isEligibleForAutoLink,
+  isPagePublic,
+} from "./publish";
 
 type CachedPage = SitePage & { section: SiteSection };
+
+function buildPathMap(allPages: CachedPage[]): Map<string, CachedPage> {
+  return new Map(allPages.map((page) => [getSitePageUrl(page), page]));
+}
 
 function entityScore(source: CachedPage, candidate: CachedPage): number {
   if (source.slug === candidate.slug && source.section === candidate.section) {
@@ -46,7 +55,12 @@ export function enrichRelatedEntities(
   allPages: CachedPage[],
   selfUrl: string
 ): string[] {
-  const explicit = [...new Set(page.relatedEntities ?? [])];
+  const pathToPage = buildPathMap(allPages);
+  const linkablePages = allPages.filter(isEligibleForAutoLink);
+  const explicit = filterPublicPaths(
+    [...new Set(page.relatedEntities ?? [])],
+    pathToPage
+  );
   const explicitSet = new Set(explicit);
 
   const counts: Record<keyof ResolvedRelatedContent, number> = {
@@ -63,7 +77,7 @@ export function enrichRelatedEntities(
     if (category) counts[category]++;
   }
 
-  const candidates = allPages
+  const candidates = linkablePages
     .map((candidate) => ({
       href: getSitePageUrl(candidate),
       score: entityScore(page, candidate),
@@ -95,13 +109,14 @@ export function enrichRelatedEntities(
 
   if (page.industry) {
     const hub = `/industries/${page.industry}`;
-    if (!explicitSet.has(hub)) {
+    const hubPage = pathToPage.get(hub);
+    if (!explicitSet.has(hub) && hubPage && isPagePublic(hubPage)) {
       enriched.unshift(hub);
       explicitSet.add(hub);
     }
   }
 
-  return [...new Set(enriched)];
+  return filterPublicPaths([...new Set(enriched)], pathToPage);
 }
 
 export function resolveRelatedContentFromPaths(
